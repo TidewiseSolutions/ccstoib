@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coming Soon — Coastal Carolina Synthetic Turf</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal-dark: #1A6E7E;
+      --teal-mid:  #1E9DB8;
+      --orange:    #E05A2B;
+      --sand:      #F5D98A;
+      --dark:      #0D1B22;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--dark);
+      background-image:
+        radial-gradient(ellipse at 20% 10%, rgba(30,157,184,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 90%, rgba(26,110,126,0.22) 0%, transparent 50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Open Sans', sans-serif;
+      color: #fff;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    .headline {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      color: var(--sand);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    }
+
+    .headline span {
+      color: var(--teal-mid);
+    }
+
+    .subline {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: rgba(255,255,255,0.75);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    .oggy-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .oggy-section img {
+      width: min(200px, 50vw);
+      animation: oggyBob 3s ease-in-out infinite;
+    }
+
+    @keyframes oggyBob {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50%       { transform: translateY(-8px) rotate(2deg); }
+    }
+
+    .oggy-caption {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--orange);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--teal-mid), var(--orange));
+      border-radius: 2px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .powered-by {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .powered-by a {
+      color: var(--teal-mid);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .powered-by a:hover {
+      color: var(--sand);
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="headline">Something <span>Great</span><br>is Growing.</h1>
+
+  <p class="subline">
+    Our new website is on the way. We're bringing premium synthetic turf
+    to the Carolina coast — and we can't wait to show you what we've got.
+  </p>
+
+  <div class="oggy-section">
+    <img src="assets/oggiefloat.png" alt="Oggy building the site" />
+    <p class="oggy-caption">Oggy's on it. 🐙</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <p class="powered-by">
+    Proudly built by <a href="https://tidewisesolutions.com" target="_blank" rel="noopener">Tidewise Solutions</a>
+  </p>
+
+</body>
+</html>
