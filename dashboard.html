@@ -484,14 +484,14 @@
       <div class="dash-subtitle" id="dashDate"></div>
 
       <div class="stats-row" id="statsRow">
-        <div class="stat-pill"><div class="num" id="statTotal">—</div><div class="lbl">Total Leads</div></div>
-        <div class="stat-pill"><div class="num" id="statNew">—</div><div class="lbl">New</div></div>
-        <div class="stat-pill"><div class="num" id="statDisputed">—</div><div class="lbl">Disputed</div></div>
+        <div class="stat-pill"><div class="num" id="statTotal">—</div><div class="lbl">All Time</div></div>
+        <div class="stat-pill"><div class="num" id="statYear">—</div><div class="lbl">Year</div></div>
+        <div class="stat-pill"><div class="num" id="statMonth">—</div><div class="lbl">Month</div></div>
       </div>
 
       <div class="table-wrap">
         <div class="table-toolbar">
-          <h3>All Leads</h3>
+          <select class="search-input" id="monthSelect"></select>
           <input class="search-input" id="searchInput" type="text" placeholder="Search by name, email…" />
         </div>
         <table>
@@ -519,8 +519,8 @@
   <div class="modal-overlay" id="disputeModal">
     <div class="modal-card">
       <h3>Flag This Lead</h3>
-      <p>Briefly explain why you're disputing this lead. The Tidewise team will review it.</p>
-      <textarea id="disputeReason" placeholder="e.g. This was a personal contact, not from the website…"></textarea>
+      <p>Briefly explain why you should not be billed for this lead.</p>
+      <textarea id="disputeReason"></textarea>
       <div class="modal-actions">
         <button class="btn-cancel" id="cancelDispute">Cancel</button>
         <button class="btn-submit-dispute" id="confirmDispute">Submit Dispute</button>
@@ -604,14 +604,49 @@
       }
 
       allLeads = data || [];
-      updateStats();
-      renderTable(allLeads);
+      buildMonthDropdown();
+      applyMonthFilter();
     }
 
-    function updateStats() {
-      document.getElementById('statTotal').textContent    = allLeads.length;
-      document.getElementById('statNew').textContent      = allLeads.filter(l => l.status === 'new').length;
-      document.getElementById('statDisputed').textContent = allLeads.filter(l => l.status === 'disputed').length;
+    function buildMonthDropdown() {
+      const select = document.getElementById('monthSelect');
+      const currentYM = currentYearMonth();
+
+      const months = [...new Set(allLeads.map(l => {
+        const d = new Date(l.created_at);
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+      }))].sort().reverse();
+
+      if (!months.includes(currentYM)) months.unshift(currentYM);
+
+      select.innerHTML = months.map(ym => {
+        const [y, m] = ym.split('-');
+        const label = new Date(y, m - 1, 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+        return `<option value="${ym}"${ym === currentYM ? ' selected' : ''}>${label}</option>`;
+      }).join('');
+    }
+
+    function currentYearMonth() {
+      const now = new Date();
+      return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+    }
+
+    function applyMonthFilter() {
+      const ym = document.getElementById('monthSelect').value;
+      const filtered = allLeads.filter(l => {
+        const d = new Date(l.created_at);
+        const lym = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+        return lym === ym;
+      });
+      updateStats(filtered);
+      renderTable(filtered);
+    }
+
+    function updateStats(monthLeads) {
+      const now = new Date();
+      document.getElementById('statTotal').textContent = allLeads.length;
+      document.getElementById('statYear').textContent  = allLeads.filter(l => new Date(l.created_at).getFullYear() === now.getFullYear()).length;
+      document.getElementById('statMonth').textContent = monthLeads.length;
     }
 
     function renderTable(leads) {
@@ -642,15 +677,25 @@
       }).join('');
     }
 
+    // ── Month selector ───────────────────────────────────────────────
+    document.getElementById('monthSelect').addEventListener('change', () => {
+      document.getElementById('searchInput').value = '';
+      applyMonthFilter();
+    });
+
     // ── Search ───────────────────────────────────────────────────────
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const q = e.target.value.toLowerCase();
-      const filtered = allLeads.filter(l =>
+      const ym = document.getElementById('monthSelect').value;
+      const monthLeads = allLeads.filter(l => {
+        const d = new Date(l.created_at);
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}` === ym;
+      });
+      renderTable(monthLeads.filter(l =>
         (l.name || '').toLowerCase().includes(q) ||
         (l.email || '').toLowerCase().includes(q) ||
         (l.phone || '').toLowerCase().includes(q)
-      );
-      renderTable(filtered);
+      ));
     });
 
     // ── Dispute ──────────────────────────────────────────────────────
@@ -683,7 +728,7 @@
       document.getElementById('disputeModal').classList.remove('open');
       disputeTargetId = null;
 
-      if (!error) await loadLeads();
+      if (!error) { await loadLeads(); }
     });
 
     // ── Utils ─────────────────────────────────────────────────────────

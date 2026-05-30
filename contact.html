@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -441,6 +442,7 @@
           </select>
         </div>
 
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADZojz4zQtUwNrbm" style="margin-bottom:0.75rem;"></div>
         <button type="submit" class="submit-btn" id="submitBtn">Send My Project Details</button>
         <div class="error-msg" id="errorMsg">Something went wrong. Please try again or call us directly.</div>
         <p class="form-note">We respect your privacy. Your information is never shared or sold.</p>
@@ -481,6 +483,7 @@
         square_footage: document.getElementById('square_footage').value,
         message:        document.getElementById('message').value.trim(),
         traffic_source: document.getElementById('traffic_source').value,
+        cfToken:        document.querySelector('[name="cf-turnstile-response"]')?.value || '',
       };
 
       if (!data.name || !data.email) {

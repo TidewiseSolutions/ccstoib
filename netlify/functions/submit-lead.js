@@ -10,16 +10,28 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ error: 'Invalid request' }) };
   }
 
-  const { name, email, phone, project_type, property_type, square_footage, message, traffic_source } = body;
+  const { name, email, phone, project_type, property_type, square_footage, message, traffic_source, cfToken } = body;
 
   if (!name || !email) {
     return { statusCode: 400, body: JSON.stringify({ error: 'Name and email are required' }) };
   }
 
+  // ⚠️ BEFORE DELIVERY — uncomment this block to enforce Turnstile bot protection.
+  // Netlify env var needed: CLOUDFLARE_KEY (the secret key, NOT the site key).
+  //
+  // const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({ secret: process.env.CLOUDFLARE_KEY, response: cfToken }),
+  // });
+  // const verifyData = await verifyRes.json();
+  // if (!verifyData.success) {
+  //   return { statusCode: 400, body: JSON.stringify({ error: 'Bot check failed' }) };
+  // }
+
   const SUPABASE_URL = process.env.SUPABASE_URL;
   const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
 
-  // Write to Supabase — all fields including traffic_source
   const supaRes = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
     method: 'POST',
     headers: {
