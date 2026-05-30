@@ -462,7 +462,7 @@
           <input type="password" id="loginPass" placeholder="••••••••" required />
         </div>
         <button type="submit" class="login-btn" id="loginBtn">Sign In</button>
-        <div class="login-error" id="loginError">Invalid email or password.</div>
+        <div class="login-error" id="loginError"></div>
       </form>
     </div>
   </div>
@@ -529,16 +529,16 @@
   </div>
 
   <script>
-    let supabase;
+    let supabaseClient;
     let allLeads = [];
     let disputeTargetId = null;
 
     // ── Init ─────────────────────────────────────────────────────────
     async function init() {
       const cfg = await fetch('/.netlify/functions/config').then(r => r.json());
-      supabase = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseKey);
+      supabaseClient = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseKey);
 
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session } } = await supabaseClient.auth.getSession();
       if (session) showDashboard(session.user);
     }
 
@@ -556,9 +556,9 @@
 
       let data, error;
       try {
-        ({ data, error } = await supabase.auth.signInWithPassword({ email, password: pass }));
-      } catch (e) {
-        err.textContent = 'Init error: ' + (e.message || e);
+        ({ data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pass }));
+      } catch (ex) {
+        err.textContent = 'Error: ' + (ex.message || ex);
         err.style.display = 'block';
         btn.disabled = false;
         btn.textContent = 'Sign In';
@@ -577,7 +577,7 @@
     });
 
     document.getElementById('signOutBtn').addEventListener('click', async () => {
-      await supabase.auth.signOut();
+      await supabaseClient.auth.signOut();
       document.getElementById('dashWrap').style.display = 'none';
       document.getElementById('loginWrap').style.display = 'flex';
     });
@@ -592,7 +592,7 @@
     }
 
     async function loadLeads() {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from('leads')
         .select('*')
         .eq('client_id', 'ccst')
@@ -673,7 +673,7 @@
       btn.disabled = true;
       btn.textContent = 'Submitting…';
 
-      const { error } = await supabase
+      const { error } = await supabaseClient
         .from('leads')
         .update({ status: 'disputed', dispute_reason: reason })
         .eq('id', disputeTargetId);
