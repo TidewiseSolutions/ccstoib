@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You — Coastal Carolina Synthetic Turf</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --grass:       #2E8B3E;
+      --grass-light: #4CAF50;
+      --grass-dark:  #1B5E2A;
+      --ocean:       #1A8FA8;
+      --ocean-deep:  #0E5F7A;
+      --sky:         #7EC8E3;
+      --sky-pale:    #C5E8F5;
+      --sand:        #E8D4A8;
+      --foam:        #F7FBFC;
+      --navy:        #0D2B3E;
+      --white:       #FFFFFF;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(160deg, var(--sky-pale) 0%, var(--sky) 35%, var(--ocean) 70%, var(--ocean-deep) 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 3rem 2.5rem;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 16px 60px rgba(13, 43, 62, 0.2);
+    }
+
+    .mascot {
+      width: min(420px, 90vw);
+      margin: 0 auto 1.5rem;
+      display: block;
+    }
+
+    .success-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--grass);
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.75rem, 5vw, 2.4rem);
+      color: var(--navy);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    h1 em { font-style: normal; color: var(--grass); }
+
+    p {
+      font-size: 1.05rem;
+      color: #4a6070;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .home-btn {
+      display: inline-block;
+      background: var(--grass);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(27, 94, 42, 0.35);
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .home-btn:hover { background: var(--grass-dark); transform: translateY(-2px); }
+
+    .stripe-bar {
+      display: flex;
+      height: 8px;
+      border-radius: 0 0 20px 20px;
+      overflow: hidden;
+      margin-top: 2.5rem;
+    }
+
+    .stripe-bar div { flex: 1; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <img class="mascot" src="assets/ballz.png" alt="Coastal Carolina Synthetic Turf mascot" />
+    <p class="success-label">Submission Received</p>
+    <h1>Nice Shot!<br><em>Good Form.</em></h1>
+    <p>Talk to you soon.</p>
+    <a class="home-btn" href="index.html">Back to Home</a>
+    <p style="margin-top:1.25rem;margin-bottom:0;font-size:0.85rem;color:#9aafba;">Returning to home in <span id="countdown">12</span> seconds…</p>
+    <div class="stripe-bar">
+      <div style="background:var(--grass-dark);"></div>
+      <div style="background:var(--sand);"></div>
+      <div style="background:var(--ocean);"></div>
+    </div>
+  </div>
+
+  <script>
+    let t = 12;
+    const el = document.getElementById('countdown');
+    const interval = setInterval(() => {
+      el.textContent = --t;
+      if (t <= 0) { clearInterval(interval); window.location.href = 'index.html'; }
+    }, 1000);
+  </script>
+</body>
+</html>

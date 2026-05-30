@@ -91,11 +91,27 @@
     /* ── Hero ── */
     .hero {
       background: linear-gradient(160deg, var(--sky-pale) 0%, var(--sky) 35%, var(--ocean) 70%, var(--ocean-deep) 100%);
-      padding: 3.5rem 1.5rem 4rem;
-      text-align: center;
+      padding: 1.75rem 1.5rem 2.5rem;
       position: relative;
       overflow: hidden;
     }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      padding-left: clamp(1.5rem, 6vw, 5rem);
+    }
+
+    .hero-logo {
+      flex-shrink: 0;
+      width: min(300px, 40vw);
+      filter: drop-shadow(0 6px 20px rgba(13, 43, 62, 0.5));
+    }
+
+    .hero-text { flex: 1; max-width: 600px; text-align: left; }
 
     .hero::before {
       content: '';
@@ -333,8 +349,13 @@
   </header>
 
   <section class="hero">
-    <h1>Let's Talk About <em>Your Project.</em></h1>
-    <p>Tell us a little about what you have in mind and we'll reach out within 24 hours.</p>
+    <div class="hero-inner">
+      <img class="hero-logo" src="assets/CCSTlogo.png" alt="Coastal Carolina Synthetic Turf" />
+      <div class="hero-text">
+        <h1>Let's Talk About <em>Your Project.</em></h1>
+        <p>Tell us a little about what you have in mind and we'll reach out within 24 hours.</p>
+      </div>
+    </div>
   </section>
   <div style="height:10px;background:var(--grass-dark);"></div>
   <div style="height:10px;background:var(--sand);"></div>
@@ -412,10 +433,10 @@
           <select id="traffic_source" name="traffic_source">
             <option value="" disabled selected>Select one…</option>
             <option>Google Search</option>
-            <option>Facebook</option>
-            <option>Instagram</option>
-            <option>Friend or Family Referral</option>
+            <option>Referral</option>
             <option>Drive-by or Signage</option>
+            <option>Facebook</option>
+            <option>Social Media</option>
             <option>Other</option>
           </select>
         </div>
@@ -481,7 +502,7 @@
         if (!res.ok) throw new Error('Function error');
 
         // Send email notification via formsubmit.co (no traffic_source)
-        fetch('https://formsubmit.co/ajax/mrstuhroib@gmail.com', {
+        fetch('https://formsubmit.co/ajax/matt@ccstoib.com', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({
@@ -497,9 +518,8 @@
           }),
         }).catch(() => {}); // fire and forget — don't block success
 
-        // Show success
-        form.style.display = 'none';
-        successBox.style.display = 'block';
+        // Redirect to thank you page
+        window.location.href = 'thankyou.html';
 
       } catch {
         errorMsg.style.display = 'block';

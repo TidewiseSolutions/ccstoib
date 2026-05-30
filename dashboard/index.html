@@ -554,9 +554,19 @@
       const email = document.getElementById('loginEmail').value.trim();
       const pass  = document.getElementById('loginPass').value;
 
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password: pass });
+      let data, error;
+      try {
+        ({ data, error } = await supabase.auth.signInWithPassword({ email, password: pass }));
+      } catch (e) {
+        err.textContent = 'Init error: ' + (e.message || e);
+        err.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+        return;
+      }
 
       if (error) {
+        err.textContent = error.message;
         err.style.display = 'block';
         btn.disabled = false;
         btn.textContent = 'Sign In';
