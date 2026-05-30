@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why Synthetic Turf — Coastal Carolina Synthetic Turf</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 20px; }
+
+    :root {
+      --grass:       #2E8B3E;
+      --grass-light: #4CAF50;
+      --grass-dark:  #1B5E2A;
+      --ocean:       #1A8FA8;
+      --ocean-deep:  #0E5F7A;
+      --sky:         #7EC8E3;
+      --sky-pale:    #C5E8F5;
+      --sand:        #E8D4A8;
+      --sand-dark:   #C4A574;
+      --foam:        #F7FBFC;
+      --navy:        #0D2B3E;
+      --white:       #FFFFFF;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      color: var(--navy);
+      background: var(--foam);
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      background: linear-gradient(180deg, var(--ocean-deep) 0%, var(--ocean) 100%);
+      color: var(--white);
+      padding: 0 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(13, 43, 62, 0.25);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 64px;
+      gap: 1rem;
+    }
+
+    .brand-text {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.75rem;
+      margin-left: -12rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .brand-text span {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--sand);
+      letter-spacing: 0.12em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.75rem;
+      list-style: none;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-right: -6.25rem;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--sand); }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--sky-pale) 0%, var(--sky) 35%, var(--ocean) 70%, var(--ocean-deep) 100%);
+      padding: 1.75rem 1.5rem 2.5rem;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 40px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 40' preserveAspectRatio='none'%3E%3Cpath fill='%232E8B3E' d='M0 40 L0 22 Q150 4 300 18 T600 14 T900 22 T1200 10 L1200 40 Z'/%3E%3Cpath fill='%231B5E2A' d='M0 40 L0 30 Q200 38 400 26 T800 32 T1200 24 L1200 40 Z' opacity='0.6'/%3E%3C/svg%3E") center bottom / 100% 100% no-repeat;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      padding-left: clamp(1.5rem, 6vw, 5rem);
+    }
+
+    .hero-logo {
+      flex-shrink: 0;
+      width: min(300px, 40vw);
+      filter: drop-shadow(0 6px 20px rgba(13, 43, 62, 0.5));
+    }
+
+    .hero-text { flex: 1; max-width: 600px; }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-text h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      color: var(--white);
+      text-shadow: 0 2px 16px rgba(13, 43, 62, 0.35);
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-text h1 em { font-style: normal; color: var(--sand); }
+
+    .hero-text p {
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      color: rgba(255,255,255,0.9);
+      max-width: 480px;
+      margin-bottom: 1.25rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--grass);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.75rem;
+      border-radius: 6px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(27, 94, 42, 0.4);
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--grass-dark); transform: translateY(-2px); }
+
+    /* ── Shared layout ── */
+    .content-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--grass);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+      color: var(--ocean-deep);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .section-h2 em { font-style: normal; color: var(--grass); }
+
+    .body-text {
+      color: #3a5060;
+      font-size: 1.02rem;
+      margin-bottom: 0.9rem;
+      max-width: 680px;
+    }
+
+    /* ── Cost of Doing Nothing ── */
+    .cost-section { padding: 4rem 0 2rem; }
+
+    .cost-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .cost-card {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(13, 43, 62, 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cost-card-header {
+      padding: 1rem 1.5rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 17px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .cost-card.natural .cost-card-header { background: #7a4f3a; }
+    .cost-card.synthetic .cost-card-header { background: var(--grass-dark); }
+
+    .cost-card-body {
+      background: var(--white);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .cost-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(13, 43, 62, 0.06);
+      font-size: 19px;
+      color: #3a5060;
+    }
+
+    .cost-row:last-of-type { border-bottom: none; }
+
+    .cost-row .amount {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: var(--ocean-deep);
+      white-space: nowrap;
+      margin-left: 0.75rem;
+      font-size: 15px;
+    }
+
+    .cost-card.natural .cost-row .amount { color: #7a4f3a; }
+
+    .cost-total {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+    }
+
+    .cost-card.natural .cost-total { background: #fdf0e8; color: #7a4f3a; }
+    .cost-card.synthetic .cost-total { background: #e8f5eb; color: var(--grass-dark); }
+
+    .cost-total { font-size: 19px; margin-top: auto; }
+    .cost-total .total-num { font-size: 26px; }
+
+    .cost-footnote {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.88rem;
+      color: #7a8f9a;
+      font-style: italic;
+    }
+
+    /* ── Brunswick County Problem ── */
+    .brunswick-section {
+      background: var(--navy);
+      color: var(--white);
+      padding: 4rem 1.5rem;
+      margin: 3rem 0 0;
+    }
+
+    .brunswick-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .brunswick-section .section-label { color: var(--sand); }
+    .brunswick-section .section-h2 { color: var(--white); margin-bottom: 1.5rem; }
+    .brunswick-section .section-h2 em { color: var(--sand); }
+
+    .threat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin: 2rem 0;
+    }
+
+    .threat-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .threat-card .threat-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+
+    .threat-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--sand);
+      margin-bottom: 0.5rem;
+    }
+
+    .threat-card p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.6;
+    }
+
+    .brunswick-close {
+      margin-top: 2rem;
+      padding: 1.5rem 2rem;
+      background: rgba(255,255,255,0.06);
+      border-left: 4px solid var(--sand);
+      border-radius: 0 10px 10px 0;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--sand);
+      font-style: italic;
+    }
+
+    /* ── What You're Getting ── */
+    .benefits-section { padding: 4rem 0 3rem; }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .benefit-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 1.5rem 1.25rem;
+      border: 1px solid rgba(14, 95, 122, 0.1);
+      box-shadow: 0 4px 16px rgba(13, 43, 62, 0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(13, 43, 62, 0.12);
+    }
+
+    .benefit-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+
+    .benefit-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--ocean-deep);
+      margin-bottom: 0.5rem;
+    }
+
+    .benefit-card p { font-size: 0.9rem; color: #4a6070; }
+
+    /* ── ROI Reframe ── */
+    .roi-section {
+      background: linear-gradient(135deg, var(--grass-dark) 0%, var(--grass) 100%);
+      color: var(--white);
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+
+    .roi-inner { max-width: 760px; margin: 0 auto; }
+
+    .roi-section .section-label { color: rgba(255,255,255,0.65); }
+    .roi-section .section-h2 { color: var(--white); margin-bottom: 1.25rem; }
+    .roi-section .section-h2 em { color: var(--sand); }
+
+    .roi-numbers {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin: 2.5rem 0;
+      flex-wrap: wrap;
+    }
+
+    .roi-stat .roi-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 3rem;
+      color: var(--sand);
+      line-height: 1;
+    }
+
+    .roi-stat .roi-label {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.75);
+      margin-top: 0.35rem;
+    }
+
+    .roi-body {
+      color: rgba(255,255,255,0.88);
+      font-size: 1.05rem;
+      margin-bottom: 1rem;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .roi-closer {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--sand);
+      margin-top: 1.5rem;
+    }
+
+    /* ── Who This Is For ── */
+    .audience-section { padding: 4rem 0 3rem; }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .audience-card {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 1.25rem;
+      border-top: 4px solid var(--grass);
+      box-shadow: 0 4px 14px rgba(13, 43, 62, 0.06);
+    }
+
+    .audience-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--ocean-deep);
+      margin-bottom: 0.4rem;
+    }
+
+    .audience-card p { font-size: 0.85rem; color: #4a6070; }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 4rem 1.5rem;
+      text-align: center;
+      background: linear-gradient(180deg, var(--sand) 0%, #f5ecd8 100%);
+      border-top: 4px solid var(--grass);
+    }
+
+    .cta-section h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      color: var(--ocean-deep);
+      margin-bottom: 0.75rem;
+    }
+
+    .cta-section p {
+      color: var(--navy);
+      max-width: 480px;
+      margin: 0 auto 1.75rem;
+      font-size: 1.02rem;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.75);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.85rem;
+    }
+
+    .site-footer .grass-bar {
+      height: 6px;
+      background: linear-gradient(90deg, var(--grass-dark), var(--grass), var(--grass-light));
+      margin-bottom: 1.5rem;
+    }
+
+    .site-footer strong { color: var(--sand); font-family: 'Montserrat', sans-serif; }
+
+    .site-footer .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      list-style: none;
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+    }
+
+    .site-footer .footer-links a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .site-footer .footer-links a:hover { color: var(--sand); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero-inner { flex-direction: column; text-align: center; gap: 1.25rem; }
+      .hero-logo { width: min(160px, 50vw); }
+      .cost-grid { grid-template-columns: 1fr; }
+      .threat-grid { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .audience-grid { grid-template-columns: 1fr; }
+      .roi-numbers { gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand-text">
+        Coastal Carolina
+        <span>Synthetic Turf</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#">Services</a></li>
+        <li><a href="whyturf.html" class="active">Why Turf</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <img class="hero-logo" src="assets/CCSTlogo.png" alt="Coastal Carolina Synthetic Turf" />
+      <div class="hero-text">
+        <p class="hero-badge">Brunswick County · Coastal Property Owners</p>
+        <h1>The Last Lawn Payment<br><em>You'll Ever Make.</em></h1>
+        <p>
+          Synthetic turf isn't cheap. Neither is fighting the Carolina coast every season.
+          Here's the math that changes the conversation.
+        </p>
+        <a class="btn-primary" href="#cost">See the Numbers</a>
+      </div>
+    </div>
+  </section>
+  <div style="height:10px;background:var(--grass-dark);"></div>
+  <div style="height:10px;background:var(--sand);"></div>
+  <div style="height:10px;background:var(--ocean);"></div>
+
+  <div class="content-wrap">
+    <section class="cost-section" id="cost">
+      <p class="section-label">The Real Cost of Natural Grass</p>
+      <h2 class="section-h2">Natural Grass Has a <em>Forever Investment.</em><br>Synthetic Turf Has an Upfront One.</h2>
+      <p class="body-text">
+        The average Brunswick County homeowner spends $1,200 to $3,500 every year on mowing,
+        fertilizer, water, pesticides, and equipment — just to keep natural grass alive.
+        Over 15 years, that's up to $52,000 spent on a lawn that still dies, floods, and burns.
+      </p>
+      <p class="body-text">
+        Synthetic turf requires an upfront investment. After that, your recurring lawn costs
+        drop to nearly zero. One payment. Done.
+      </p>
+
+      <div class="cost-grid">
+        <div class="cost-card natural">
+          <div class="cost-card-header">Natural Grass — 15 Year True Cost</div>
+          <div class="cost-card-body">
+            <div class="cost-row"><span>Mowing (weekly service)</span><span class="amount">$9,000–$18,000</span></div>
+            <div class="cost-row"><span>Fertilizer &amp; weed control</span><span class="amount">$3,000–$6,000</span></div>
+            <div class="cost-row"><span>Water / irrigation</span><span class="amount">$6,000–$12,000</span></div>
+            <div class="cost-row"><span>Pesticides &amp; treatments</span><span class="amount">$2,000–$4,500</span></div>
+            <div class="cost-row"><span>Storm damage &amp; replanting</span><span class="amount">$3,000–$8,000</span></div>
+            <div class="cost-row"><span>Salt damage &amp; soil treatment</span><span class="amount">$1,500–$3,000</span></div>
+            <div class="cost-row"><span>Equipment &amp; misc.</span><span class="amount">$2,000–$3,500</span></div>
+            <div class="cost-total">
+              <span>15-Year Total</span>
+              <span class="total-num">$25,000–$52,000</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cost-card synthetic">
+          <div class="cost-card-header">Synthetic Turf — 15 Year True Cost</div>
+          <div class="cost-card-body">
+            <div class="cost-row"><span>Installation (one time)</span><span class="amount">varies by sq ft</span></div>
+            <div class="cost-row"><span>Mowing</span><span class="amount">$0</span></div>
+            <div class="cost-row"><span>Fertilizer &amp; weed control</span><span class="amount">$0</span></div>
+            <div class="cost-row"><span>Irrigation</span><span class="amount">$0</span></div>
+            <div class="cost-row"><span>Pesticides</span><span class="amount">$0</span></div>
+            <div class="cost-row"><span>Storm replanting</span><span class="amount">$0</span></div>
+            <div class="cost-row"><span>Occasional rinse &amp; brush</span><span class="amount">minimal</span></div>
+            <div class="cost-total">
+              <span>Recurring Cost After Install</span>
+              <span class="total-num">~$0/yr</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="cost-footnote">Natural grass estimates based on Brunswick County market rates. Storm damage costs reflect regional averages.</p>
+    </section>
+  </div>
+
+  <section class="brunswick-section">
+    <div class="brunswick-inner">
+      <p class="section-label">The Brunswick County Problem</p>
+      <h2 class="section-h2">This Coastline Is <em>Stunning.</em><br>It Is Not Kind to Natural Grass.</h2>
+
+      <div class="threat-grid">
+        <div class="threat-card">
+          <div class="threat-icon">🌊</div>
+          <h3>Salt Air &amp; Spray</h3>
+          <p>Within a mile or two of the Atlantic or Intracoastal, salt air isn't an occasional visitor — it's a permanent resident. It coats grass blades, disrupts nutrient uptake, and burns patches after every nor'easter. Synthetic turf doesn't absorb salt. Salt spray rinses off. Period.</p>
+        </div>
+        <div class="threat-card">
+          <div class="threat-icon">🌀</div>
+          <h3>Hurricane Season</h3>
+          <p>Dorian. Florence. Isaias. Idalia. If you've lived here long enough, those aren't just news stories — they're chapters in your property's history. Hurricane Florence alone produced 18 feet of storm surge near Calabash and Holden Beach. Natural sod doesn't survive that. Synthetic turf does.</p>
+        </div>
+        <div class="threat-card">
+          <div class="threat-icon">🌧️</div>
+          <h3>Flooding &amp; Washout</h3>
+          <p>Brunswick County storm surveys found that 35% of residents reported yard washout and flooding damage. Poor drainage leaves sod smothered, eroded, and compacted. Synthetic turf is engineered to drain fast, dry faster, and stay exactly where it was installed.</p>
+        </div>
+        <div class="threat-card">
+          <div class="threat-icon">🔄</div>
+          <h3>The Endless Cycle</h3>
+          <p>Replant. Reseed. Call the landscaper. Write the check. Cross your fingers heading into next storm season. Natural grass on the Carolina coast isn't a lawn — it's a subscription. And every year, the coast wins.</p>
+        </div>
+      </div>
+
+      <div class="brunswick-close">
+        "The coast is beautiful. It is not kind to natural grass."
+      </div>
+    </div>
+  </section>
+
+  <div class="content-wrap">
+    <section class="benefits-section" id="benefits">
+      <p class="section-label">What You're Actually Getting</p>
+      <h2 class="section-h2">A Lawn That <em>Works With</em> the Coast,<br>Not Against It.</h2>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">💧</div>
+          <h3>Zero Irrigation</h3>
+          <p>The average lawn uses over 50,000 gallons of water per year. Synthetic turf uses zero. That's a water bill line item that disappears permanently.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🌿</div>
+          <h3>Zero Maintenance</h3>
+          <p>No mowing. No fertilizing. No aerating. No overseeding. No irrigation scheduling. An occasional rinse and brush is all it takes.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🧂</div>
+          <h3>Salt-Resistant</h3>
+          <p>No root systems to disrupt. No blades to burn. Salt spray rinses clean. Your lawn looks the same the morning after a nor'easter as it did the day before.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🌀</div>
+          <h3>Storm-Proof</h3>
+          <p>Engineered to stay put. No erosion, no washout, no post-storm replanting. When the storm passes, your lawn is already done recovering.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🏡</div>
+          <h3>Year-Round Curb Appeal</h3>
+          <p>Looks immaculate on day one, year five, and year fifteen. No brown patches, no dead zones, no seasonal variation. Your property makes the right impression every single day.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">⏱️</div>
+          <h3>15–20 Year Lifespan</h3>
+          <p>Built to outlast the problem. UV-stabilized for intense coastal sun. Backed by a warranty that means something, installed by people who know this coastline.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="roi-section">
+    <div class="roi-inner">
+      <p class="section-label">The ROI Reframe</p>
+      <h2 class="section-h2">Stop Paying Forever.<br><em>Pay Once. Be Done.</em></h2>
+      <div class="roi-numbers">
+        <div class="roi-stat">
+          <div class="roi-num">5–7</div>
+          <div class="roi-label">Years to full ROI</div>
+        </div>
+        <div class="roi-stat">
+          <div class="roi-num">10+</div>
+          <div class="roi-label">Years of near-zero lawn cost after that</div>
+        </div>
+        <div class="roi-stat">
+          <div class="roi-num">$0</div>
+          <div class="roi-label">Annual mowing, irrigation &amp; replanting</div>
+        </div>
+      </div>
+      <p class="roi-body">
+        Most installations reach full ROI within 5 to 7 years. After that, it's a decade-plus
+        of a lawn that costs you almost nothing. The upfront cost isn't an expense.
+        It's the moment you stop paying forever.
+      </p>
+      <p class="roi-body">
+        Natural grass isn't cheaper. It just spreads the cost out far enough that you stop
+        noticing you're paying it. Synthetic turf makes the math visible — and once you see it,
+        it's hard to unsee.
+      </p>
+      <div class="roi-closer">That's not expensive. That's the last check you write.</div>
+    </div>
+  </section>
+
+  <div class="content-wrap">
+    <section class="audience-section">
+      <p class="section-label">Who This Is For</p>
+      <h2 class="section-h2">If the Coast Has Been <em>Winning,</em><br>This Is for You.</h2>
+      <div class="audience-grid">
+        <div class="audience-card">
+          <h3>Homeowners</h3>
+          <p>Tired of the seasonal cycle. Ready for a lawn that looks right without the recurring cost and effort.</p>
+        </div>
+        <div class="audience-card">
+          <h3>Vacation &amp; Rental Properties</h3>
+          <p>Your property needs to look great between visits — without relying on lawn service calls you can't supervise from home.</p>
+        </div>
+        <div class="audience-card">
+          <h3>Commercial Properties</h3>
+          <p>Curb appeal drives first impressions. A flawless lawn 365 days a year, with maintenance costs removed from the budget entirely.</p>
+        </div>
+        <div class="audience-card">
+          <h3>HOAs</h3>
+          <p>Consistent appearance across common areas, without the ongoing landscape contracts and storm-damage remediation bills.</p>
+        </div>
+        <div class="audience-card">
+          <h3>Island &amp; Waterfront Properties</h3>
+          <p>If salt air is in the address, natural grass is fighting a losing battle. Synthetic turf is built for exactly this exposure.</p>
+        </div>
+        <div class="audience-card">
+          <h3>Golf Courses &amp; Putting Greens</h3>
+          <p>From backyard practice greens to full commercial installations — consistent surface, zero irrigation, playable year-round.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="cta-section">
+    <h2>Ready to Do the Math on Your Property?</h2>
+    <p>No pressure. No pitch. Just an honest conversation about what synthetic turf would actually cost — and what it would save — on your specific property.</p>
+    <a class="btn-primary" href="#">Let's Talk</a>
+  </div>
+
+  <footer class="site-footer">
+    <div class="grass-bar" aria-hidden="true"></div>
+    <p><strong>Coastal Carolina Synthetic Turf</strong> &mdash; Greener Lawns · Better Living</p>
+    <ul class="footer-links">
+      <li><a href="#">Services</a></li>
+      <li><a href="whyturf.html">Why Turf</a></li>
+      <li><a href="#">Gallery</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>

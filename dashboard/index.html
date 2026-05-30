@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Coastal Carolina Synthetic Turf</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --grass:      #2E8B3E;
+      --grass-dark: #1B5E2A;
+      --ocean:      #1A8FA8;
+      --ocean-deep: #0E5F7A;
+      --sand:       #E8D4A8;
+      --foam:       #F7FBFC;
+      --navy:       #0D2B3E;
+      --white:      #FFFFFF;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: var(--foam);
+      color: var(--navy);
+      min-height: 100vh;
+    }
+
+    /* ── Login ── */
+    .login-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(160deg, #C5E8F5 0%, #7EC8E3 35%, var(--ocean) 70%, var(--ocean-deep) 100%);
+      padding: 2rem;
+    }
+
+    .login-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 12px 48px rgba(13, 43, 62, 0.2);
+    }
+
+    .login-card .logo-text {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      text-transform: uppercase;
+      color: var(--ocean-deep);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.25rem;
+    }
+
+    .login-card .logo-sub {
+      font-size: 0.75rem;
+      color: var(--ocean);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .login-card h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+    }
+
+    .field { margin-bottom: 1.1rem; }
+
+    .field label {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ocean-deep);
+      margin-bottom: 0.35rem;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border: 1.5px solid rgba(14, 95, 122, 0.2);
+      border-radius: 8px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.97rem;
+      color: var(--navy);
+      background: var(--foam);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .field input:focus {
+      outline: none;
+      border-color: var(--ocean);
+      box-shadow: 0 0 0 3px rgba(26, 143, 168, 0.15);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 0.85rem;
+      background: var(--grass);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.2s;
+    }
+
+    .login-btn:hover { background: var(--grass-dark); }
+    .login-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .login-error {
+      display: none;
+      margin-top: 0.75rem;
+      padding: 0.6rem 0.9rem;
+      background: #fff0f0;
+      border: 1px solid #ffcccc;
+      border-radius: 6px;
+      color: #c0392b;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    /* ── Dashboard ── */
+    .dash-wrap { display: none; }
+
+    .dash-header {
+      background: linear-gradient(180deg, var(--ocean-deep) 0%, var(--ocean) 100%);
+      color: var(--white);
+      padding: 0 2rem;
+    }
+
+    .dash-header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 60px;
+    }
+
+    .dash-header .brand {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .dash-header .brand span {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--sand);
+      letter-spacing: 0.12em;
+    }
+
+    .user-bar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .user-email { color: rgba(255,255,255,0.7); }
+
+    .sign-out-btn {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .sign-out-btn:hover { background: rgba(255,255,255,0.25); }
+
+    .dash-body {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .dash-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--ocean-deep);
+      margin-bottom: 0.25rem;
+    }
+
+    .dash-subtitle {
+      font-size: 0.88rem;
+      color: #6a8090;
+      margin-bottom: 2rem;
+    }
+
+    /* ── Stats row ── */
+    .stats-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 3px 12px rgba(13, 43, 62, 0.07);
+      border: 1px solid rgba(14, 95, 122, 0.08);
+    }
+
+    .stat-pill .num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.75rem;
+      color: var(--grass);
+      line-height: 1;
+    }
+
+    .stat-pill .lbl {
+      font-size: 0.78rem;
+      color: #6a8090;
+      margin-top: 0.2rem;
+    }
+
+    /* ── Table ── */
+    .table-wrap {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(13, 43, 62, 0.08);
+      overflow: hidden;
+    }
+
+    .table-toolbar {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(14, 95, 122, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .table-toolbar h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--ocean-deep);
+    }
+
+    .search-input {
+      padding: 0.5rem 0.9rem;
+      border: 1.5px solid rgba(14, 95, 122, 0.2);
+      border-radius: 7px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.88rem;
+      color: var(--navy);
+      background: var(--foam);
+      width: 220px;
+    }
+
+    .search-input:focus { outline: none; border-color: var(--ocean); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    thead th {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ocean-deep);
+      background: rgba(14, 95, 122, 0.04);
+      border-bottom: 1px solid rgba(14, 95, 122, 0.1);
+    }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(13, 43, 62, 0.05);
+      transition: background 0.15s;
+    }
+
+    tbody tr:hover { background: rgba(14, 95, 122, 0.03); }
+    tbody tr:last-child { border-bottom: none; }
+
+    td { padding: 0.85rem 1rem; color: #3a5060; vertical-align: middle; }
+
+    td.name { font-weight: 600; color: var(--navy); }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .status-new      { background: #e8f5eb; color: var(--grass-dark); }
+    .status-disputed { background: #fff3cd; color: #856404; }
+    .status-approved { background: #cfe2ff; color: #0a58ca; }
+    .status-denied   { background: #f8d7da; color: #842029; }
+
+    .dispute-btn {
+      background: transparent;
+      border: 1.5px solid rgba(14, 95, 122, 0.25);
+      color: var(--ocean-deep);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .dispute-btn:hover { background: rgba(14, 95, 122, 0.07); border-color: var(--ocean); }
+    .dispute-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .empty-row td {
+      text-align: center;
+      padding: 3rem;
+      color: #8a9faa;
+      font-style: italic;
+    }
+
+    /* ── Dispute modal ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(13, 43, 62, 0.55);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 460px;
+      box-shadow: 0 16px 60px rgba(13, 43, 62, 0.25);
+    }
+
+    .modal-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+
+    .modal-card p {
+      font-size: 0.88rem;
+      color: #6a8090;
+      margin-bottom: 1.25rem;
+    }
+
+    .modal-card textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1.5px solid rgba(14, 95, 122, 0.2);
+      border-radius: 8px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.92rem;
+      color: var(--navy);
+      resize: vertical;
+      min-height: 90px;
+      margin-bottom: 1rem;
+    }
+
+    .modal-card textarea:focus { outline: none; border-color: var(--ocean); }
+
+    .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; }
+
+    .btn-cancel {
+      padding: 0.6rem 1.2rem;
+      background: transparent;
+      border: 1.5px solid rgba(14, 95, 122, 0.2);
+      border-radius: 7px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: #6a8090;
+      cursor: pointer;
+    }
+
+    .btn-submit-dispute {
+      padding: 0.6rem 1.2rem;
+      background: #856404;
+      border: none;
+      border-radius: 7px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--white);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-submit-dispute:hover { background: #6b5003; }
+    .btn-submit-dispute:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .loading-row td { text-align: center; padding: 3rem; color: #8a9faa; }
+  </style>
+</head>
+<body>
+
+  <!-- Login -->
+  <div class="login-wrap" id="loginWrap">
+    <div class="login-card">
+      <div class="logo-text">Coastal Carolina</div>
+      <div class="logo-sub">Synthetic Turf — Lead Dashboard</div>
+      <h2>Sign In</h2>
+      <form id="loginForm">
+        <div class="field">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" placeholder="you@example.com" required />
+        </div>
+        <div class="field">
+          <label for="loginPass">Password</label>
+          <input type="password" id="loginPass" placeholder="••••••••" required />
+        </div>
+        <button type="submit" class="login-btn" id="loginBtn">Sign In</button>
+        <div class="login-error" id="loginError">Invalid email or password.</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="dash-wrap" id="dashWrap">
+    <header class="dash-header">
+      <div class="dash-header-inner">
+        <div class="brand">Coastal Carolina <span>Synthetic Turf — Leads</span></div>
+        <div class="user-bar">
+          <span class="user-email" id="userEmail"></span>
+          <button class="sign-out-btn" id="signOutBtn">Sign Out</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="dash-body">
+      <div class="dash-title">Lead Dashboard</div>
+      <div class="dash-subtitle" id="dashDate"></div>
+
+      <div class="stats-row" id="statsRow">
+        <div class="stat-pill"><div class="num" id="statTotal">—</div><div class="lbl">Total Leads</div></div>
+        <div class="stat-pill"><div class="num" id="statNew">—</div><div class="lbl">New</div></div>
+        <div class="stat-pill"><div class="num" id="statDisputed">—</div><div class="lbl">Disputed</div></div>
+      </div>
+
+      <div class="table-wrap">
+        <div class="table-toolbar">
+          <h3>All Leads</h3>
+          <input class="search-input" id="searchInput" type="text" placeholder="Search by name, email…" />
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Project Type</th>
+              <th>Size</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="leadsBody">
+            <tr class="loading-row"><td colspan="8">Loading leads…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dispute Modal -->
+  <div class="modal-overlay" id="disputeModal">
+    <div class="modal-card">
+      <h3>Flag This Lead</h3>
+      <p>Briefly explain why you're disputing this lead. The Tidewise team will review it.</p>
+      <textarea id="disputeReason" placeholder="e.g. This was a personal contact, not from the website…"></textarea>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="cancelDispute">Cancel</button>
+        <button class="btn-submit-dispute" id="confirmDispute">Submit Dispute</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let supabase;
+    let allLeads = [];
+    let disputeTargetId = null;
+
+    // ── Init ─────────────────────────────────────────────────────────
+    async function init() {
+      const cfg = await fetch('/.netlify/functions/config').then(r => r.json());
+      supabase = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseKey);
+
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) showDashboard(session.user);
+    }
+
+    // ── Auth ─────────────────────────────────────────────────────────
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('loginBtn');
+      const err = document.getElementById('loginError');
+      err.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Signing in…';
+
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass  = document.getElementById('loginPass').value;
+
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password: pass });
+
+      if (error) {
+        err.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+        return;
+      }
+
+      showDashboard(data.user);
+    });
+
+    document.getElementById('signOutBtn').addEventListener('click', async () => {
+      await supabase.auth.signOut();
+      document.getElementById('dashWrap').style.display = 'none';
+      document.getElementById('loginWrap').style.display = 'flex';
+    });
+
+    // ── Dashboard ─────────────────────────────────────────────────────
+    async function showDashboard(user) {
+      document.getElementById('loginWrap').style.display = 'none';
+      document.getElementById('dashWrap').style.display = 'block';
+      document.getElementById('userEmail').textContent = user.email;
+      document.getElementById('dashDate').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      await loadLeads();
+    }
+
+    async function loadLeads() {
+      const { data, error } = await supabase
+        .from('leads')
+        .select('*')
+        .eq('client_id', 'ccst')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        document.getElementById('leadsBody').innerHTML = '<tr class="empty-row"><td colspan="8">Error loading leads.</td></tr>';
+        return;
+      }
+
+      allLeads = data || [];
+      updateStats();
+      renderTable(allLeads);
+    }
+
+    function updateStats() {
+      document.getElementById('statTotal').textContent    = allLeads.length;
+      document.getElementById('statNew').textContent      = allLeads.filter(l => l.status === 'new').length;
+      document.getElementById('statDisputed').textContent = allLeads.filter(l => l.status === 'disputed').length;
+    }
+
+    function renderTable(leads) {
+      const tbody = document.getElementById('leadsBody');
+      if (!leads.length) {
+        tbody.innerHTML = '<tr class="empty-row"><td colspan="8">No leads yet.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = leads.map(lead => {
+        const date = new Date(lead.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const canDispute = lead.status === 'new';
+        return `
+          <tr>
+            <td>${date}</td>
+            <td class="name">${esc(lead.name)}</td>
+            <td>${esc(lead.phone || '—')}</td>
+            <td>${esc(lead.email)}</td>
+            <td>${esc(lead.project_type || '—')}</td>
+            <td>${esc(lead.square_footage || '—')}</td>
+            <td><span class="status-badge status-${lead.status}">${lead.status}</span></td>
+            <td>
+              <button class="dispute-btn" onclick="openDispute('${lead.id}')" ${!canDispute ? 'disabled' : ''}>
+                ${canDispute ? 'Dispute' : '—'}
+              </button>
+            </td>
+          </tr>`;
+      }).join('');
+    }
+
+    // ── Search ───────────────────────────────────────────────────────
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      const filtered = allLeads.filter(l =>
+        (l.name || '').toLowerCase().includes(q) ||
+        (l.email || '').toLowerCase().includes(q) ||
+        (l.phone || '').toLowerCase().includes(q)
+      );
+      renderTable(filtered);
+    });
+
+    // ── Dispute ──────────────────────────────────────────────────────
+    function openDispute(id) {
+      disputeTargetId = id;
+      document.getElementById('disputeReason').value = '';
+      document.getElementById('disputeModal').classList.add('open');
+    }
+
+    document.getElementById('cancelDispute').addEventListener('click', () => {
+      document.getElementById('disputeModal').classList.remove('open');
+      disputeTargetId = null;
+    });
+
+    document.getElementById('confirmDispute').addEventListener('click', async () => {
+      const reason = document.getElementById('disputeReason').value.trim();
+      if (!reason) { document.getElementById('disputeReason').focus(); return; }
+
+      const btn = document.getElementById('confirmDispute');
+      btn.disabled = true;
+      btn.textContent = 'Submitting…';
+
+      const { error } = await supabase
+        .from('leads')
+        .update({ status: 'disputed', dispute_reason: reason })
+        .eq('id', disputeTargetId);
+
+      btn.disabled = false;
+      btn.textContent = 'Submit Dispute';
+      document.getElementById('disputeModal').classList.remove('open');
+      disputeTargetId = null;
+
+      if (!error) await loadLeads();
+    });
+
+    // ── Utils ─────────────────────────────────────────────────────────
+    function esc(str) {
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    init();
+  </script>
+
+</body>
+</html>
