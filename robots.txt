@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Disallow: /dashboard.html
+Disallow: /thankyou.html
+Disallow: /whyturf.html
+Disallow: /netlify/
+
+Sitemap: https://www.coastalcarolinasyntheticturf.com/sitemap.xml

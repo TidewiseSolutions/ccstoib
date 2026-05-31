@@ -474,6 +474,84 @@
       transform: translateY(-2px);
     }
 
+    /* ── Asset framing section ── */
+    .asset-section {
+      padding: 3.5rem 0;
+      border-top: 1px solid rgba(14, 95, 122, 0.1);
+    }
+
+    .asset-card {
+      background: var(--navy);
+      border-radius: 14px;
+      padding: 2.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .asset-card::before {
+      content: '"';
+      position: absolute;
+      top: -1rem;
+      right: 1.5rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 12rem;
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .asset-card .section-label { color: var(--sand-dark); }
+
+    .asset-card h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.4rem, 3.5vw, 2rem);
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+
+    .asset-card h2 em { font-style: normal; color: var(--sand); }
+
+    .asset-stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .asset-stat {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+
+    .asset-stat-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: var(--sand);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .asset-stat-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.4;
+    }
+
+    .asset-closer {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--sand);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1.25rem;
+    }
+
     /* ── Footer ── */
     .site-footer {
       background: var(--navy);
@@ -519,6 +597,8 @@
       .btn-primary, .btn-secondary { width: 100%; max-width: 340px; text-align: center; }
       .partnership-card { padding: 1.5rem; }
       .performance-box { padding: 1.5rem; }
+      .asset-stat-row { grid-template-columns: 1fr; }
+      .asset-card { padding: 1.5rem; }
     }
   </style>
 </head>
@@ -545,7 +625,7 @@
     <div class="hero-inner">
       <img class="hero-logo" src="/assets/CCSTlogo.png" alt="Coastal Carolina Synthetic Turf" />
       <div class="hero-text">
-        <p class="hero-badge">Official STI Certified Installer &mdash; Track B</p>
+        <p class="hero-badge">Official STI Certified Installer</p>
         <h1>Bring the Country Club<br><em>Right to Your Back Door</em></h1>
         <p class="hero-lead">No bumpy mini-golf carpet. No unpredictable surface grain. Experience tour-grade short game practice facilities engineered specifically for your coastal property.</p>
       </div>
@@ -559,7 +639,7 @@
   <div class="content-wrap">
 
     <div class="staging-image">
-      [ STAGING: High-End Photo of Custom Backyard Putting Green with Undulations &amp; Fringe ]
+      [High-End Photo of Custom Backyard Putting Green with Undulations &amp; Fringe ]
     </div>
 
     <div class="partnership-card">
@@ -609,6 +689,24 @@
         <span class="perf-tag">Engineered for True Performance</span>
         <h3>PGA-Tier Check &amp; Drainage</h3>
         <p>Because of this rock-solid crushed granite foundation, heavy coastal stormwater drains instantly through the turf matrix. The green stays perfectly firm and ready to grab a checking chip shot from the fringe mere moments after a tropical cloudburst.</p>
+      </div>
+    </section>
+
+    <section class="asset-section">
+      <div class="asset-card">
+        <p class="section-label">The Ownership Argument</p>
+        <h2>A Membership Costs You Forever.<br><em>A Green Pays You Back.</em></h2>
+        <div class="asset-stat-row">
+          <div class="asset-stat">
+            <p class="asset-stat-num">$5k–$15k</p>
+            <p class="asset-stat-label">Average annual country club membership — and you own nothing at the end of it.</p>
+          </div>
+          <div class="asset-stat">
+            <p class="asset-stat-num">Once.</p>
+            <p class="asset-stat-label">A custom CCST putting green is a one-time investment. Yours permanently. No dues. No tee times.</p>
+          </div>
+        </div>
+        <p class="asset-closer">Practice every day. Entertain on it. Sell with it. A PGA-tier green is a permanent asset on your property — not a line item on your monthly statement.</p>
       </div>
     </section>
 

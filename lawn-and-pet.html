@@ -422,6 +422,100 @@
       transform: translateY(-2px);
     }
 
+    /* ── Cost objection section ── */
+    .cost-objection {
+      padding: 3.5rem 0;
+      border-top: 1px solid rgba(14, 95, 122, 0.1);
+    }
+
+    .cost-objection-header {
+      margin-bottom: 1.75rem;
+    }
+
+    .cost-objection-header h2 { margin-bottom: 0.5rem; }
+
+    .cost-compare {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .cost-col {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 16px rgba(13,43,62,0.07);
+    }
+
+    .cost-col.natural { border-top: 4px solid #a0603a; }
+    .cost-col.synthetic { border-top: 4px solid var(--grass); }
+
+    .cost-col-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #7a8f9a;
+      margin-bottom: 0.5rem;
+    }
+
+    .cost-col.natural .cost-col-label { color: #a0603a; }
+    .cost-col.synthetic .cost-col-label { color: var(--grass-dark); }
+
+    .cost-col-total {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+
+    .cost-col.natural .cost-col-total { color: #a0603a; }
+    .cost-col.synthetic .cost-col-total { color: var(--grass-dark); }
+
+    .cost-col-sub {
+      font-size: 0.72rem;
+      color: #7a8f9a;
+    }
+
+    .cost-vs {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1rem;
+      color: #9aafba;
+      text-align: center;
+    }
+
+    .crossover-bar {
+      background: var(--ocean-deep);
+      color: var(--white);
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .crossover-bar .crossover-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2rem;
+      color: var(--sand);
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .crossover-bar p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.5;
+    }
+
+    .crossover-bar strong { color: var(--sand); }
+
     /* ── Footer ── */
     .site-footer {
       background: var(--navy);
@@ -466,6 +560,8 @@
       .btn-primary, .btn-secondary { width: 100%; max-width: 340px; text-align: center; }
       .value-card { padding: 1.5rem; }
       .performance-box { padding: 1.5rem; }
+      .cost-compare { grid-template-columns: 1fr; }
+      .cost-vs { display: none; }
     }
   </style>
 </head>
@@ -492,7 +588,7 @@
     <div class="hero-inner">
       <img class="hero-logo" src="/assets/CCSTlogo.png" alt="Coastal Carolina Synthetic Turf" />
       <div class="hero-text">
-        <p class="hero-badge">Track A &mdash; Residential Lawn &amp; Pet Areas</p>
+        <p class="hero-badge">Residential Lawn &amp; Pet Areas</p>
         <h1>The Mud-Free, Maintenance-Free<br><em>Luxury Lawn Experience</em></h1>
         <p class="hero-lead">Tired of sandy paws tracking across your clean floors? Frustrated with yellow pet stains, patchy crabgrass, and standing water after a coastal downpour?</p>
       </div>
@@ -506,7 +602,7 @@
   <div class="content-wrap">
 
     <div class="staging-image">
-      [ STAGING: High-End Photo of Pristine, Mud-Free Backyard Lawn &amp; Happy Pets ]
+      [High-End Photo of Pristine, Mud-Free Backyard Lawn &amp; Happy Pets ]
     </div>
 
     <div class="value-card">
@@ -549,6 +645,33 @@
         <span class="perf-tag">Engineered for Coastal Storms</span>
         <h3>Ultra-Rapid Subsurface Drainage</h3>
         <p>Because of this intensive multi-layer sub-base foundation, stormwater and heavy pet waste drain instantly through the turf matrix. The surface stays fresh, odor-free, and bone-dry just minutes after a heavy downpour.</p>
+      </div>
+    </section>
+
+    <section class="cost-objection">
+      <div class="cost-objection-header">
+        <p class="section-label">The Real Math</p>
+        <h2 class="section-h2">You're Already <em>Paying For It.</em></h2>
+        <p class="body-text">The average coastal homeowner spends $1,150–$2,400 every year on a lawn they didn't choose to love. Mowing crews, fertilizer, storm repairs, salt treatment — it adds up in small enough chunks that most people stop noticing. Until they see the 15-year number.</p>
+      </div>
+
+      <div class="cost-compare">
+        <div class="cost-col natural">
+          <p class="cost-col-label">Natural Grass — 15 Years</p>
+          <p class="cost-col-total">$18,750–$39,200</p>
+          <p class="cost-col-sub">And it still dies in a hurricane.</p>
+        </div>
+        <div class="cost-vs">VS</div>
+        <div class="cost-col synthetic">
+          <p class="cost-col-label">Synthetic Turf — 15 Years</p>
+          <p class="cost-col-total">$12,250–$19,250</p>
+          <p class="cost-col-sub">All-in. Including installation.</p>
+        </div>
+      </div>
+
+      <div class="crossover-bar">
+        <span class="crossover-num">~Yr 6</span>
+        <p>For a homeowner spending $2,000/year on lawn care, turf pays for itself around <strong>year 6</strong>. The next 9 years cost you almost nothing. That's not an expense — that's the last check you write.</p>
       </div>
     </section>
 
