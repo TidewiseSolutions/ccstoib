@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- SEO -->
-  <title>Premium Residential Turf & Mud-Free Dog Runs | Coastal Carolina Synthetic Turf</title>
-  <meta name="description" content="Say goodbye to muddy paws, sandy floors, and patchy grass. Discover why our engineered, high-drainage residential turf is the ultimate coastal property investment." />
+  <title>PGA-Tier Backyard Putting Greens | Coastal Carolina Synthetic Turf</title>
+  <meta name="description" content="Bring the country club to your backyard. Discover premium, factory-certified STI true-roll putting greens engineered for serious coastal golfers." />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://www.coastalcarolinasyntheticturf.com/lawn-and-pet.html" />
+  <link rel="canonical" href="https://www.coastalcarolinasyntheticturf.com/pga-greens.html" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Luxury Residential Turf & Pet Systems" />
-  <meta property="og:description" content="Engineered to handle coastal downpours and heavy pet traffic. See the subsurface engineering that makes our lawns flawless." />
-  <meta property="og:url" content="https://www.coastalcarolinasyntheticturf.com/lawn-and-pet.html" />
+  <meta property="og:title" content="Tournament-Grade Backyard Putting Greens" />
+  <meta property="og:description" content="Exclusive STI true-roll technology engineered for the Carolina coast. See the subsurface precision." />
+  <meta property="og:url" content="https://www.coastalcarolinasyntheticturf.com/pga-greens.html" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -52,7 +52,7 @@
     .site-header {
       background: linear-gradient(180deg, var(--ocean-deep) 0%, var(--ocean) 100%);
       color: var(--white);
-      padding: 0 1.5rem;
+      padding: 0;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -156,10 +156,10 @@
 
     .hero-badge {
       display: inline-block;
-      background: rgba(255,255,255,0.2);
+      background: rgba(232, 212, 168, 0.25);
       backdrop-filter: blur(6px);
-      border: 1px solid rgba(255,255,255,0.35);
-      color: var(--white);
+      border: 1px solid rgba(232, 212, 168, 0.5);
+      color: var(--sand);
       font-family: 'Montserrat', sans-serif;
       font-size: 0.6rem;
       font-weight: 700;
@@ -188,14 +188,11 @@
       max-width: 540px;
     }
 
-    /* ── Stripe divider ── */
-    .stripe-divider { }
-
     /* ── Shared body layout ── */
     .content-wrap {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 2.5rem;
     }
 
     .section-label {
@@ -223,7 +220,7 @@
       color: #3a5060;
       font-size: 1rem;
       margin-bottom: 0.9rem;
-      max-width: 680px;
+      max-width: 780px;
     }
 
     /* ── Staging image ── */
@@ -242,38 +239,86 @@
       font-weight: 600;
       color: #9aafba;
       letter-spacing: 0.06em;
+      text-align: center;
+      padding: 1rem;
     }
 
-    /* ── Value proposition card ── */
-    .value-card {
-      background: var(--white);
+    /* ── STI Partnership card ── */
+    .partnership-card {
+      background: var(--navy);
       border-radius: 14px;
       padding: 2.5rem;
-      border-left: 5px solid var(--grass);
-      box-shadow: 0 4px 24px rgba(13,43,62,0.08);
       margin-bottom: 3.5rem;
+      border-top: 4px solid var(--sand-dark);
+      box-shadow: 0 6px 28px rgba(13,43,62,0.18);
     }
 
-    .value-card .section-h2 { margin-bottom: 0.75rem; }
+    .partnership-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
 
-    .roi-quote {
-      margin-top: 1.5rem;
-      padding: 1.25rem 1.5rem;
-      background: #f0f8f2;
-      border-left: 4px solid var(--grass);
-      border-radius: 0 8px 8px 0;
+    .partnership-card .section-h2 {
+      color: var(--white);
+      margin-bottom: 0;
+    }
+
+    .partnership-card .section-h2 em { color: var(--sand); }
+
+    /* ── STI badge ── */
+    .partner-badge-container {
+      flex-shrink: 0;
+    }
+
+    .badge-border-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 3px solid var(--sand-dark);
+      outline: 1px solid rgba(232,212,168,0.25);
+      outline-offset: 4px;
+      background: rgba(255,255,255,0.05);
+      gap: 0.2rem;
+      padding: 0.75rem;
+    }
+
+    .badge-brand-letters {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.75rem;
+      color: var(--sand);
+      letter-spacing: 0.1em;
+      line-height: 1;
+    }
+
+    .badge-status-text {
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      font-size: 0.9rem;
-      color: var(--grass-dark);
-      font-style: italic;
-      line-height: 1.6;
+      font-size: 0.4rem;
+      color: var(--sand-dark);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.3;
     }
 
-    /* ── Engineering section ── */
-    .engineering-section {
-      padding: 0 0 3.5rem;
+    .partnership-card .body-text {
+      color: rgba(255,255,255,0.82);
+      max-width: 100%;
     }
+
+    .partnership-card strong { color: var(--sand); }
+
+    /* ── Engineering section ── */
+    .engineering-section { padding: 0 0 3.5rem; }
 
     .section-header-center {
       text-align: center;
@@ -301,7 +346,6 @@
       padding: 1.75rem 1.5rem;
       border: 1px solid rgba(14, 95, 122, 0.1);
       box-shadow: 0 4px 16px rgba(13,43,62,0.06);
-      position: relative;
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
@@ -341,7 +385,7 @@
 
     /* ── Performance highlight box ── */
     .performance-box {
-      background: var(--navy);
+      background: var(--grass-dark);
       color: var(--white);
       border-radius: 14px;
       padding: 2rem 2.5rem;
@@ -350,8 +394,9 @@
 
     .perf-tag {
       display: inline-block;
-      background: var(--grass);
-      color: var(--white);
+      background: rgba(232,212,168,0.2);
+      border: 1px solid rgba(232,212,168,0.4);
+      color: var(--sand);
       font-family: 'Montserrat', sans-serif;
       font-size: 0.6rem;
       font-weight: 700;
@@ -372,7 +417,7 @@
 
     .performance-box p {
       font-size: 0.95rem;
-      color: rgba(255,255,255,0.82);
+      color: rgba(255,255,255,0.85);
       max-width: 760px;
       line-height: 1.7;
     }
@@ -391,6 +436,13 @@
       font-size: clamp(1.4rem, 3vw, 2rem);
       color: var(--ocean-deep);
       margin-bottom: 0.75rem;
+    }
+
+    .cta-section p {
+      color: var(--navy);
+      max-width: 480px;
+      margin: 0 auto;
+      font-size: 1rem;
     }
 
     .cta-buttons {
@@ -459,12 +511,13 @@
     /* ── Responsive ── */
     @media (max-width: 768px) {
       .nav-links { display: none; }
-      .hero-inner { flex-direction: column; text-align: center; padding-left: 1.5rem; gap: 1.5rem; }
+      .hero-inner { flex-direction: column; padding-left: 2rem; gap: 1.5rem; }
       .hero-logo { width: min(180px, 55vw); }
       .process-grid { grid-template-columns: 1fr; }
+      .partnership-card-header { flex-direction: column; }
       .cta-buttons { flex-direction: column; align-items: center; }
       .btn-primary, .btn-secondary { width: 100%; max-width: 340px; text-align: center; }
-      .value-card { padding: 1.5rem; }
+      .partnership-card { padding: 1.5rem; }
       .performance-box { padding: 1.5rem; }
     }
   </style>
@@ -480,8 +533,8 @@
         </div>
       </a>
       <ul class="nav-links">
-        <li><a href="/lawn-and-pet.html" class="active">Lawn &amp; Pet Areas</a></li>
-        <li><a href="/pga-greens.html">PGA Putting Greens</a></li>
+        <li><a href="/lawn-and-pet.html">Lawn &amp; Pet Areas</a></li>
+        <li><a href="/pga-greens.html" class="active">PGA Putting Greens</a></li>
         <li><a href="/why-us.html">Why CCST</a></li>
         <li><a href="/contact.html" class="btn-primary">Get An Estimate</a></li>
       </ul>
@@ -492,9 +545,9 @@
     <div class="hero-inner">
       <img class="hero-logo" src="/assets/CCSTlogo.png" alt="Coastal Carolina Synthetic Turf" />
       <div class="hero-text">
-        <p class="hero-badge">Track A &mdash; Residential Lawn &amp; Pet Areas</p>
-        <h1>The Mud-Free, Maintenance-Free<br><em>Luxury Lawn Experience</em></h1>
-        <p class="hero-lead">Tired of sandy paws tracking across your clean floors? Frustrated with yellow pet stains, patchy crabgrass, and standing water after a coastal downpour?</p>
+        <p class="hero-badge">Official STI Certified Installer &mdash; Track B</p>
+        <h1>Bring the Country Club<br><em>Right to Your Back Door</em></h1>
+        <p class="hero-lead">No bumpy mini-golf carpet. No unpredictable surface grain. Experience tour-grade short game practice facilities engineered specifically for your coastal property.</p>
       </div>
     </div>
   </section>
@@ -506,60 +559,67 @@
   <div class="content-wrap">
 
     <div class="staging-image">
-      [ STAGING: High-End Photo of Pristine, Mud-Free Backyard Lawn &amp; Happy Pets ]
+      [ STAGING: High-End Photo of Custom Backyard Putting Green with Undulations &amp; Fringe ]
     </div>
 
-    <div class="value-card">
-      <p class="section-label">A Permanent Property Upgrade</p>
-      <h2 class="section-h2">Stop Renting Your Lawn.<br><em>Own It.</em></h2>
+    <div class="partnership-card">
+      <div class="partnership-card-header">
+        <div>
+          <p class="section-label" style="color:var(--sand-dark);">Elite Brand Partnership</p>
+          <h2 class="section-h2">The <em>Synthetic Turf International®</em> Advantage</h2>
+        </div>
+        <div class="partner-badge-container" aria-label="Synthetic Turf International Certified Partner">
+          <div class="badge-border-wrap">
+            <span class="badge-brand-letters">STI</span>
+            <span class="badge-status-text">Authorized<br>Dealer</span>
+          </div>
+        </div>
+      </div>
       <p class="body-text">
-        A premium synthetic lawn installation is a true structural investment in your home. We don't handle cheap, unrated warehouse plastics that melt in the summer heat or fray over time. Our advanced systems are engineered to permanently freeze your landscaping expenses while adding high-end curb appeal that never decays.
+        We are Brunswick County's elite certified partner for Synthetic Turf International — the exclusive provider for major golf test networks and high-end teaching facilities globally. Every green we construct builds upon premium <strong>NP50® architectural turf</strong>, trusted by top PGA Tour academies because it delivers an uncompromising, non-directional ball roll with true country-club stimpmeter speeds. This is an elite sporting amenity designed to reward serious players.
       </p>
-      <blockquote class="roi-quote">
-        "By replacing the endless cycle of commercial mowing crews, seasonal aeration, sod repairs, and heavy fertilizers, a custom coastal transformation completely pays for itself within just 4 to 5 years."
-      </blockquote>
     </div>
 
     <section class="engineering-section">
       <div class="section-header-center">
-        <p class="section-label">The Science Behind Invisible Craftsmanship</p>
-        <h2 class="section-h2">Why a CCST Installation<br><em>Behaves Differently</em></h2>
-        <p class="section-subtitle">Generic artificial grass sits on top of your problems. We engineer them out from underneath.</p>
+        <p class="section-label">Architectural Base Precision</p>
+        <h2 class="section-h2">A Flawless Roll Starts<br><em>Three Inches Underground</em></h2>
+        <p class="section-subtitle">A true-roll surface depends entirely on the invisible engineering beneath the turf matrix.</p>
       </div>
 
       <div class="process-grid">
         <div class="process-card">
           <div class="step-badge">01</div>
           <h3>3-Inch Deep Excavation</h3>
-          <p>We completely strip away 3 full inches of unpredictable, sandy topsoil, surface weeds, and unstable root systems — creating a deeply recessed, precision-leveled blank slate.</p>
+          <p>We clear away 3 inches of native, shifty coastal topsoil and weed systems — leaving a deeply stable, cleared subgrade prepared for custom contouring and break design.</p>
         </div>
         <div class="process-card">
           <div class="step-badge">02</div>
           <h3>Heavy Geotextile Fabric</h3>
-          <p>An industrial-strength, porous geotextile barrier locks out subterranean weeds and burrowing pests permanently, while allowing liquid to pass through effortlessly.</p>
+          <p>An industrial structural stabilizing fabric is deployed over the bare grade — an ironclad barrier against invasive root structures while preserving full fluid passage.</p>
         </div>
         <div class="process-card">
           <div class="step-badge">03</div>
           <h3>Compacted Granite Fines</h3>
-          <p>Premium crushed granite fines, dynamically compacted into a rock-solid, ultra-porous architectural sub-base that will never sag or shift — even after a direct hurricane hit.</p>
+          <p>Premium crushed granite fines meticulously sculpted into custom breaks and slope variations, then compacted into a permanent, high-porosity sub-base that holds its shape for decades.</p>
         </div>
       </div>
 
       <div class="performance-box">
-        <span class="perf-tag">Engineered for Coastal Storms</span>
-        <h3>Ultra-Rapid Subsurface Drainage</h3>
-        <p>Because of this intensive multi-layer sub-base foundation, stormwater and heavy pet waste drain instantly through the turf matrix. The surface stays fresh, odor-free, and bone-dry just minutes after a heavy downpour.</p>
+        <span class="perf-tag">Engineered for True Performance</span>
+        <h3>PGA-Tier Check &amp; Drainage</h3>
+        <p>Because of this rock-solid crushed granite foundation, heavy coastal stormwater drains instantly through the turf matrix. The green stays perfectly firm and ready to grab a checking chip shot from the fringe mere moments after a tropical cloudburst.</p>
       </div>
     </section>
 
   </div>
 
   <div class="cta-section">
-    <h2>Ready to End the Lawn Cycle for Good?</h2>
-    <p style="color:var(--navy);max-width:480px;margin:0 auto;font-size:1rem;">No pressure. No pitch. Just an honest conversation about what this would cost — and what it would save — on your specific property.</p>
+    <h2>Ready to Design Your Custom Green?</h2>
+    <p>We'll walk you through custom break design, hole placement, fringe options, and exact pricing — no pressure, no guesswork.</p>
     <div class="cta-buttons">
-      <a href="/contact.html" class="btn-primary">Secure Your Free Estimate Now</a>
-      <a href="/why-us.html" class="btn-secondary">See Our Local Work &amp; Reviews &rarr;</a>
+      <a href="/contact.html" class="btn-primary">Book A Design Consultation</a>
+      <a href="/why-us.html" class="btn-secondary">See Our Gallery &amp; Greens &rarr;</a>
     </div>
   </div>
 

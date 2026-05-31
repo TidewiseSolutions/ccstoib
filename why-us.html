@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- SEO -->
-  <title>Premium Residential Turf & Mud-Free Dog Runs | Coastal Carolina Synthetic Turf</title>
-  <meta name="description" content="Say goodbye to muddy paws, sandy floors, and patchy grass. Discover why our engineered, high-drainage residential turf is the ultimate coastal property investment." />
+  <title>Why Choose Us | Coastal Carolina Synthetic Turf</title>
+  <meta name="description" content="See why homeowners along the Carolina coast trust us for premium, factory-certified synthetic turf installations. Read our reviews and view our gallery." />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://www.coastalcarolinasyntheticturf.com/lawn-and-pet.html" />
+  <link rel="canonical" href="https://www.coastalcarolinasyntheticturf.com/why-us.html" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Luxury Residential Turf & Pet Systems" />
-  <meta property="og:description" content="Engineered to handle coastal downpours and heavy pet traffic. See the subsurface engineering that makes our lawns flawless." />
-  <meta property="og:url" content="https://www.coastalcarolinasyntheticturf.com/lawn-and-pet.html" />
+  <meta property="og:title" content="The Coastal Carolina Craftsmanship Difference" />
+  <meta property="og:description" content="Real local transformations, five-star reviews, and uncompromising subsurface engineering. See why we are the coast's premier choice." />
+  <meta property="og:url" content="https://www.coastalcarolinasyntheticturf.com/why-us.html" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -52,7 +52,7 @@
     .site-header {
       background: linear-gradient(180deg, var(--ocean-deep) 0%, var(--ocean) 100%);
       color: var(--white);
-      padding: 0 1.5rem;
+      padding: 0;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -188,14 +188,11 @@
       max-width: 540px;
     }
 
-    /* ── Stripe divider ── */
-    .stripe-divider { }
-
     /* ── Shared body layout ── */
     .content-wrap {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 2.5rem;
     }
 
     .section-label {
@@ -222,205 +219,164 @@
     .body-text {
       color: #3a5060;
       font-size: 1rem;
-      margin-bottom: 0.9rem;
-      max-width: 680px;
+      line-height: 1.75;
+      max-width: 780px;
     }
 
-    /* ── Staging image ── */
-    .staging-image {
-      background: var(--white);
-      border: 1px solid rgba(14, 95, 122, 0.12);
-      border-radius: 14px;
-      height: 340px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 3rem 0;
-      box-shadow: 0 4px 18px rgba(13,43,62,0.07);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 600;
-      color: #9aafba;
-      letter-spacing: 0.06em;
-    }
-
-    /* ── Value proposition card ── */
-    .value-card {
+    /* ── Core values card ── */
+    .values-card {
       background: var(--white);
       border-radius: 14px;
       padding: 2.5rem;
-      border-left: 5px solid var(--grass);
+      border-left: 5px solid var(--ocean-deep);
       box-shadow: 0 4px 24px rgba(13,43,62,0.08);
-      margin-bottom: 3.5rem;
+      margin: 3rem 0 3.5rem;
     }
 
-    .value-card .section-h2 { margin-bottom: 0.75rem; }
-
-    .roi-quote {
-      margin-top: 1.5rem;
-      padding: 1.25rem 1.5rem;
-      background: #f0f8f2;
-      border-left: 4px solid var(--grass);
-      border-radius: 0 8px 8px 0;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 0.9rem;
-      color: var(--grass-dark);
-      font-style: italic;
-      line-height: 1.6;
-    }
-
-    /* ── Engineering section ── */
-    .engineering-section {
-      padding: 0 0 3.5rem;
-    }
+    /* ── Reviews section ── */
+    .reviews-section { padding-bottom: 3.5rem; }
 
     .section-header-center {
       text-align: center;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
     }
 
-    .section-header-center .section-h2 { margin-bottom: 0.5rem; }
+    .section-header-center .section-h2 { margin-bottom: 0.4rem; }
 
     .section-subtitle {
       color: #3a5060;
       font-size: 0.95rem;
     }
 
-    /* ── Process steps grid ── */
-    .process-grid {
+    .reviews-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
-      margin-bottom: 2rem;
     }
 
-    .process-card {
+    .review-card {
       background: var(--white);
       border-radius: 12px;
-      padding: 1.75rem 1.5rem;
+      padding: 1.75rem;
       border: 1px solid rgba(14, 95, 122, 0.1);
       box-shadow: 0 4px 16px rgba(13,43,62,0.06);
-      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .review-stars {
+      font-size: 1.1rem;
+      color: var(--sand-dark);
+      letter-spacing: 0.1em;
+    }
+
+    .review-text {
+      font-size: 0.88rem;
+      color: #3a5060;
+      line-height: 1.75;
+      font-style: italic;
+      flex: 1;
+    }
+
+    .review-author {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      color: var(--ocean-deep);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Gallery section ── */
+    .gallery-section { padding-bottom: 3.5rem; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .gallery-card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(13,43,62,0.07);
+      border: 1px solid rgba(14, 95, 122, 0.1);
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .process-card:hover {
+    .gallery-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 10px 28px rgba(13,43,62,0.1);
+      box-shadow: 0 10px 28px rgba(13,43,62,0.12);
     }
 
-    .step-badge {
-      display: inline-flex;
+    .gallery-slot {
+      height: 200px;
+      background: var(--foam);
+      display: flex;
       align-items: center;
       justify-content: center;
-      width: 2.4rem;
-      height: 2.4rem;
-      background: var(--ocean-deep);
-      color: var(--white);
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 0.75rem;
-      border-radius: 50%;
-      margin-bottom: 1rem;
+      font-size: 0.55rem;
+      font-weight: 600;
+      color: #9aafba;
+      text-align: center;
+      padding: 1rem;
+      border-bottom: 1px solid rgba(14, 95, 122, 0.08);
     }
 
-    .process-card h3 {
+    .gallery-caption {
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 0.72rem;
       color: var(--ocean-deep);
-      margin-bottom: 0.6rem;
+      padding: 0.85rem 1rem;
+      letter-spacing: 0.03em;
     }
 
-    .process-card p {
-      font-size: 0.88rem;
-      color: #4a6070;
-      line-height: 1.65;
-    }
-
-    /* ── Performance highlight box ── */
-    .performance-box {
+    /* ── Final conversion gate ── */
+    .conversion-gate {
       background: var(--navy);
-      color: var(--white);
-      border-radius: 14px;
-      padding: 2rem 2.5rem;
-      margin-bottom: 3.5rem;
+      padding: 4.5rem 2.5rem;
+      text-align: center;
     }
 
-    .perf-tag {
+    .conversion-gate h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--white);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .conversion-gate h2 em { font-style: normal; color: var(--sand); }
+
+    .conversion-gate p {
+      color: rgba(255,255,255,0.78);
+      font-size: 1rem;
+      max-width: 540px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+
+    .btn-gate {
       display: inline-block;
       background: var(--grass);
       color: var(--white);
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.25rem 0.75rem;
-      border-radius: 999px;
-      margin-bottom: 0.85rem;
-    }
-
-    .performance-box h3 {
-      font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-      color: var(--sand);
-      margin-bottom: 0.75rem;
-    }
-
-    .performance-box p {
-      font-size: 0.95rem;
-      color: rgba(255,255,255,0.82);
-      max-width: 760px;
-      line-height: 1.7;
-    }
-
-    /* ── CTA section ── */
-    .cta-section {
-      padding: 3.5rem 1.5rem;
-      text-align: center;
-      background: linear-gradient(180deg, var(--sand) 0%, #f5ecd8 100%);
-      border-top: 4px solid var(--grass);
-    }
-
-    .cta-section h2 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      color: var(--ocean-deep);
-      margin-bottom: 0.75rem;
-    }
-
-    .cta-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-    }
-
-    .btn-secondary {
-      display: inline-block;
-      background: transparent;
-      color: var(--ocean-deep);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 1rem;
       letter-spacing: 0.06em;
-      padding: 0.75rem 1.75rem;
-      border-radius: 6px;
-      border: 2px solid var(--ocean-deep);
+      text-transform: uppercase;
+      padding: 1.1rem 2.75rem;
+      border-radius: 8px;
       text-decoration: none;
-      transition: background 0.2s, color 0.2s, transform 0.2s;
+      box-shadow: 0 6px 24px rgba(27, 94, 42, 0.45);
+      transition: background 0.2s, transform 0.2s;
     }
 
-    .btn-secondary:hover {
-      background: var(--ocean-deep);
-      color: var(--white);
-      transform: translateY(-2px);
-    }
+    .btn-gate:hover { background: var(--grass-dark); transform: translateY(-3px); }
 
     /* ── Footer ── */
     .site-footer {
@@ -429,6 +385,7 @@
       text-align: center;
       padding: 2rem 1.5rem;
       font-size: 0.85rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
     }
 
     .site-footer .grass-bar {
@@ -459,13 +416,12 @@
     /* ── Responsive ── */
     @media (max-width: 768px) {
       .nav-links { display: none; }
-      .hero-inner { flex-direction: column; text-align: center; padding-left: 1.5rem; gap: 1.5rem; }
+      .hero-inner { flex-direction: column; padding-left: 2rem; gap: 1.5rem; }
       .hero-logo { width: min(180px, 55vw); }
-      .process-grid { grid-template-columns: 1fr; }
-      .cta-buttons { flex-direction: column; align-items: center; }
-      .btn-primary, .btn-secondary { width: 100%; max-width: 340px; text-align: center; }
-      .value-card { padding: 1.5rem; }
-      .performance-box { padding: 1.5rem; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .values-card { padding: 1.5rem; }
+      .conversion-gate { padding: 3rem 1.5rem; }
     }
   </style>
 </head>
@@ -480,9 +436,9 @@
         </div>
       </a>
       <ul class="nav-links">
-        <li><a href="/lawn-and-pet.html" class="active">Lawn &amp; Pet Areas</a></li>
+        <li><a href="/lawn-and-pet.html">Lawn &amp; Pet Areas</a></li>
         <li><a href="/pga-greens.html">PGA Putting Greens</a></li>
-        <li><a href="/why-us.html">Why CCST</a></li>
+        <li><a href="/why-us.html" class="active">Why CCST</a></li>
         <li><a href="/contact.html" class="btn-primary">Get An Estimate</a></li>
       </ul>
     </div>
@@ -492,9 +448,9 @@
     <div class="hero-inner">
       <img class="hero-logo" src="/assets/CCSTlogo.png" alt="Coastal Carolina Synthetic Turf" />
       <div class="hero-text">
-        <p class="hero-badge">Track A &mdash; Residential Lawn &amp; Pet Areas</p>
-        <h1>The Mud-Free, Maintenance-Free<br><em>Luxury Lawn Experience</em></h1>
-        <p class="hero-lead">Tired of sandy paws tracking across your clean floors? Frustrated with yellow pet stains, patchy crabgrass, and standing water after a coastal downpour?</p>
+        <p class="hero-badge">The Coastal Standard</p>
+        <h1>Uncompromising Standards.<br><em>Undisputed Craftsmanship.</em></h1>
+        <p class="hero-lead">We don't cut corners, mask defects, or lay materials over unprepared soil. Discover why property owners across Brunswick and Horry counties choose us to design permanent, flawless assets for their homes.</p>
       </div>
     </div>
   </section>
@@ -505,62 +461,62 @@
 
   <div class="content-wrap">
 
-    <div class="staging-image">
-      [ STAGING: High-End Photo of Pristine, Mud-Free Backyard Lawn &amp; Happy Pets ]
-    </div>
-
-    <div class="value-card">
-      <p class="section-label">A Permanent Property Upgrade</p>
-      <h2 class="section-h2">Stop Renting Your Lawn.<br><em>Own It.</em></h2>
+    <div class="values-card">
+      <p class="section-label">Our Foundation</p>
+      <h2 class="section-h2">Built From the <em>Bedrock Up</em></h2>
       <p class="body-text">
-        A premium synthetic lawn installation is a true structural investment in your home. We don't handle cheap, unrated warehouse plastics that melt in the summer heat or fray over time. Our advanced systems are engineered to permanently freeze your landscaping expenses while adding high-end curb appeal that never decays.
+        The lifespan and beauty of synthetic turf are decided entirely by the structural integrity beneath the surface. Our signature multi-layer engineering process — removing 3 inches of topsoil, deploying commercial-grade geotextile fabric, and mechanically compacting a solid base of premium granite fines — guarantees a flawless, stable foundation. We build outdoor spaces to withstand coastal storms, scorching summers, and heavy daily traffic without shifting, sagging, or fading.
       </p>
-      <blockquote class="roi-quote">
-        "By replacing the endless cycle of commercial mowing crews, seasonal aeration, sod repairs, and heavy fertilizers, a custom coastal transformation completely pays for itself within just 4 to 5 years."
-      </blockquote>
     </div>
 
-    <section class="engineering-section">
+    <section class="reviews-section">
       <div class="section-header-center">
-        <p class="section-label">The Science Behind Invisible Craftsmanship</p>
-        <h2 class="section-h2">Why a CCST Installation<br><em>Behaves Differently</em></h2>
-        <p class="section-subtitle">Generic artificial grass sits on top of your problems. We engineer them out from underneath.</p>
+        <p class="section-label">Verified Reviews</p>
+        <h2 class="section-h2">What Your Neighbors Are Saying</h2>
+        <p class="section-subtitle">Real feedback from local coastal property owners.</p>
       </div>
-
-      <div class="process-grid">
-        <div class="process-card">
-          <div class="step-badge">01</div>
-          <h3>3-Inch Deep Excavation</h3>
-          <p>We completely strip away 3 full inches of unpredictable, sandy topsoil, surface weeds, and unstable root systems — creating a deeply recessed, precision-leveled blank slate.</p>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"The absolute best investment we've ever made in our property. The constant mud from coastal downpours used to ruin our floors, but now the dogs run all day and track in zero dirt. Professional, neat, and exceptional communication from start to finish."</p>
+          <p class="review-author">— Verified Homeowner, St. James</p>
         </div>
-        <div class="process-card">
-          <div class="step-badge">02</div>
-          <h3>Heavy Geotextile Fabric</h3>
-          <p>An industrial-strength, porous geotextile barrier locks out subterranean weeds and burrowing pests permanently, while allowing liquid to pass through effortlessly.</p>
-        </div>
-        <div class="process-card">
-          <div class="step-badge">03</div>
-          <h3>Compacted Granite Fines</h3>
-          <p>Premium crushed granite fines, dynamically compacted into a rock-solid, ultra-porous architectural sub-base that will never sag or shift — even after a direct hurricane hit.</p>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"As an avid golfer, I was highly particular about surface speed and break execution. Their certification with STI is the real deal. The ball rolls truer than my home country club green, and it completely handles heavy rain without holding any standing water. Worth every penny."</p>
+          <p class="review-author">— Verified Green Owner, Leland</p>
         </div>
       </div>
+    </section>
 
-      <div class="performance-box">
-        <span class="perf-tag">Engineered for Coastal Storms</span>
-        <h3>Ultra-Rapid Subsurface Drainage</h3>
-        <p>Because of this intensive multi-layer sub-base foundation, stormwater and heavy pet waste drain instantly through the turf matrix. The surface stays fresh, odor-free, and bone-dry just minutes after a heavy downpour.</p>
+    <section class="gallery-section">
+      <div class="section-header-center">
+        <p class="section-label">Our Work</p>
+        <h2 class="section-h2">Recent Coastal Transformations</h2>
+        <p class="section-subtitle">Flawless architectural executions directly from the field.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-card">
+          <div class="gallery-slot">[ STAGING: Before &amp; After Premium Residential Front Lawn Overhaul ]</div>
+          <p class="gallery-caption">Luxury Full-Yard Transformation</p>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-slot">[ STAGING: Custom Contoured Backyard Putting Green with Multiple Pins ]</div>
+          <p class="gallery-caption">PGA-Tier Short Game Facility</p>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-slot">[ STAGING: Clean, High-Drainage Side Yard Dog Run Installation ]</div>
+          <p class="gallery-caption">Mud-Free Pet Area &amp; Accent Lawn</p>
+        </div>
       </div>
     </section>
 
   </div>
 
-  <div class="cta-section">
-    <h2>Ready to End the Lawn Cycle for Good?</h2>
-    <p style="color:var(--navy);max-width:480px;margin:0 auto;font-size:1rem;">No pressure. No pitch. Just an honest conversation about what this would cost — and what it would save — on your specific property.</p>
-    <div class="cta-buttons">
-      <a href="/contact.html" class="btn-primary">Secure Your Free Estimate Now</a>
-      <a href="/why-us.html" class="btn-secondary">See Our Local Work &amp; Reviews &rarr;</a>
-    </div>
+  <div class="conversion-gate">
+    <h2>Ready to <em>Elevate Your Property?</em></h2>
+    <p>Don't waste another weekend battling sandy soil, chemical sprays, and yard chores. Secure a custom consultation and baseline design estimate tailored exactly to your property goals.</p>
+    <a href="/contact.html" class="btn-gate">Request Your Precision Estimate Now</a>
   </div>
 
   <footer class="site-footer">
