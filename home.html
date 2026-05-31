@@ -382,6 +382,19 @@
   </style>
 </head>
 <body>
+  <script>
+    (async () => {
+      try {
+        const cfg  = await fetch('/.netlify/functions/config').then(r => r.json());
+        const res  = await fetch(
+          `${cfg.supabaseUrl}/rest/v1/tidewise_clients?client_id=eq.ccst&select=site_live&limit=1`,
+          { headers: { apikey: cfg.supabaseKey, Authorization: `Bearer ${cfg.supabaseKey}` } }
+        );
+        const rows = await res.json();
+        if (rows?.[0]?.site_live === false) window.location.replace('/');
+      } catch (_) {}
+    })();
+  </script>
 
   <header class="site-header">
     <div class="header-inner">
