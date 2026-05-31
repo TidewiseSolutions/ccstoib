@@ -329,8 +329,10 @@
 
     .status-new      { background: #e8f5eb; color: var(--grass-dark); }
     .status-disputed { background: #fff3cd; color: #856404; }
-    .status-approved { background: #cfe2ff; color: #0a58ca; }
-    .status-denied   { background: #f8d7da; color: #842029; }
+    .status-valid    { background: #f8d7da; color: #842029; }
+    .status-approved { background: #f8d7da; color: #842029; }
+    .status-invalid  { background: #d1e7dd; color: #0f5132; }
+    .status-denied   { background: #d1e7dd; color: #0f5132; }
 
     .dispute-btn {
       background: transparent;
@@ -659,6 +661,21 @@
       tbody.innerHTML = leads.map(lead => {
         const date = new Date(lead.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         const canDispute = lead.status === 'new';
+        const statusLabels = {
+          new:      'New',
+          disputed: 'Under Review',
+          valid:    'Dispute Rejected',
+          approved: 'Dispute Rejected',
+          invalid:  'Dispute Approved',
+          denied:   'Dispute Approved',
+        };
+        const statusClasses = {
+          new: 'new', disputed: 'disputed',
+          valid: 'valid', approved: 'approved',
+          invalid: 'invalid', denied: 'denied',
+        };
+        const displayLabel = statusLabels[lead.status] || lead.status;
+        const displayClass = statusClasses[lead.status] || lead.status;
         return `
           <tr>
             <td>${date}</td>
@@ -667,7 +684,7 @@
             <td>${esc(lead.email)}</td>
             <td>${esc(lead.project_type || '—')}</td>
             <td>${esc(lead.square_footage || '—')}</td>
-            <td><span class="status-badge status-${lead.status}">${lead.status}</span></td>
+            <td><span class="status-badge status-${displayClass}">${displayLabel}</span></td>
             <td>
               <button class="dispute-btn" onclick="openDispute('${lead.id}')" ${!canDispute ? 'disabled' : ''}>
                 ${canDispute ? 'Dispute' : '—'}
