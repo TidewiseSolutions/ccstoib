@@ -359,6 +359,11 @@
 
       <!-- Form -->
       <form id="leadForm" novalidate>
+        <!-- honeypot — bots fill this, humans don't see it -->
+        <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+          <label for="website">Website</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
         <div class="form-row">
           <div class="form-group">
             <label for="name">Full Name</label>
@@ -460,6 +465,7 @@
         message:        document.getElementById('message').value.trim(),
         traffic_source: document.getElementById('traffic_source').value,
         cfToken:        document.querySelector('[name="cf-turnstile-response"]')?.value || '',
+        website:        document.getElementById('website').value,
       };
 
       if (!data.name || !data.email) {

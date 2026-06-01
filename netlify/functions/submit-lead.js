@@ -10,7 +10,11 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ error: 'Invalid request' }) };
   }
 
-  const { name, email, phone, project_type, property_type, square_footage, message, traffic_source, cfToken } = body;
+  const { name, email, phone, project_type, property_type, square_footage, message, traffic_source, cfToken, website } = body;
+
+  if (website) {
+    return { statusCode: 200, body: JSON.stringify({ success: true }) };
+  }
 
   if (!name || !email) {
     return { statusCode: 400, body: JSON.stringify({ error: 'Name and email are required' }) };
