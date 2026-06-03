@@ -1,2 +1,5 @@
 assets/unusedlogos/
 Documents/
+
+# Raw, full-size source photos — we ship the optimized -small/-medium/-large.webp + -fallback.jpg variants
+assets/localjobs/rawimages/

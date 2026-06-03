@@ -413,13 +413,122 @@
 
     .footer-links a:hover { color: var(--sand); }
 
+    /* ── Work carousel ── */
+    .carousel { position: relative; outline: none; }
+    .carousel:focus-visible { box-shadow: 0 0 0 3px var(--sky); border-radius: 16px; }
+
+    .carousel-viewport {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      border-radius: 14px;
+      background: var(--navy);
+      box-shadow: 0 8px 30px rgba(13,43,62,0.18);
+      border: 1px solid rgba(14, 95, 122, 0.12);
+    }
+
+    .carousel-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+
+    .carousel-slide {
+      position: relative;
+      min-width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    /* Blurred fill so mixed portrait/landscape photos never crop or leave dead bars */
+    .carousel-slide::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: var(--thumb);
+      background-size: cover;
+      background-position: center;
+      filter: blur(26px) brightness(0.55);
+      transform: scale(1.18);
+      z-index: 0;
+    }
+
+    .carousel-slide picture { position: relative; z-index: 1; display: block; width: 100%; height: 100%; }
+    .carousel-slide img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+    .carousel-caption {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      z-index: 2;
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.03em;
+      color: var(--white);
+      text-align: center;
+      padding: 2rem 1rem 0.85rem;
+      background: linear-gradient(to top, rgba(13,43,62,0.85), rgba(13,43,62,0));
+      pointer-events: none;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 3;
+      width: 44px; height: 44px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.88);
+      color: var(--ocean-deep);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.7rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 12px rgba(13,43,62,0.3);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .carousel-btn:hover { background: var(--white); transform: translateY(-50%) scale(1.08); }
+    .carousel-btn.prev { left: 12px; }
+    .carousel-btn.next { right: 12px; }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 1.1rem;
+    }
+    .carousel-dots button {
+      width: 10px; height: 10px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: rgba(14,95,122,0.25);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .carousel-dots button:hover { background: rgba(14,95,122,0.5); }
+    .carousel-dots button.active { background: var(--ocean); transform: scale(1.3); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .carousel-track { transition: none; }
+    }
+
     /* ── Responsive ── */
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .hero-inner { flex-direction: column; padding-left: 2rem; gap: 1.5rem; }
       .hero-logo { width: min(180px, 55vw); }
       .reviews-grid { grid-template-columns: 1fr; }
-      .gallery-grid { grid-template-columns: 1fr; }
+      .carousel-viewport { aspect-ratio: 4 / 3; }
+      .carousel-btn { width: 38px; height: 38px; font-size: 1.4rem; }
       .values-card { padding: 1.5rem; }
       .conversion-gate { padding: 3rem 1.5rem; }
     }
@@ -494,19 +603,113 @@
         <h2 class="section-h2">Recent Coastal Transformations</h2>
         <p class="section-subtitle">Flawless architectural executions directly from the field.</p>
       </div>
-      <div class="gallery-grid">
-        <div class="gallery-card">
-          <div class="gallery-slot">[Before &amp; After Premium Residential Front Lawn Overhaul ]</div>
-          <p class="gallery-caption">Luxury Full-Yard Transformation</p>
+      <div class="carousel" id="workCarousel" tabindex="0" aria-roledescription="carousel" aria-label="Recent coastal transformations">
+        <div class="carousel-viewport">
+          <div class="carousel-track">
+          <figure class="carousel-slide" style="--thumb:url('/assets/localjobs/localjob1-small.webp')">
+            <picture>
+              <source media="(max-width:480px)" type="image/webp" srcset="/assets/localjobs/localjob1-small.webp" />
+              <source media="(max-width:1024px)" type="image/webp" srcset="/assets/localjobs/localjob1-medium.webp" />
+              <source type="image/webp" srcset="/assets/localjobs/localjob1-large.webp" />
+              <img src="/assets/localjobs/localjob1-fallback.jpg" alt="Waterfront synthetic turf putting green with a natural stone border overlooking the Intracoastal Waterway in coastal North Carolina" loading="eager" fetchpriority="high" decoding="async" />
+            </picture>
+            <figcaption class="carousel-caption">Waterfront Putting Green</figcaption>
+          </figure>
+          <figure class="carousel-slide" style="--thumb:url('/assets/localjobs/localjob10-small.webp')">
+            <picture>
+              <source media="(max-width:480px)" type="image/webp" srcset="/assets/localjobs/localjob10-small.webp" />
+              <source media="(max-width:1024px)" type="image/webp" srcset="/assets/localjobs/localjob10-medium.webp" />
+              <source type="image/webp" srcset="/assets/localjobs/localjob10-large.webp" />
+              <img src="/assets/localjobs/localjob10-fallback.jpg" alt="Backyard synthetic turf putting green and paver patio with an American flag, overlooking a tidal marsh at a Brunswick County home" loading="lazy" fetchpriority="low" decoding="async" />
+            </picture>
+            <figcaption class="carousel-caption">Marsh-View Green & Patio</figcaption>
+          </figure>
+          <figure class="carousel-slide" style="--thumb:url('/assets/localjobs/localjob2-small.webp')">
+            <picture>
+              <source media="(max-width:480px)" type="image/webp" srcset="/assets/localjobs/localjob2-small.webp" />
+              <source media="(max-width:1024px)" type="image/webp" srcset="/assets/localjobs/localjob2-medium.webp" />
+              <source type="image/webp" srcset="/assets/localjobs/localjob2-large.webp" />
+              <img src="/assets/localjobs/localjob2-fallback.jpg" alt="Oceanfront backyard with a manicured synthetic turf lawn beside a pool, steps from the beach dunes" loading="lazy" fetchpriority="low" decoding="async" />
+            </picture>
+            <figcaption class="carousel-caption">Oceanfront Pool Lawn</figcaption>
+          </figure>
+          <figure class="carousel-slide" style="--thumb:url('/assets/localjobs/localjob6-small.webp')">
+            <picture>
+              <source media="(max-width:480px)" type="image/webp" srcset="/assets/localjobs/localjob6-small.webp" />
+              <source media="(max-width:1024px)" type="image/webp" srcset="/assets/localjobs/localjob6-medium.webp" />
+              <source type="image/webp" srcset="/assets/localjobs/localjob6-large.webp" />
+              <img src="/assets/localjobs/localjob6-fallback.jpg" alt="Aerial view of a modern beachfront home with synthetic turf surrounding a rectangular pool and spa" loading="lazy" fetchpriority="low" decoding="async" />
+            </picture>
+            <figcaption class="carousel-caption">Modern Beachfront Pool Yard</figcaption>
+          </figure>
+          <figure class="carousel-slide" style="--thumb:url('/assets/localjobs/localjob3a-small.webp')">
+            <picture>
+              <source media="(max-width:480px)" type="image/webp" srcset="/assets/localjobs/localjob3a-small.webp" />
+              <source media="(max-width:1024px)" type="image/webp" srcset="/assets/localjobs/localjob3a-medium.webp" />
+              <source type="image/webp" srcset="/assets/localjobs/localjob3a-large.webp" />
+              <img src="/assets/localjobs/localjob3a-fallback.jpg" alt="Aerial view of a luxury coastal home with a lush synthetic turf front lawn and manicured landscape beds" loading="lazy" fetchpriority="low" decoding="async" />
+            </picture>
+            <figcaption class="carousel-caption">Luxury Front-Yard Transformation</figcaption>
+          </figure>
+          <figure class="carousel-slide" style="--thumb:url('/assets/localjobs/localjob3b-small.webp')">
+            <picture>
+              <source media="(max-width:480px)" type="image/webp" srcset="/assets/localjobs/localjob3b-small.webp" />
+              <source media="(max-width:1024px)" type="image/webp" srcset="/assets/localjobs/localjob3b-medium.webp" />
+              <source type="image/webp" srcset="/assets/localjobs/localjob3b-large.webp" />
+              <img src="/assets/localjobs/localjob3b-fallback.jpg" alt="Drone view of a coastal estate front yard transformed with premium synthetic turf and curved planting beds" loading="lazy" fetchpriority="low" decoding="async" />
+            </picture>
+            <figcaption class="carousel-caption">Estate Curb Appeal</figcaption>
+          </figure>
+          <figure class="carousel-slide" style="--thumb:url('/assets/localjobs/localjob5-small.webp')">
+            <picture>
+              <source media="(max-width:480px)" type="image/webp" srcset="/assets/localjobs/localjob5-small.webp" />
+              <source media="(max-width:1024px)" type="image/webp" srcset="/assets/localjobs/localjob5-medium.webp" />
+              <source type="image/webp" srcset="/assets/localjobs/localjob5-large.webp" />
+              <img src="/assets/localjobs/localjob5-fallback.jpg" alt="Backyard synthetic turf putting green framed by a white fence and coastal palms" loading="lazy" fetchpriority="low" decoding="async" />
+            </picture>
+            <figcaption class="carousel-caption">Fenced Backyard Green</figcaption>
+          </figure>
+          <figure class="carousel-slide" style="--thumb:url('/assets/localjobs/localjob4-small.webp')">
+            <picture>
+              <source media="(max-width:480px)" type="image/webp" srcset="/assets/localjobs/localjob4-small.webp" />
+              <source media="(max-width:1024px)" type="image/webp" srcset="/assets/localjobs/localjob4-medium.webp" />
+              <source type="image/webp" srcset="/assets/localjobs/localjob4-large.webp" />
+              <img src="/assets/localjobs/localjob4-fallback.jpg" alt="Multi-hole synthetic putting green installed in the shaded area beneath a raised coastal home" loading="lazy" fetchpriority="low" decoding="async" />
+            </picture>
+            <figcaption class="carousel-caption">Under-Home Practice Green</figcaption>
+          </figure>
+          <figure class="carousel-slide" style="--thumb:url('/assets/localjobs/localjob8-small.webp')">
+            <picture>
+              <source media="(max-width:480px)" type="image/webp" srcset="/assets/localjobs/localjob8-small.webp" />
+              <source media="(max-width:1024px)" type="image/webp" srcset="/assets/localjobs/localjob8-medium.webp" />
+              <source type="image/webp" srcset="/assets/localjobs/localjob8-large.webp" />
+              <img src="/assets/localjobs/localjob8-fallback.jpg" alt="Private backyard putting green with synthetic turf and golf clubs ready for practice under a clear blue sky" loading="lazy" fetchpriority="low" decoding="async" />
+            </picture>
+            <figcaption class="carousel-caption">Private Backyard Green</figcaption>
+          </figure>
+          <figure class="carousel-slide" style="--thumb:url('/assets/localjobs/localjob9-small.webp')">
+            <picture>
+              <source media="(max-width:480px)" type="image/webp" srcset="/assets/localjobs/localjob9-small.webp" />
+              <source media="(max-width:1024px)" type="image/webp" srcset="/assets/localjobs/localjob9-medium.webp" />
+              <source type="image/webp" srcset="/assets/localjobs/localjob9-large.webp" />
+              <img src="/assets/localjobs/localjob9-fallback.jpg" alt="Narrow side yard transformed into a synthetic turf putting green beside a coastal home" loading="lazy" fetchpriority="low" decoding="async" />
+            </picture>
+            <figcaption class="carousel-caption">Side-Yard Putting Green</figcaption>
+          </figure>
+          <figure class="carousel-slide" style="--thumb:url('/assets/localjobs/localjob7-small.webp')">
+            <picture>
+              <source media="(max-width:480px)" type="image/webp" srcset="/assets/localjobs/localjob7-small.webp" />
+              <source media="(max-width:1024px)" type="image/webp" srcset="/assets/localjobs/localjob7-medium.webp" />
+              <source type="image/webp" srcset="/assets/localjobs/localjob7-large.webp" />
+              <img src="/assets/localjobs/localjob7-fallback.jpg" alt="Coastal home curb appeal featuring a synthetic turf accent lawn, rope-and-post fencing, and white-rock landscaping" loading="lazy" fetchpriority="low" decoding="async" />
+            </picture>
+            <figcaption class="carousel-caption">Coastal Curb Appeal</figcaption>
+          </figure>
+          </div>
+          <button class="carousel-btn prev" type="button" aria-label="Previous photo">&#8249;</button>
+          <button class="carousel-btn next" type="button" aria-label="Next photo">&#8250;</button>
         </div>
-        <div class="gallery-card">
-          <div class="gallery-slot">[Custom Contoured Backyard Putting Green with Multiple Pins ]</div>
-          <p class="gallery-caption">PGA-Tier Short Game Facility</p>
-        </div>
-        <div class="gallery-card">
-          <div class="gallery-slot">[Clean, High-Drainage Side Yard Dog Run Installation ]</div>
-          <p class="gallery-caption">Mud-Free Pet Area &amp; Accent Lawn</p>
-        </div>
+        <div class="carousel-dots" aria-label="Choose photo"></div>
       </div>
     </section>
 
@@ -531,6 +734,52 @@
       &copy; 2026 Coastal Carolina Synthetic Turf. All Rights Reserved.
     </p>
   </footer>
+
+  <script>
+    (function () {
+      var carousel = document.getElementById('workCarousel');
+      if (!carousel) return;
+      var track = carousel.querySelector('.carousel-track');
+      var viewport = carousel.querySelector('.carousel-viewport');
+      var slides = Array.prototype.slice.call(track.children);
+      var dotsWrap = carousel.querySelector('.carousel-dots');
+      var index = 0;
+
+      slides.forEach(function (slide, i) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.setAttribute('aria-label', 'Go to photo ' + (i + 1));
+        dot.addEventListener('click', function () { go(i); });
+        dotsWrap.appendChild(dot);
+      });
+      var dots = Array.prototype.slice.call(dotsWrap.children);
+
+      function go(n) {
+        index = (n + slides.length) % slides.length;
+        track.style.transform = 'translateX(' + (-index * 100) + '%)';
+        dots.forEach(function (d, i) { d.classList.toggle('active', i === index); });
+      }
+
+      carousel.querySelector('.prev').addEventListener('click', function () { go(index - 1); });
+      carousel.querySelector('.next').addEventListener('click', function () { go(index + 1); });
+
+      carousel.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') { go(index - 1); }
+        else if (e.key === 'ArrowRight') { go(index + 1); }
+      });
+
+      var startX = null;
+      viewport.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
+      viewport.addEventListener('touchend', function (e) {
+        if (startX === null) return;
+        var dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) { go(dx < 0 ? index + 1 : index - 1); }
+        startX = null;
+      });
+
+      go(0);
+    })();
+  </script>
 
 </body>
 </html>
