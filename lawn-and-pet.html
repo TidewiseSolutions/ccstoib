@@ -226,22 +226,38 @@
       max-width: 680px;
     }
 
-    /* ── Staging image ── */
+    /* ── Staging image / Slideshow ── */
     .staging-image {
       background: var(--white);
       border: 1px solid rgba(14, 95, 122, 0.12);
       border-radius: 14px;
       height: 340px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: relative;
+      overflow: hidden;
       margin: 3rem 0;
       box-shadow: 0 4px 18px rgba(13,43,62,0.07);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 600;
-      color: #9aafba;
-      letter-spacing: 0.06em;
+    }
+    .staging-image .slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: 0;
+      animation: slide-fade 30s linear infinite;
+    }
+    .staging-image .slide picture { display: block; width: 100%; height: 100%; }
+    .staging-image .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .staging-image .slide:nth-child(1) { animation-delay:  -0.5s; }
+    .staging-image .slide:nth-child(2) { animation-delay:   4.5s; }
+    .staging-image .slide:nth-child(3) { animation-delay:   9.5s; }
+    .staging-image .slide:nth-child(4) { animation-delay:  14.5s; }
+    .staging-image .slide:nth-child(5) { animation-delay:  19.5s; }
+    .staging-image .slide:nth-child(6) { animation-delay:  24.5s; }
+    @keyframes slide-fade {
+      0%      { opacity: 0; }
+      1.67%   { opacity: 1; }
+      15%     { opacity: 1; }
+      16.67%  { opacity: 0; }
+      100%    { opacity: 0; }
     }
 
     /* ── Value proposition card ── */
@@ -600,8 +616,43 @@
 
   <div class="content-wrap">
 
-    <div class="staging-image" style="padding:0;overflow:hidden;">
-      <img src="/assets/backyard.png" alt="Premium synthetic turf backyard installation" style="width:100%;height:100%;object-fit:cover;display:block;" />
+    <div class="staging-image">
+      <div class="slide">
+        <picture>
+          <source srcset="/assets/backyardturf.webp" type="image/webp">
+          <img src="/assets/backyardturf.jpg" alt="Stunning synthetic turf backyard with outdoor kitchen, children's playground, and evening string lights">
+        </picture>
+      </div>
+      <div class="slide">
+        <picture>
+          <source srcset="/assets/badmintonturf.webp" type="image/webp">
+          <img src="/assets/badmintonturf.jpg" alt="Senior couple playing badminton on a pristine synthetic turf lawn">
+        </picture>
+      </div>
+      <div class="slide">
+        <picture>
+          <source srcset="/assets/doggieturf.webp" type="image/webp">
+          <img src="/assets/doggieturf.png" alt="Black French bulldog lounging contentedly on clean, pet-safe synthetic turf">
+        </picture>
+      </div>
+      <div class="slide">
+        <picture>
+          <source srcset="/assets/picniconturf.webp" type="image/webp">
+          <img src="/assets/picniconturf.jpg" alt="Happy family enjoying a backyard picnic together on lush synthetic turf">
+        </picture>
+      </div>
+      <div class="slide">
+        <picture>
+          <source srcset="/assets/lazydog.webp" type="image/webp">
+          <img src="/assets/lazydog.jpg" alt="Golden Cocker Spaniel resting peacefully on soft synthetic turf">
+        </picture>
+      </div>
+      <div class="slide">
+        <picture>
+          <source srcset="/assets/dogandgirl.webp" type="image/webp">
+          <img src="/assets/dogandgirl.jpg" alt="Young woman and her golden retriever enjoying playtime on clean synthetic turf">
+        </picture>
+      </div>
     </div>
 
     <div class="value-card">
