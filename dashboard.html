@@ -820,7 +820,7 @@
 
     // ── Dashboard ─────────────────────────────────────────────────────────
     function showDashboard(user) {
-      isOwner = user.email === OWNER_EMAIL;
+      isOwner = (user.email || '').toLowerCase() === OWNER_EMAIL.toLowerCase();
       document.getElementById('loginWrap').style.display  = 'none';
       document.getElementById('dashWrap').style.display   = 'block';
       document.getElementById('userEmail').textContent    = user.email;
