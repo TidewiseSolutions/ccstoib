@@ -991,24 +991,32 @@
       // Client-facing labels
       const map = {
         new:              'New',
-        valid:            'Approved',
+        valid:            'Valid Lead',
         disputed:         'Under Review',
-        dispute_accepted: 'Dispute Accepted',
+        dispute_accepted: 'Dispute Approved',
         dispute_denied:   'Dispute Denied',
       };
       return map[status] || status;
     }
 
     function buildStatusCell(status, ownerView, badgeClass, badgeLabel) {
-      if (ownerView && status === 'dispute_accepted') {
+      if (status === 'dispute_accepted') {
+        // Owner: amber context + red outcome | Client: green (good news for them) + red outcome
+        const contextPill = ownerView
+          ? `<span class="status-badge badge-disputed">Dispute Approved</span>`
+          : `<span class="status-badge badge-valid">Dispute Approved</span>`;
         return `<span style="display:inline-flex;gap:4px;flex-wrap:wrap;align-items:center;">
-          <span class="status-badge badge-disputed">Dispute Approved</span>
+          ${contextPill}
           <span class="status-badge badge-invalid">Invalid Lead</span>
         </span>`;
       }
-      if (ownerView && status === 'dispute_denied') {
+      if (status === 'dispute_denied') {
+        // Owner: amber context + green outcome | Client: red (bad news for them) + green outcome
+        const contextPill = ownerView
+          ? `<span class="status-badge badge-disputed">Dispute Denied</span>`
+          : `<span class="status-badge badge-dispute_denied">Dispute Denied</span>`;
         return `<span style="display:inline-flex;gap:4px;flex-wrap:wrap;align-items:center;">
-          <span class="status-badge badge-disputed">Dispute Denied</span>
+          ${contextPill}
           <span class="status-badge badge-valid">Valid Lead</span>
         </span>`;
       }
