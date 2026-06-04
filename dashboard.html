@@ -942,10 +942,14 @@
       }
 
       tbody.innerHTML = leads.map(lead => {
-        const date        = new Date(lead.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        const badgeClass  = statusBadgeClass(lead.status);
-        const badgeLabel  = statusLabel(lead.status, isOwner);
-        const actionCell  = isOwner ? ownerAction(lead) : clientAction(lead);
+        const date       = new Date(lead.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const badgeClass = statusBadgeClass(lead.status);
+        const badgeLabel = statusLabel(lead.status, isOwner);
+        const actionCell = isOwner ? ownerAction(lead) : clientAction(lead);
+
+        const statusCell = (isOwner && lead.status === 'new')
+          ? `<button class="status-badge badge-new" onclick="approveLead('${lead.id}')" title="Click to validate" style="border:none;cursor:pointer;">${badgeLabel}</button>`
+          : `<span class="status-badge ${badgeClass}">${badgeLabel}</span>`;
 
         return `
           <tr>
@@ -955,7 +959,7 @@
             <td>${esc(lead.email)}</td>
             <td>${esc(lead.project_type || '—')}</td>
             <td>${esc(lead.square_footage || '—')}</td>
-            <td><span class="status-badge ${badgeClass}">${badgeLabel}</span></td>
+            <td>${statusCell}</td>
             <td>${actionCell}</td>
           </tr>`;
       }).join('');
