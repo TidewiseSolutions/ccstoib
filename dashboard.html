@@ -142,7 +142,7 @@
       text-align: center;
     }
 
-    /* ── Dashboard ── */
+    /* ── Dashboard shell ── */
     .dash-wrap { display: none; }
 
     .dash-header {
@@ -152,7 +152,7 @@
     }
 
     .dash-header-inner {
-      max-width: 1200px;
+      max-width: 1280px;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -185,6 +185,19 @@
 
     .user-email { color: rgba(255,255,255,0.7); }
 
+    .owner-badge {
+      background: rgba(232, 212, 168, 0.25);
+      border: 1px solid rgba(232, 212, 168, 0.5);
+      color: var(--sand);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
     .sign-out-btn {
       background: rgba(255,255,255,0.15);
       border: 1px solid rgba(255,255,255,0.25);
@@ -203,7 +216,7 @@
     .sign-out-btn:hover { background: rgba(255,255,255,0.25); }
 
     .dash-body {
-      max-width: 1200px;
+      max-width: 1280px;
       margin: 0 auto;
       padding: 2rem;
     }
@@ -219,38 +232,82 @@
     .dash-subtitle {
       font-size: 0.88rem;
       color: #6a8090;
-      margin-bottom: 2rem;
+      margin-bottom: 1.75rem;
     }
 
-    /* ── Stats row ── */
-    .stats-row {
-      display: flex;
-      gap: 1rem;
+    /* ── Stats layout ── */
+    .stats-layout {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1.25rem;
       margin-bottom: 2rem;
-      flex-wrap: wrap;
+      align-items: start;
+    }
+
+    .stats-monthly {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.75rem;
+    }
+
+    .stats-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      min-width: 140px;
+    }
+
+    .stats-section-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #9ab0bc;
+      margin-bottom: 0.25rem;
     }
 
     .stat-pill {
       background: var(--white);
       border-radius: 10px;
-      padding: 1rem 1.5rem;
+      padding: 1rem 1.25rem;
       box-shadow: 0 3px 12px rgba(13, 43, 62, 0.07);
       border: 1px solid rgba(14, 95, 122, 0.08);
+      border-top-width: 3px;
     }
 
     .stat-pill .num {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
       font-size: 1.75rem;
-      color: var(--grass);
       line-height: 1;
     }
 
     .stat-pill .lbl {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: #6a8090;
-      margin-top: 0.2rem;
+      margin-top: 0.25rem;
+      white-space: nowrap;
     }
+
+    /* Color accents — top border + number color */
+    .pill-sand   { border-top-color: #C8933A; }
+    .pill-sand   .num { color: #92400E; }
+
+    .pill-amber  { border-top-color: #F59E0B; }
+    .pill-amber  .num { color: #B45309; }
+
+    .pill-teal   { border-top-color: var(--ocean); }
+    .pill-teal   .num { color: var(--ocean-deep); }
+
+    .pill-red    { border-top-color: #EF4444; }
+    .pill-red    .num { color: #991B1B; }
+
+    .pill-green  { border-top-color: var(--grass); }
+    .pill-green  .num { color: var(--grass-dark); }
+
+    .pill-default { border-top-color: rgba(14, 95, 122, 0.2); }
+    .pill-default .num { color: var(--ocean-deep); }
 
     /* ── Table ── */
     .table-wrap {
@@ -276,6 +333,8 @@
       color: var(--ocean-deep);
     }
 
+    .toolbar-right { display: flex; gap: 0.75rem; align-items: center; }
+
     .search-input {
       padding: 0.5rem 0.9rem;
       border: 1.5px solid rgba(14, 95, 122, 0.2);
@@ -288,6 +347,8 @@
     }
 
     .search-input:focus { outline: none; border-color: var(--ocean); }
+
+    select.search-input { width: auto; cursor: pointer; }
 
     table {
       width: 100%;
@@ -317,9 +378,9 @@
     tbody tr:last-child { border-bottom: none; }
 
     td { padding: 0.85rem 1rem; color: #3a5060; vertical-align: middle; }
-
     td.name { font-weight: 600; color: var(--navy); }
 
+    /* ── Status badges ── */
     .status-badge {
       display: inline-block;
       padding: 0.25rem 0.65rem;
@@ -329,19 +390,17 @@
       font-size: 0.7rem;
       letter-spacing: 0.06em;
       text-transform: uppercase;
+      white-space: nowrap;
     }
 
-    .status-new      { background: #e8f5eb; color: var(--grass-dark); }
-    .status-disputed { background: #fff3cd; color: #856404; }
-    .status-valid    { background: #f8d7da; color: #842029; }
-    .status-approved { background: #f8d7da; color: #842029; }
-    .status-invalid  { background: #d1e7dd; color: #0f5132; }
-    .status-denied   { background: #d1e7dd; color: #0f5132; }
+    .badge-new               { background: #FEF3C7; color: #92400E; }
+    .badge-valid             { background: #DCFCE7; color: #14532D; }
+    .badge-disputed          { background: #FEF9C3; color: #854D0E; }
+    .badge-dispute_accepted  { background: #CFFAFE; color: #0E4F5A; }
+    .badge-dispute_denied    { background: #FEE2E2; color: #7F1D1D; }
 
-    .dispute-btn {
-      background: transparent;
-      border: 1.5px solid rgba(14, 95, 122, 0.25);
-      color: var(--ocean-deep);
+    /* ── Action buttons (table) ── */
+    .action-btn {
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
       font-size: 0.72rem;
@@ -350,11 +409,17 @@
       padding: 0.3rem 0.75rem;
       border-radius: 6px;
       cursor: pointer;
-      transition: background 0.15s, border-color 0.15s;
+      transition: opacity 0.15s;
+      border: none;
     }
 
-    .dispute-btn:hover { background: rgba(14, 95, 122, 0.07); border-color: var(--ocean); }
-    .dispute-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .action-btn:hover  { opacity: 0.82; }
+    .action-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .btn-approve  { background: #DCFCE7; color: #14532D; }
+    .btn-review   { background: #FEF9C3; color: #854D0E; }
+    .btn-dispute  { background: transparent; border: 1.5px solid rgba(14,95,122,0.25) !important; color: var(--ocean-deep); }
+    .btn-dispute:hover { background: rgba(14,95,122,0.07); border-color: var(--ocean) !important; }
 
     .empty-row td {
       text-align: center;
@@ -363,7 +428,9 @@
       font-style: italic;
     }
 
-    /* ── Dispute modal ── */
+    .loading-row td { text-align: center; padding: 3rem; color: #8a9faa; }
+
+    /* ── Modals ── */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -382,7 +449,7 @@
       border-radius: 14px;
       padding: 2rem;
       width: 100%;
-      max-width: 460px;
+      max-width: 480px;
       box-shadow: 0 16px 60px rgba(13, 43, 62, 0.25);
     }
 
@@ -394,8 +461,8 @@
       margin-bottom: 0.4rem;
     }
 
-    .modal-card p {
-      font-size: 0.88rem;
+    .modal-card .modal-sub {
+      font-size: 0.85rem;
       color: #6a8090;
       margin-bottom: 1.25rem;
     }
@@ -415,9 +482,30 @@
 
     .modal-card textarea:focus { outline: none; border-color: var(--ocean); }
 
-    .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; }
+    .dispute-reason-box {
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      font-size: 0.88rem;
+      color: #78350F;
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
+    }
 
-    .btn-cancel {
+    .dispute-reason-box .reason-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #B45309;
+      margin-bottom: 0.35rem;
+    }
+
+    .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; flex-wrap: wrap; }
+
+    .btn-modal-cancel {
       padding: 0.6rem 1.2rem;
       background: transparent;
       border: 1.5px solid rgba(14, 95, 122, 0.2);
@@ -430,9 +518,23 @@
       cursor: pointer;
     }
 
-    .btn-submit-dispute {
+    .btn-accept-dispute {
       padding: 0.6rem 1.2rem;
-      background: #856404;
+      background: #CFFAFE;
+      border: none;
+      border-radius: 7px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: #0E4F5A;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    .btn-deny-dispute {
+      padding: 0.6rem 1.2rem;
+      background: #EF4444;
       border: none;
       border-radius: 7px;
       font-family: 'Montserrat', sans-serif;
@@ -441,13 +543,45 @@
       text-transform: uppercase;
       color: var(--white);
       cursor: pointer;
-      transition: background 0.15s;
+      transition: opacity 0.15s;
     }
 
-    .btn-submit-dispute:hover { background: #6b5003; }
-    .btn-submit-dispute:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-submit-dispute {
+      padding: 0.6rem 1.2rem;
+      background: #F59E0B;
+      border: none;
+      border-radius: 7px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--white);
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
 
-    .loading-row td { text-align: center; padding: 3rem; color: #8a9faa; }
+    .btn-accept-dispute:hover,
+    .btn-deny-dispute:hover,
+    .btn-submit-dispute:hover { opacity: 0.82; }
+
+    .btn-accept-dispute:disabled,
+    .btn-deny-dispute:disabled,
+    .btn-submit-dispute:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .stats-layout { grid-template-columns: 1fr; }
+      .stats-monthly { grid-template-columns: repeat(3, 1fr); }
+      .stats-sidebar { flex-direction: row; }
+    }
+
+    @media (max-width: 600px) {
+      .stats-monthly { grid-template-columns: repeat(2, 1fr); }
+      .dash-body { padding: 1rem; }
+      .search-input { width: 100%; }
+      .table-toolbar { flex-direction: column; align-items: flex-start; }
+      .toolbar-right { width: 100%; flex-direction: column; }
+    }
   </style>
 </head>
 <body>
@@ -479,6 +613,7 @@
       <div class="dash-header-inner">
         <div class="brand">Coastal Carolina <span>Synthetic Turf — Leads</span></div>
         <div class="user-bar">
+          <span id="ownerBadge" class="owner-badge" style="display:none;">Owner</span>
           <span class="user-email" id="userEmail"></span>
           <button class="sign-out-btn" id="signOutBtn">Sign Out</button>
         </div>
@@ -486,19 +621,59 @@
     </header>
 
     <div class="dash-body">
-      <div class="dash-title">Lead Dashboard</div>
+      <div class="dash-title" id="dashTitle">Lead Dashboard</div>
       <div class="dash-subtitle" id="dashDate"></div>
 
-      <div class="stats-row" id="statsRow">
-        <div class="stat-pill"><div class="num" id="statTotal">—</div><div class="lbl">All Time</div></div>
-        <div class="stat-pill"><div class="num" id="statYear">—</div><div class="lbl">Year</div></div>
-        <div class="stat-pill"><div class="num" id="statMonth">—</div><div class="lbl">Month</div></div>
+      <!-- Stats -->
+      <div class="stats-layout">
+        <div>
+          <div class="stats-section-label">This Month</div>
+          <div class="stats-monthly">
+            <div class="stat-pill pill-sand">
+              <div class="num" id="statRaw">—</div>
+              <div class="lbl">Raw Leads</div>
+            </div>
+            <div class="stat-pill pill-amber">
+              <div class="num" id="statDisputed">—</div>
+              <div class="lbl">Disputed</div>
+            </div>
+            <div class="stat-pill pill-teal">
+              <div class="num" id="statAccepted">—</div>
+              <div class="lbl">Accepted Disputes</div>
+            </div>
+            <div class="stat-pill pill-red">
+              <div class="num" id="statDenied">—</div>
+              <div class="lbl">Denied Disputes</div>
+            </div>
+            <div class="stat-pill pill-green">
+              <div class="num" id="statValid">—</div>
+              <div class="lbl">Valid Leads</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="stats-section-label">Historical</div>
+          <div class="stats-sidebar">
+            <div class="stat-pill pill-default">
+              <div class="num" id="statTotal">—</div>
+              <div class="lbl">All Time</div>
+            </div>
+            <div class="stat-pill pill-default">
+              <div class="num" id="statYear">—</div>
+              <div class="lbl">This Year</div>
+            </div>
+          </div>
+        </div>
       </div>
 
+      <!-- Lead Table -->
       <div class="table-wrap">
         <div class="table-toolbar">
-          <select class="search-input" id="monthSelect"></select>
-          <input class="search-input" id="searchInput" type="text" placeholder="Search by name, email…" />
+          <h3>Leads</h3>
+          <div class="toolbar-right">
+            <select class="search-input" id="monthSelect"></select>
+            <input class="search-input" id="searchInput" type="text" placeholder="Search by name, email…" />
+          </div>
         </div>
         <table>
           <thead>
@@ -510,7 +685,7 @@
               <th>Project Type</th>
               <th>Size</th>
               <th>Status</th>
-              <th></th>
+              <th id="actionColHead"></th>
             </tr>
           </thead>
           <tbody id="leadsBody">
@@ -521,25 +696,47 @@
     </div>
   </div>
 
-  <!-- Dispute Modal -->
+  <!-- Client: Dispute Modal -->
   <div class="modal-overlay" id="disputeModal">
     <div class="modal-card">
-      <h3>Flag This Lead</h3>
-      <p>Briefly explain why you should not be billed for this lead.</p>
-      <textarea id="disputeReason"></textarea>
+      <h3>Dispute This Lead</h3>
+      <p class="modal-sub">Briefly explain why you should not be billed for this lead. Your message will be reviewed.</p>
+      <textarea id="disputeReason" placeholder="Explain why this lead should not be billed…"></textarea>
       <div class="modal-actions">
-        <button class="btn-cancel" id="cancelDispute">Cancel</button>
+        <button class="btn-modal-cancel" id="cancelDispute">Cancel</button>
         <button class="btn-submit-dispute" id="confirmDispute">Submit Dispute</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Owner: Review Dispute Modal -->
+  <div class="modal-overlay" id="reviewModal">
+    <div class="modal-card">
+      <h3 id="reviewModalTitle">Review Dispute</h3>
+      <p class="modal-sub" id="reviewModalSub"></p>
+      <div class="dispute-reason-box" id="reviewReasonBox" style="display:none;">
+        <div class="reason-label">Client's Dispute Reason</div>
+        <div id="reviewReasonText"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-modal-cancel" id="cancelReview">Cancel</button>
+        <button class="btn-accept-dispute" id="acceptDispute">Accept Dispute</button>
+        <button class="btn-deny-dispute" id="denyDispute">Deny Dispute</button>
       </div>
     </div>
   </div>
 
   <script>
     let supabaseClient;
-    let allLeads = [];
-    let disputeTargetId = null;
+    let allLeads      = [];
+    let isOwner       = false;
+    let disputeTarget = null;
+    let reviewTarget  = null;
+    let realtimeChannel = null;
 
-    // ── Init ─────────────────────────────────────────────────────────
+    const OWNER_EMAIL = 'neal@tidewisesolutions.com';
+
+    // ── Init ─────────────────────────────────────────────────────────────
     async function init() {
       const cfg = await fetch('/.netlify/functions/config').then(r => r.json());
       supabaseClient = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseKey);
@@ -548,7 +745,7 @@
       if (session) showDashboard(session.user);
     }
 
-    // ── Auth ─────────────────────────────────────────────────────────
+    // ── Auth ─────────────────────────────────────────────────────────────
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = document.getElementById('loginBtn');
@@ -583,20 +780,46 @@
     });
 
     document.getElementById('signOutBtn').addEventListener('click', async () => {
+      if (realtimeChannel) supabaseClient.removeChannel(realtimeChannel);
       await supabaseClient.auth.signOut();
       document.getElementById('dashWrap').style.display = 'none';
       document.getElementById('loginWrap').style.display = 'flex';
     });
 
-    // ── Dashboard ─────────────────────────────────────────────────────
-    async function showDashboard(user) {
-      document.getElementById('loginWrap').style.display = 'none';
-      document.getElementById('dashWrap').style.display = 'block';
-      document.getElementById('userEmail').textContent = user.email;
-      document.getElementById('dashDate').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-      await loadLeads();
+    // ── Dashboard ─────────────────────────────────────────────────────────
+    function showDashboard(user) {
+      isOwner = user.email === OWNER_EMAIL;
+      document.getElementById('loginWrap').style.display  = 'none';
+      document.getElementById('dashWrap').style.display   = 'block';
+      document.getElementById('userEmail').textContent    = user.email;
+      document.getElementById('dashDate').textContent     = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+      if (isOwner) {
+        document.getElementById('ownerBadge').style.display  = '';
+        document.getElementById('dashTitle').textContent     = 'Lead Dashboard — Owner View';
+        document.getElementById('actionColHead').textContent = 'Action';
+      } else {
+        document.getElementById('actionColHead').textContent = '';
+      }
+
+      subscribeRealtime();
+      loadLeads();
     }
 
+    // ── Real-time subscription ─────────────────────────────────────────────
+    function subscribeRealtime() {
+      realtimeChannel = supabaseClient
+        .channel('leads-ccst')
+        .on('postgres_changes', {
+          event: '*',
+          schema: 'public',
+          table: 'leads',
+          filter: 'client_id=eq.ccst',
+        }, () => loadLeads())
+        .subscribe();
+    }
+
+    // ── Load leads ────────────────────────────────────────────────────────
     async function loadLeads() {
       const { data, error } = await supabaseClient
         .from('leads')
@@ -611,12 +834,14 @@
 
       allLeads = data || [];
       buildMonthDropdown();
-      applyMonthFilter();
+      applyFilter();
     }
 
+    // ── Month dropdown ─────────────────────────────────────────────────────
     function buildMonthDropdown() {
-      const select = document.getElementById('monthSelect');
+      const select    = document.getElementById('monthSelect');
       const currentYM = currentYearMonth();
+      const saved     = select.value || currentYM;
 
       const months = [...new Set(allLeads.map(l => {
         const d = new Date(l.created_at);
@@ -628,7 +853,7 @@
       select.innerHTML = months.map(ym => {
         const [y, m] = ym.split('-');
         const label = new Date(y, m - 1, 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-        return `<option value="${ym}"${ym === currentYM ? ' selected' : ''}>${label}</option>`;
+        return `<option value="${ym}"${ym === saved ? ' selected' : ''}>${label}</option>`;
       }).join('');
     }
 
@@ -637,49 +862,58 @@
       return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
     }
 
-    function applyMonthFilter() {
+    // ── Filter + render ───────────────────────────────────────────────────
+    function applyFilter() {
       const ym = document.getElementById('monthSelect').value;
-      const filtered = allLeads.filter(l => {
-        const d = new Date(l.created_at);
-        const lym = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-        return lym === ym;
-      });
-      updateStats(filtered);
-      renderTable(filtered);
+      const q  = document.getElementById('searchInput').value.toLowerCase();
+
+      const monthLeads = allLeads.filter(l => leadYM(l) === ym);
+      const visible    = q
+        ? monthLeads.filter(l =>
+            (l.name  || '').toLowerCase().includes(q) ||
+            (l.email || '').toLowerCase().includes(q) ||
+            (l.phone || '').toLowerCase().includes(q))
+        : monthLeads;
+
+      updateStats();
+      renderTable(visible);
     }
 
-    function updateStats(monthLeads) {
-      const now = new Date();
+    function leadYM(l) {
+      const d = new Date(l.created_at);
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+    }
+
+    // ── Stats — always current month ──────────────────────────────────────
+    function updateStats() {
+      const cym  = currentYearMonth();
+      const now  = new Date();
+      const curr = allLeads.filter(l => leadYM(l) === cym);
+
+      document.getElementById('statRaw').textContent      = curr.length;
+      document.getElementById('statDisputed').textContent = curr.filter(l => l.status === 'disputed').length;
+      document.getElementById('statAccepted').textContent = curr.filter(l => l.status === 'dispute_accepted').length;
+      document.getElementById('statDenied').textContent   = curr.filter(l => l.status === 'dispute_denied').length;
+      document.getElementById('statValid').textContent    = curr.filter(l => l.status === 'valid' || l.status === 'dispute_denied').length;
+
       document.getElementById('statTotal').textContent = allLeads.length;
       document.getElementById('statYear').textContent  = allLeads.filter(l => new Date(l.created_at).getFullYear() === now.getFullYear()).length;
-      document.getElementById('statMonth').textContent = monthLeads.length;
     }
 
+    // ── Table render ──────────────────────────────────────────────────────
     function renderTable(leads) {
       const tbody = document.getElementById('leadsBody');
       if (!leads.length) {
-        tbody.innerHTML = '<tr class="empty-row"><td colspan="8">No leads yet.</td></tr>';
+        tbody.innerHTML = '<tr class="empty-row"><td colspan="8">No leads for this period.</td></tr>';
         return;
       }
 
       tbody.innerHTML = leads.map(lead => {
-        const date = new Date(lead.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        const canDispute = lead.status === 'new';
-        const statusLabels = {
-          new:      'New',
-          disputed: 'Under Review',
-          valid:    'Dispute Rejected',
-          approved: 'Dispute Rejected',
-          invalid:  'Dispute Approved',
-          denied:   'Dispute Approved',
-        };
-        const statusClasses = {
-          new: 'new', disputed: 'disputed',
-          valid: 'valid', approved: 'approved',
-          invalid: 'invalid', denied: 'denied',
-        };
-        const displayLabel = statusLabels[lead.status] || lead.status;
-        const displayClass = statusClasses[lead.status] || lead.status;
+        const date        = new Date(lead.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const badgeClass  = statusBadgeClass(lead.status);
+        const badgeLabel  = statusLabel(lead.status, isOwner);
+        const actionCell  = isOwner ? ownerAction(lead) : clientAction(lead);
+
         return `
           <tr>
             <td>${date}</td>
@@ -688,47 +922,81 @@
             <td>${esc(lead.email)}</td>
             <td>${esc(lead.project_type || '—')}</td>
             <td>${esc(lead.square_footage || '—')}</td>
-            <td><span class="status-badge status-${displayClass}">${displayLabel}</span></td>
-            <td>
-              <button class="dispute-btn" onclick="openDispute('${lead.id}')" ${!canDispute ? 'disabled' : ''}>
-                ${canDispute ? 'Dispute' : '—'}
-              </button>
-            </td>
+            <td><span class="status-badge ${badgeClass}">${badgeLabel}</span></td>
+            <td>${actionCell}</td>
           </tr>`;
       }).join('');
     }
 
-    // ── Month selector ───────────────────────────────────────────────
+    function statusBadgeClass(status) {
+      const map = {
+        new:               'badge-new',
+        valid:             'badge-valid',
+        disputed:          'badge-disputed',
+        dispute_accepted:  'badge-dispute_accepted',
+        dispute_denied:    'badge-dispute_denied',
+      };
+      return map[status] || 'badge-new';
+    }
+
+    function statusLabel(status, ownerView) {
+      if (ownerView) {
+        const map = {
+          new:              'New',
+          valid:            'Valid',
+          disputed:         'Disputed',
+          dispute_accepted: 'Accepted',
+          dispute_denied:   'Denied',
+        };
+        return map[status] || status;
+      }
+      // Client-facing labels
+      const map = {
+        new:              'New',
+        valid:            'Approved',
+        disputed:         'Under Review',
+        dispute_accepted: 'Dispute Accepted',
+        dispute_denied:   'Dispute Denied',
+      };
+      return map[status] || status;
+    }
+
+    function ownerAction(lead) {
+      if (lead.status === 'new') {
+        return `<button class="action-btn btn-approve" onclick="approveLead('${lead.id}')">Approve</button>`;
+      }
+      if (lead.status === 'disputed') {
+        return `<button class="action-btn btn-review" onclick="openReview('${lead.id}')">Review</button>`;
+      }
+      return '<span style="color:#9ab0bc;font-size:0.8rem;">—</span>';
+    }
+
+    function clientAction(lead) {
+      // Client can dispute new or valid leads; everything else is locked
+      if (lead.status === 'new' || lead.status === 'valid') {
+        return `<button class="action-btn btn-dispute" onclick="openDispute('${lead.id}')">Dispute</button>`;
+      }
+      return '<span style="color:#9ab0bc;font-size:0.8rem;">—</span>';
+    }
+
+    // ── Month + search events ──────────────────────────────────────────────
     document.getElementById('monthSelect').addEventListener('change', () => {
       document.getElementById('searchInput').value = '';
-      applyMonthFilter();
+      applyFilter();
     });
 
-    // ── Search ───────────────────────────────────────────────────────
-    document.getElementById('searchInput').addEventListener('input', (e) => {
-      const q = e.target.value.toLowerCase();
-      const ym = document.getElementById('monthSelect').value;
-      const monthLeads = allLeads.filter(l => {
-        const d = new Date(l.created_at);
-        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}` === ym;
-      });
-      renderTable(monthLeads.filter(l =>
-        (l.name || '').toLowerCase().includes(q) ||
-        (l.email || '').toLowerCase().includes(q) ||
-        (l.phone || '').toLowerCase().includes(q)
-      ));
-    });
+    document.getElementById('searchInput').addEventListener('input', applyFilter);
 
-    // ── Dispute ──────────────────────────────────────────────────────
+    // ── Client: Dispute ───────────────────────────────────────────────────
     function openDispute(id) {
-      disputeTargetId = id;
+      disputeTarget = id;
       document.getElementById('disputeReason').value = '';
       document.getElementById('disputeModal').classList.add('open');
     }
 
     document.getElementById('cancelDispute').addEventListener('click', () => {
       document.getElementById('disputeModal').classList.remove('open');
-      disputeTargetId = null;
+      disputeTarget = null;
     });
 
     document.getElementById('confirmDispute').addEventListener('click', async () => {
@@ -742,19 +1010,87 @@
       const { error } = await supabaseClient
         .from('leads')
         .update({ status: 'disputed', dispute_reason: reason })
-        .eq('id', disputeTargetId);
+        .eq('id', disputeTarget);
 
       btn.disabled = false;
       btn.textContent = 'Submit Dispute';
       document.getElementById('disputeModal').classList.remove('open');
-      disputeTargetId = null;
+      disputeTarget = null;
 
-      if (!error) { await loadLeads(); }
+      if (!error) loadLeads();
     });
 
-    // ── Utils ─────────────────────────────────────────────────────────
+    // ── Owner: Approve ────────────────────────────────────────────────────
+    async function approveLead(id) {
+      const btn = document.querySelector(`button[onclick="approveLead('${id}')"]`);
+      if (btn) { btn.disabled = true; btn.textContent = '…'; }
+
+      await supabaseClient
+        .from('leads')
+        .update({ status: 'valid' })
+        .eq('id', id)
+        .eq('status', 'new');   // guard: only transition from new
+
+      // Realtime will trigger loadLeads(); fallback if not:
+      loadLeads();
+    }
+
+    // ── Owner: Review dispute ─────────────────────────────────────────────
+    function openReview(id) {
+      reviewTarget = id;
+      const lead = allLeads.find(l => l.id === id);
+      document.getElementById('reviewModalTitle').textContent = `Dispute: ${lead ? esc(lead.name) : 'Lead'}`;
+      document.getElementById('reviewModalSub').textContent   = 'Accept the dispute (not billable) or deny it (lead remains valid and billable).';
+
+      const reasonBox  = document.getElementById('reviewReasonBox');
+      const reasonText = document.getElementById('reviewReasonText');
+      if (lead && lead.dispute_reason) {
+        reasonText.textContent = lead.dispute_reason;
+        reasonBox.style.display = '';
+      } else {
+        reasonBox.style.display = 'none';
+      }
+
+      document.getElementById('acceptDispute').disabled = false;
+      document.getElementById('denyDispute').disabled   = false;
+      document.getElementById('acceptDispute').textContent = 'Accept Dispute';
+      document.getElementById('denyDispute').textContent   = 'Deny Dispute';
+      document.getElementById('reviewModal').classList.add('open');
+    }
+
+    document.getElementById('cancelReview').addEventListener('click', () => {
+      document.getElementById('reviewModal').classList.remove('open');
+      reviewTarget = null;
+    });
+
+    document.getElementById('acceptDispute').addEventListener('click', async () => {
+      await rulingOnDispute('dispute_accepted');
+    });
+
+    document.getElementById('denyDispute').addEventListener('click', async () => {
+      await rulingOnDispute('dispute_denied');
+    });
+
+    async function rulingOnDispute(newStatus) {
+      const acceptBtn = document.getElementById('acceptDispute');
+      const denyBtn   = document.getElementById('denyDispute');
+      acceptBtn.disabled = true;
+      denyBtn.disabled   = true;
+
+      await supabaseClient
+        .from('leads')
+        .update({ status: newStatus })
+        .eq('id', reviewTarget)
+        .eq('status', 'disputed');   // guard: only transition from disputed
+
+      document.getElementById('reviewModal').classList.remove('open');
+      reviewTarget = null;
+      loadLeads();
+    }
+
+    // ── Utils ─────────────────────────────────────────────────────────────
     function esc(str) {
-      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
 
     init();
