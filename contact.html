@@ -483,7 +483,7 @@
 
         <div id="cf-turnstile-container"></div>
         <button type="submit" class="submit-btn" id="submitBtn">Send My Project Details</button>
-        <div class="error-msg" id="errorMsg">Something went wrong. Please try again or call us directly.</div>
+        <div class="error-msg" id="errorMsg">Something went wrong — please try again later or email <a href="mailto:webmaster@coastalcarolinasyntheticturf.com" style="color:#c0392b;">webmaster@coastalcarolinasyntheticturf.com</a>.</div>
         <p class="form-note">This site is protected by Cloudflare Turnstile. By submitting this form you agree to our <a id="privacyLink">Privacy Policy</a>.</p>
       </form>
 
@@ -517,9 +517,9 @@
     <div class="grass-bar" aria-hidden="true"></div>
     <p><strong>Coastal Carolina Synthetic Turf</strong> &mdash; Greener Lawns · Better Living</p>
     <ul class="footer-links">
-      <li><a href="/lawn-and-pet.html">Services</a></li>
+      <li><a href="/lawn-and-pet.html">Lawn &amp; Pet Areas</a></li>
+      <li><a href="/pga-greens.html">Putting Greens</a></li>
       <li><a href="/why-us.html">Why CCST</a></li>
-      <li><a href="/why-us.html">Gallery</a></li>
       <li><a href="/contact.html">Contact</a></li>
     </ul>
       <p style="margin-top:0.5rem;font-size:0.65rem;color:rgba(255,255,255,0.3);">Web Design by <a href="https://tidewisesolutions.com" target="_blank" rel="noopener" style="text-decoration:none;font-weight:700;background:linear-gradient(90deg,#E05A2B,#1E9DB8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Tidewise Solutions</a></p>
@@ -530,7 +530,7 @@
     var tsWidgetId;
     function onTurnstileLoad() {
       tsWidgetId = turnstile.render('#cf-turnstile-container', {
-        sitekey: '0x4AAAAAADek35zHc-8u97hD',
+        sitekey: '0x4AAAAAADeuaytYcyVSmAd1',
         size: 'invisible',
         callback: function(token) { submitWithToken(token); },
         'error-callback': function() {

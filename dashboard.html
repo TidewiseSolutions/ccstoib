@@ -632,6 +632,7 @@
         <div class="user-bar">
           <span id="ownerBadge" class="owner-badge" style="display:none;">Owner</span>
           <span class="user-email" id="userEmail"></span>
+          <button class="nuke-btn" id="nukeBtn" onclick="openNuke()" style="display:none;" title="Clear all test data">☢ Nuke</button>
           <button class="sign-out-btn" id="signOutBtn">Sign Out</button>
         </div>
       </div>
@@ -701,7 +702,7 @@
               <th>Email</th>
               <th>Project Type</th>
               <th>Size</th>
-              <th>Status <button id="nukeBtn" onclick="openNuke()" style="display:none;background:none;border:none;cursor:pointer;font-size:1rem;padding:0 0 0 4px;line-height:1;opacity:0.45;transition:opacity 0.15s;" title="Clear all test data" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.45'">☢</button></th>
+              <th>Status</th>
               <th id="actionColHead"></th>
             </tr>
           </thead>
@@ -716,9 +717,9 @@
   <!-- Owner: Nuke Modal -->
   <div class="modal-overlay" id="nukeModal">
     <div class="modal-card">
-      <h3>Clear All Test Data</h3>
-      <p class="modal-sub">This permanently deletes every lead in the table. There is no undo. Type <strong>DELETE</strong> to confirm.</p>
-      <input type="text" id="nukeConfirmInput" placeholder="Type DELETE to confirm"
+      <h3>☢ Clear All Test Data</h3>
+      <p class="modal-sub">This permanently deletes every lead in the table. There is no undo. Re-enter your dashboard password to confirm.</p>
+      <input type="password" id="nukePassInput" placeholder="Enter your password"
         style="width:100%;padding:0.7rem 1rem;border:1.5px solid #EF4444;border-radius:8px;font-family:'Open Sans',sans-serif;font-size:0.97rem;color:var(--navy);background:var(--foam);margin-bottom:1rem;" />
       <div class="modal-actions">
         <button class="btn-modal-cancel" id="cancelNuke">Cancel</button>
@@ -1123,12 +1124,12 @@
 
     // ── Owner: Nuke ───────────────────────────────────────────────────────
     function openNuke() {
-      document.getElementById('nukeConfirmInput').value = '';
+      document.getElementById('nukePassInput').value = '';
       document.getElementById('nukeError').style.display = 'none';
       document.getElementById('confirmNuke').disabled = false;
       document.getElementById('confirmNuke').textContent = 'Delete Everything';
       document.getElementById('nukeModal').classList.add('open');
-      setTimeout(() => document.getElementById('nukeConfirmInput').focus(), 100);
+      setTimeout(() => document.getElementById('nukePassInput').focus(), 100);
     }
 
     document.getElementById('cancelNuke').addEventListener('click', () => {
@@ -1136,17 +1137,32 @@
     });
 
     document.getElementById('confirmNuke').addEventListener('click', async () => {
-      const val = document.getElementById('nukeConfirmInput').value.trim();
-      if (val !== 'DELETE') {
-        document.getElementById('nukeError').textContent = 'Type DELETE exactly to confirm.';
+      const pass = document.getElementById('nukePassInput').value;
+      if (!pass) {
+        document.getElementById('nukeError').textContent = 'Enter your password to confirm.';
         document.getElementById('nukeError').style.display = '';
         return;
       }
 
       const btn = document.getElementById('confirmNuke');
       btn.disabled = true;
-      btn.textContent = 'Deleting…';
+      btn.textContent = 'Verifying…';
       document.getElementById('nukeError').style.display = 'none';
+
+      const { error: authErr } = await supabaseClient.auth.signInWithPassword({
+        email: OWNER_EMAIL,
+        password: pass,
+      });
+
+      if (authErr) {
+        document.getElementById('nukeError').textContent = 'Incorrect password.';
+        document.getElementById('nukeError').style.display = '';
+        btn.disabled = false;
+        btn.textContent = 'Delete Everything';
+        return;
+      }
+
+      btn.textContent = 'Deleting…';
 
       const res = await fetch('/.netlify/functions/nuke-leads', {
         method: 'POST',
