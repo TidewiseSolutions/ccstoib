@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad" async defer></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -288,10 +288,63 @@
 
     .form-note {
       text-align: center;
-      font-size: 0.82rem;
+      font-size: 0.75rem;
       color: #8a9faa;
       margin-top: 1rem;
     }
+    .form-note a { color: #8a9faa; text-decoration: underline; cursor: pointer; }
+    .form-note a:hover { color: var(--ocean); }
+
+    /* ── Privacy modal ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(13,43,62,0.65);
+      backdrop-filter: blur(4px);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 2rem;
+      max-width: 560px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 16px 48px rgba(13,43,62,0.25);
+      position: relative;
+    }
+    .modal-box h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--ocean-deep);
+      margin-bottom: 1rem;
+    }
+    .modal-box p, .modal-box li {
+      font-size: 0.82rem;
+      color: #3a5060;
+      line-height: 1.7;
+      margin-bottom: 0.75rem;
+    }
+    .modal-box ul { padding-left: 1.25rem; margin-bottom: 0.75rem; }
+    .modal-box a { color: var(--ocean); }
+    .modal-close {
+      position: absolute;
+      top: 0.9rem; right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: #8a9faa;
+      line-height: 1;
+    }
+    .modal-close:hover { color: var(--navy); }
 
     /* ── Footer ── */
     .site-footer {
@@ -428,14 +481,37 @@
           </select>
         </div>
 
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAADZojz4zQtUwNrbm" style="margin-bottom:0.75rem;"></div>
+        <div id="cf-turnstile-container"></div>
         <button type="submit" class="submit-btn" id="submitBtn">Send My Project Details</button>
         <div class="error-msg" id="errorMsg">Something went wrong. Please try again or call us directly.</div>
-        <p class="form-note">We respect your privacy. Your information is never shared or sold.</p>
+        <p class="form-note">This site is protected by Cloudflare Turnstile. By submitting this form you agree to our <a id="privacyLink">Privacy Policy</a>.</p>
       </form>
 
     </div>
   </section>
+
+  <div class="modal-overlay" id="privacyModal" role="dialog" aria-modal="true" aria-label="Privacy Policy">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+      <h2>Privacy Policy</h2>
+      <p>Your privacy matters to us. This policy explains how Coastal Carolina Synthetic Turf collects, uses, and protects your information when you use our website and contact form.</p>
+      <p><strong>Information We Collect</strong></p>
+      <p>When you submit our contact form, we collect the information you provide — including your name, email address, phone number, and project details — solely for the purpose of responding to your inquiry.</p>
+      <p><strong>How We Use Your Information</strong></p>
+      <ul>
+        <li>To respond to your estimate request or inquiry</li>
+        <li>To contact you about your project</li>
+        <li>We do not sell, rent, or share your personal information with third parties for marketing purposes</li>
+      </ul>
+      <p><strong>Cloudflare Turnstile</strong></p>
+      <p>This site uses Cloudflare Turnstile to protect our contact form from automated spam. Turnstile may collect certain technical information such as your IP address, browser type, and interaction data to determine whether you are a human visitor. This data is processed by Cloudflare in accordance with their <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Privacy Policy</a>. We do not have access to the data Cloudflare collects for this purpose.</p>
+      <p><strong>Data Storage</strong></p>
+      <p>Form submissions are stored securely and used only to manage and respond to your inquiry. We do not retain your data beyond what is necessary for business communication.</p>
+      <p><strong>Contact</strong></p>
+      <p>If you have questions about this policy, contact us at <a href="/contact.html">coastalcarolinasyntheticturf.com/contact.html</a>.</p>
+      <p style="color:#8a9faa;font-size:0.72rem;">Last updated: June 2026</p>
+    </div>
+  </div>
 
   <footer class="site-footer">
     <div class="grass-bar" aria-hidden="true"></div>
@@ -450,17 +526,39 @@
   </footer>
 
   <script>
-    const form = document.getElementById('leadForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const errorMsg = document.getElementById('errorMsg');
-    const successBox = document.getElementById('successBox');
+    // ── Invisible Turnstile ──
+    var tsWidgetId;
+    function onTurnstileLoad() {
+      tsWidgetId = turnstile.render('#cf-turnstile-container', {
+        sitekey: '0x4AAAAAADek35zHc-8u97hD',
+        size: 'invisible',
+        callback: function(token) { submitWithToken(token); },
+        'error-callback': function() {
+          errorMsg.style.display = 'block';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send My Project Details';
+        }
+      });
+    }
 
-    form.addEventListener('submit', async (e) => {
+    const form      = document.getElementById('leadForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const errorMsg  = document.getElementById('errorMsg');
+
+    form.addEventListener('submit', function(e) {
       e.preventDefault();
       errorMsg.style.display = 'none';
+      if (!document.getElementById('name').value.trim() || !document.getElementById('email').value.trim()) {
+        errorMsg.textContent = 'Please fill in your name and email.';
+        errorMsg.style.display = 'block';
+        return;
+      }
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending…';
+      turnstile.execute(tsWidgetId);
+    });
 
+    async function submitWithToken(cfToken) {
       const data = {
         name:           document.getElementById('name').value.trim(),
         email:          document.getElementById('email').value.trim(),
@@ -469,29 +567,16 @@
         square_footage: document.getElementById('square_footage').value,
         message:        document.getElementById('message').value.trim(),
         traffic_source: document.getElementById('traffic_source').value,
-        cfToken:        document.querySelector('[name="cf-turnstile-response"]')?.value || '',
+        cfToken:        cfToken,
         website:        document.getElementById('website').value,
       };
-
-      if (!data.name || !data.email) {
-        errorMsg.textContent = 'Please fill in your name and email.';
-        errorMsg.style.display = 'block';
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Send My Project Details';
-        return;
-      }
-
       try {
-        // Write to Supabase via Netlify function
         const res = await fetch('/.netlify/functions/submit-lead', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
         });
-
-        if (!res.ok) throw new Error('Function error');
-
-        // Send email notification via formsubmit.co (no traffic_source)
+        if (!res.ok) throw new Error();
         fetch('https://formsubmit.co/ajax/matt@ccstoib.com', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -505,16 +590,29 @@
             'Approx. Size': data.square_footage,
             Message:        data.message || 'None',
           }),
-        }).catch(() => {}); // fire and forget — don't block success
-
-        // Redirect to thank you page
+        }).catch(() => {});
         window.location.href = 'thankyou.html';
-
       } catch {
         errorMsg.style.display = 'block';
         submitBtn.disabled = false;
         submitBtn.textContent = 'Send My Project Details';
+        turnstile.reset(tsWidgetId);
       }
+    }
+
+    // ── Privacy modal ──
+    const modal = document.getElementById('privacyModal');
+    document.getElementById('privacyLink').addEventListener('click', function() {
+      modal.classList.add('open');
+    });
+    document.getElementById('modalClose').addEventListener('click', function() {
+      modal.classList.remove('open');
+    });
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) modal.classList.remove('open');
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') modal.classList.remove('open');
     });
   </script>
 
