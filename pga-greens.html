@@ -287,7 +287,14 @@
 
     .partnership-card .section-h2 em { color: var(--sand); }
 
-    /* ── STI badge ── */
+    /* ── STI + USA badges ── */
+    .badges-group {
+      display: flex;
+      gap: 1rem;
+      flex-shrink: 0;
+      align-items: center;
+    }
+
     .partner-badge-container {
       flex-shrink: 0;
     }
@@ -326,6 +333,38 @@
       text-transform: uppercase;
       text-align: center;
       line-height: 1.3;
+    }
+
+    .badge-usa {
+      border-color: #B22234;
+      outline-color: rgba(178, 34, 52, 0.3);
+      background: rgba(60, 59, 110, 0.25);
+    }
+
+    .badge-usa-top {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.42rem;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .badge-usa-letters {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.75rem;
+      color: #FFFFFF;
+      letter-spacing: 0.12em;
+      line-height: 1;
+    }
+
+    .badge-usa-stars {
+      font-size: 0.55rem;
+      color: #B22234;
+      letter-spacing: 0.15em;
+      line-height: 1;
     }
 
     .partnership-card .body-text {
@@ -712,15 +751,24 @@
           <p class="section-label" style="color:var(--sand-dark);">Elite Brand Partnership</p>
           <h2 class="section-h2">The <em>Synthetic Turf International®</em> Advantage</h2>
         </div>
-        <div class="partner-badge-container" aria-label="Synthetic Turf International Certified Partner">
-          <div class="badge-border-wrap">
-            <span class="badge-brand-letters">STI</span>
-            <span class="badge-status-text">Authorized<br>Dealer</span>
+        <div class="badges-group">
+          <div class="partner-badge-container" aria-label="Synthetic Turf International Certified Partner">
+            <div class="badge-border-wrap">
+              <img src="/assets/STImod.png" alt="STI" style="width:72px;height:auto;filter:brightness(0) invert(1);" />
+              <span class="badge-status-text">Authorized<br>Dealer</span>
+            </div>
+          </div>
+          <div class="partner-badge-container" aria-label="Made in USA">
+            <div class="badge-border-wrap badge-usa">
+              <span class="badge-usa-top">Made in</span>
+              <span class="badge-usa-letters">USA</span>
+              <span class="badge-usa-stars">★ ★ ★</span>
+            </div>
           </div>
         </div>
       </div>
       <p class="body-text">
-        We are Brunswick County's elite certified partner for Synthetic Turf International — the exclusive provider for major golf test networks and high-end teaching facilities globally. Every green we construct builds upon premium <strong>NP50® architectural turf</strong>, trusted by top PGA Tour academies because it delivers an uncompromising, non-directional ball roll with true country-club stimpmeter speeds. This is an elite sporting amenity designed to reward serious players.
+        We are Brunswick County's elite certified partner for Synthetic Turf International — the exclusive provider for major golf test networks and high-end teaching facilities globally. Every green we construct builds upon premium <strong>NP45, NP50, or NP55® architectural turf</strong>, trusted by top PGA Tour academies because it delivers an uncompromising, non-directional ball roll with true country-club stimpmeter speeds. This is an elite sporting amenity designed to reward serious players.
       </p>
     </div>
 
@@ -752,7 +800,7 @@
       <div class="performance-box">
         <span class="perf-tag">Engineered for True Performance</span>
         <h3>PGA-Tier Check &amp; Drainage</h3>
-        <p>Because of this rock-solid crushed granite foundation, heavy coastal stormwater drains instantly through the turf matrix. The green stays perfectly firm and ready to grab a checking chip shot from the fringe mere moments after a tropical cloudburst.</p>
+        <p>Because of this rock-solid crushed granite foundation, coastal stormwater drains cleanly through the turf matrix — no pooling, no soft spots. Putting turf is denser than a standard lawn installation by design; the tight construction that delivers a true ball roll means drainage is steady rather than instant. You won't be waiting on a waterlogged surface, but expect a short window to full play — one that still beats a natural grass green by a wide margin.</p>
       </div>
     </section>
 

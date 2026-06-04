@@ -391,10 +391,12 @@
 
   <header class="site-header">
     <div class="header-inner">
-      <div class="brand-text">
-        Coastal Carolina
-        <span>Synthetic Turf</span>
-      </div>
+      <a href="/index.html" style="text-decoration:none;color:inherit;">
+        <div class="brand-text">
+          Coastal Carolina
+          <span>Synthetic Turf</span>
+        </div>
+      </a>
       <ul class="nav-links">
         <li><a href="/lawn-and-pet.html">Lawn &amp; Pet Areas</a></li>
         <li><a href="/pga-greens.html">Putting Greens</a></li>
@@ -527,16 +529,31 @@
 
   <script>
     // ── Invisible Turnstile ──
+    // Invisible Turnstile can auto-solve passively before the user clicks submit.
+    // pendingSubmit guards against the callback firing the form prematurely.
     var tsWidgetId;
+    var pendingSubmit = false;
+    var cachedToken   = null;
+
     function onTurnstileLoad() {
       tsWidgetId = turnstile.render('#cf-turnstile-container', {
         sitekey: '0x4AAAAAADeuaytYcyVSmAd1',
         size: 'invisible',
-        callback: function(token) { submitWithToken(token); },
+        callback: function(token) {
+          cachedToken = token;
+          if (pendingSubmit) {
+            pendingSubmit = false;
+            submitWithToken(token);
+          }
+        },
         'error-callback': function() {
+          pendingSubmit = false;
           errorMsg.style.display = 'block';
           submitBtn.disabled = false;
           submitBtn.textContent = 'Send My Project Details';
+        },
+        'expired-callback': function() {
+          cachedToken = null;
         }
       });
     }
@@ -555,7 +572,14 @@
       }
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending…';
-      turnstile.execute(tsWidgetId);
+      if (cachedToken) {
+        var token = cachedToken;
+        cachedToken = null;
+        submitWithToken(token);
+      } else {
+        pendingSubmit = true;
+        turnstile.execute(tsWidgetId);
+      }
     });
 
     async function submitWithToken(cfToken) {

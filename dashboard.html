@@ -415,6 +415,7 @@
     .badge-disputed          { background: #FEF9C3; color: #854D0E; }
     .badge-dispute_accepted  { background: #CFFAFE; color: #0E4F5A; }
     .badge-dispute_denied    { background: #FEE2E2; color: #7F1D1D; }
+    .badge-invalid           { background: #FEE2E2; color: #7F1D1D; }
 
     /* ── Action buttons (table) ── */
     .action-btn {
@@ -656,7 +657,7 @@
             </div>
             <div class="stat-pill pill-teal">
               <div class="num" id="statAccepted">—</div>
-              <div class="lbl">Accepted Disputes</div>
+              <div class="lbl">Approved Disputes</div>
             </div>
             <div class="stat-pill pill-red">
               <div class="num" id="statDenied">—</div>
@@ -752,7 +753,7 @@
       </div>
       <div class="modal-actions">
         <button class="btn-modal-cancel" id="cancelReview">Cancel</button>
-        <button class="btn-accept-dispute" id="acceptDispute">Accept Dispute</button>
+        <button class="btn-accept-dispute" id="acceptDispute">Approve Dispute</button>
         <button class="btn-deny-dispute" id="denyDispute">Deny Dispute</button>
       </div>
     </div>
@@ -949,7 +950,7 @@
 
         const statusCell = (isOwner && lead.status === 'new')
           ? `<button class="status-badge badge-new" onclick="approveLead('${lead.id}')" title="Click to validate" style="border:none;cursor:pointer;">${badgeLabel}</button>`
-          : `<span class="status-badge ${badgeClass}">${badgeLabel}</span>`;
+          : buildStatusCell(lead.status, isOwner, badgeClass, badgeLabel);
 
         return `
           <tr>
@@ -996,6 +997,22 @@
         dispute_denied:   'Dispute Denied',
       };
       return map[status] || status;
+    }
+
+    function buildStatusCell(status, ownerView, badgeClass, badgeLabel) {
+      if (ownerView && status === 'dispute_accepted') {
+        return `<span style="display:inline-flex;gap:4px;flex-wrap:wrap;align-items:center;">
+          <span class="status-badge badge-disputed">Dispute Approved</span>
+          <span class="status-badge badge-invalid">Invalid Lead</span>
+        </span>`;
+      }
+      if (ownerView && status === 'dispute_denied') {
+        return `<span style="display:inline-flex;gap:4px;flex-wrap:wrap;align-items:center;">
+          <span class="status-badge badge-disputed">Dispute Denied</span>
+          <span class="status-badge badge-valid">Valid Lead</span>
+        </span>`;
+      }
+      return `<span class="status-badge ${badgeClass}">${badgeLabel}</span>`;
     }
 
     function ownerAction(lead) {
@@ -1077,7 +1094,7 @@
       reviewTarget = id;
       const lead = allLeads.find(l => l.id === id);
       document.getElementById('reviewModalTitle').textContent = `Dispute: ${lead ? esc(lead.name) : 'Lead'}`;
-      document.getElementById('reviewModalSub').textContent   = 'Accept the dispute (not billable) or deny it (lead remains valid and billable).';
+      document.getElementById('reviewModalSub').textContent   = 'Approve the dispute (not billable) or deny it (lead remains valid and billable).';
 
       const reasonBox  = document.getElementById('reviewReasonBox');
       const reasonText = document.getElementById('reviewReasonText');
@@ -1090,7 +1107,7 @@
 
       document.getElementById('acceptDispute').disabled = false;
       document.getElementById('denyDispute').disabled   = false;
-      document.getElementById('acceptDispute').textContent = 'Accept Dispute';
+      document.getElementById('acceptDispute').textContent = 'Approve Dispute';
       document.getElementById('denyDispute').textContent   = 'Deny Dispute';
       document.getElementById('reviewModal').classList.add('open');
     }
