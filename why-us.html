@@ -177,7 +177,7 @@
     .hero h1 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: clamp(1.6rem, 4.5vw, 2.8rem);
+      font-size: clamp(1.3rem, 3.2vw, 2.1rem);
       color: var(--white);
       text-shadow: 0 2px 16px rgba(13, 43, 62, 0.35);
       line-height: 1.15;
@@ -289,6 +289,64 @@
       font-size: 0.7rem;
       color: var(--ocean-deep);
       letter-spacing: 0.06em;
+    }
+
+    /* ── Bio section ── */
+    .bio-section { margin: 0 0 3.5rem; }
+    .bio-header { text-align: center; margin-bottom: 1.5rem; }
+    .bio-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 4px 28px rgba(13,43,62,0.09);
+      border: 1px solid rgba(14,95,122,0.1);
+    }
+    .bio-grid {
+      display: grid;
+      grid-template-columns: 160px 1fr 160px;
+      gap: 2.25rem;
+      align-items: center;
+    }
+    .bio-photo-wrap { text-align: center; }
+    .bio-photo-wrap img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      box-shadow: 0 8px 28px rgba(13,43,62,0.18);
+      border: 3px solid var(--ocean);
+    }
+    .bio-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--ocean-deep);
+      margin-top: 0.8rem;
+      letter-spacing: 0.02em;
+    }
+    .bio-role {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: var(--grass);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 0.25rem;
+    }
+    .bio-text { display: flex; flex-direction: column; gap: 1rem; }
+    .bio-text p {
+      color: #3a5060;
+      font-size: 0.92rem;
+      line-height: 1.85;
+      margin: 0;
+    }
+    .bio-divider {
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--ocean), var(--grass));
+      border-radius: 2px;
+      margin: 0.25rem auto 0;
     }
 
     /* ── Gallery section ── */
@@ -515,6 +573,11 @@
       .hero-inner { flex-direction: column; padding-left: 2rem; gap: 1.5rem; }
       .hero-logo { width: min(180px, 55vw); }
       .reviews-grid { grid-template-columns: 1fr; }
+      .bio-grid { grid-template-columns: 1fr 1fr; grid-template-areas: "matt justin" "text text"; }
+      .bio-grid .bio-photo-wrap:first-child { grid-area: matt; }
+      .bio-grid .bio-photo-wrap:last-child  { grid-area: justin; }
+      .bio-grid .bio-text { grid-area: text; }
+      .bio-card { padding: 1.5rem 1rem; }
       .carousel-viewport { aspect-ratio: 4 / 3; }
       .carousel-btn { width: 38px; height: 38px; font-size: 1.4rem; }
       .values-card { padding: 1.5rem; }
@@ -545,7 +608,7 @@
     <div class="hero-inner">
       <img class="hero-logo" src="/assets/CCSTlogo.png" alt="Coastal Carolina Synthetic Turf" />
       <div class="hero-text">
-        <h1>Uncompromising Standards.<br><em>Undisputed Craftsmanship.</em></h1>
+        <h1>Uncompromising Standards. <em>Undisputed Craftsmanship.</em></h1>
         <p class="hero-lead">We don't cut corners, mask defects, or lay materials over unprepared soil. Discover why property owners across Brunswick and Horry counties choose us to design permanent, flawless assets for their homes.</p>
       </div>
     </div>
@@ -557,12 +620,30 @@
 
   <div class="content-wrap">
 
-    <div class="values-card">
-      <p class="section-label">Our Foundation</p>
-      <h2 class="section-h2">Built From the <em>Bedrock Up</em></h2>
-      <p class="body-text">
-        The lifespan and beauty of synthetic turf are decided entirely by the structural integrity beneath the surface. Our signature multi-layer engineering process — removing 3 inches of topsoil, deploying commercial-grade geotextile fabric, and mechanically compacting a solid base of premium granite fines — guarantees a flawless, stable foundation. We build outdoor spaces to withstand coastal storms, scorching summers, and heavy daily traffic without shifting, sagging, or fading.
-      </p>
+    <div class="bio-section">
+      <div class="bio-header">
+        <p class="section-label">Meet the Owners</p>
+        <div class="bio-divider"></div>
+      </div>
+      <div class="bio-card">
+        <div class="bio-grid">
+          <div class="bio-photo-wrap">
+            <img src="/assets/CCSTOIB-Matt.webp" alt="Matt, co-owner of Coastal Carolina Synthetic Turf, on Ocean Isle Beach" loading="lazy" decoding="async" />
+            <p class="bio-name">Matt</p>
+            <p class="bio-role">Co-Owner &amp; Lead Installer</p>
+          </div>
+          <div class="bio-text">
+            <p>We aren't just a turf management company, we're your neighbors. Matt moved from the west coast to Brunswick County over 20 years ago, and Justin — originally from Knightdale, NC — grew up spending every weekend he could in Calabash before officially making the move here at 22, and now they both live on Ocean Isle Beach.</p>
+            <p>Back in 2008, we met while serving together at a local fire department. When you spend years answering emergency calls together, you build a level of trust and work ethic that stays with you for life.</p>
+            <p>Now, we're channeling that same energy into our neighbors' lawns. We swapped the fire trucks and hose for pickups and turf equipment, but our mission hasn't changed: serving our local residents with honesty, integrity, grit, and unbeatable reliability. When we say we'll be there to get the job done right... we mean it.</p>
+          </div>
+          <div class="bio-photo-wrap">
+            <img src="/assets/CCSTOIB-Justin.webp" alt="Justin, co-owner of Coastal Carolina Synthetic Turf, on Ocean Isle Beach" loading="lazy" decoding="async" />
+            <p class="bio-name">Justin</p>
+            <p class="bio-role">Co-Owner &amp; Lead Installer</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <section class="reviews-section">
