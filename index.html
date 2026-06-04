@@ -308,6 +308,7 @@
     #dogrun-card.flipped .flip-inner { transform: rotateY(180deg); }
     #dogrun-card.flipped .flip-back::after { opacity: 1; }
     #maggie-trigger { cursor: inherit; }
+    #dogrun-card .staging-label { transition: opacity 0.35s; }
 
     .staging-label {
       position: relative;
@@ -529,9 +530,17 @@
   </footer>
 
   <script>
-    var t = document.getElementById('maggie-trigger');
+    var card  = document.getElementById('dogrun-card');
+    var label = card.querySelector('.staging-label');
+    var t     = document.getElementById('maggie-trigger');
     if (t) t.addEventListener('click', function() {
-      document.getElementById('dogrun-card').classList.toggle('flipped');
+      card.classList.toggle('flipped');
+      if (card.classList.contains('flipped')) {
+        label.style.opacity = '0';
+        setTimeout(function() { label.style.opacity = '1'; }, 2800);
+      } else {
+        label.style.opacity = '1';
+      }
     });
   </script>
 </body>
