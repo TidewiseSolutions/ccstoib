@@ -632,7 +632,6 @@
         <div class="user-bar">
           <span id="ownerBadge" class="owner-badge" style="display:none;">Owner</span>
           <span class="user-email" id="userEmail"></span>
-          <button class="nuke-btn" id="nukeBtn" onclick="openNuke()" style="display:none;" title="Clear all test data">☢ Nuke</button>
           <button class="sign-out-btn" id="signOutBtn">Sign Out</button>
         </div>
       </div>
@@ -702,7 +701,7 @@
               <th>Email</th>
               <th>Project Type</th>
               <th>Size</th>
-              <th>Status</th>
+              <th>Status <button id="nukeBtn" onclick="openNuke()" style="display:none;background:none;border:none;cursor:pointer;font-size:1rem;padding:0 0 0 4px;line-height:1;vertical-align:middle;" title="Clear all test data">☢</button></th>
               <th id="actionColHead"></th>
             </tr>
           </thead>
