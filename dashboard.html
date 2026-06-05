@@ -213,24 +213,7 @@
       transition: background 0.2s;
     }
 
-    .nuke-btn {
-      background: rgba(239, 68, 68, 0.2);
-      border: 1px solid rgba(239, 68, 68, 0.45);
-      color: #FCA5A5;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 0.35rem 0.9rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .nuke-btn:hover { background: rgba(239, 68, 68, 0.35); }
-
-    .sign-out-btn:hover { background: rgba(255,255,255,0.25); }
+.sign-out-btn:hover { background: rgba(255,255,255,0.25); }
 
     .dash-body {
       max-width: 1280px;
@@ -702,7 +685,7 @@
               <th>Email</th>
               <th>Project Type</th>
               <th>Size</th>
-              <th>Status <button id="nukeBtn" onclick="openNuke()" style="display:none;background:none;border:none;cursor:pointer;font-size:1rem;padding:0 0 0 4px;line-height:1;vertical-align:middle;" title="Clear all test data">☢</button></th>
+              <th>Status</th>
               <th id="actionColHead"></th>
             </tr>
           </thead>
@@ -714,22 +697,7 @@
     </div>
   </div>
 
-  <!-- Owner: Nuke Modal -->
-  <div class="modal-overlay" id="nukeModal">
-    <div class="modal-card">
-      <h3>☢ Clear All Test Data</h3>
-      <p class="modal-sub">This permanently deletes every lead in the table. There is no undo. Re-enter your dashboard password to confirm.</p>
-      <input type="password" id="nukePassInput" placeholder="Enter your password"
-        style="width:100%;padding:0.7rem 1rem;border:1.5px solid #EF4444;border-radius:8px;font-family:'Open Sans',sans-serif;font-size:0.97rem;color:var(--navy);background:var(--foam);margin-bottom:1rem;" />
-      <div class="modal-actions">
-        <button class="btn-modal-cancel" id="cancelNuke">Cancel</button>
-        <button class="btn-deny-dispute" id="confirmNuke">Delete Everything</button>
-      </div>
-      <div id="nukeError" style="display:none;margin-top:0.75rem;color:#991B1B;font-size:0.85rem;text-align:center;"></div>
-    </div>
-  </div>
-
-  <!-- Client: Dispute Modal -->
+<!-- Client: Dispute Modal -->
   <div class="modal-overlay" id="disputeModal">
     <div class="modal-card">
       <h3>Dispute This Lead</h3>
@@ -829,8 +797,7 @@
 
       if (isOwner) {
         document.getElementById('ownerBadge').style.display = '';
-        document.getElementById('nukeBtn').style.display    = 'inline';
-        document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner View';
+document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner View';
         document.getElementById('actionColHead').textContent = 'Action';
       } else {
         document.getElementById('actionColHead').textContent = '';
@@ -1150,67 +1117,7 @@
       loadLeads();
     }
 
-    // ── Owner: Nuke ───────────────────────────────────────────────────────
-    function openNuke() {
-      document.getElementById('nukePassInput').value = '';
-      document.getElementById('nukeError').style.display = 'none';
-      document.getElementById('confirmNuke').disabled = false;
-      document.getElementById('confirmNuke').textContent = 'Delete Everything';
-      document.getElementById('nukeModal').classList.add('open');
-      setTimeout(() => document.getElementById('nukePassInput').focus(), 100);
-    }
-
-    document.getElementById('cancelNuke').addEventListener('click', () => {
-      document.getElementById('nukeModal').classList.remove('open');
-    });
-
-    document.getElementById('confirmNuke').addEventListener('click', async () => {
-      const pass = document.getElementById('nukePassInput').value;
-      if (!pass) {
-        document.getElementById('nukeError').textContent = 'Enter your password to confirm.';
-        document.getElementById('nukeError').style.display = '';
-        return;
-      }
-
-      const btn = document.getElementById('confirmNuke');
-      btn.disabled = true;
-      btn.textContent = 'Verifying…';
-      document.getElementById('nukeError').style.display = 'none';
-
-      const { error: authErr } = await supabaseClient.auth.signInWithPassword({
-        email: OWNER_EMAIL,
-        password: pass,
-      });
-
-      if (authErr) {
-        document.getElementById('nukeError').textContent = 'Incorrect password.';
-        document.getElementById('nukeError').style.display = '';
-        btn.disabled = false;
-        btn.textContent = 'Delete Everything';
-        return;
-      }
-
-      btn.textContent = 'Deleting…';
-
-      const res = await fetch('/.netlify/functions/nuke-leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ confirm: 'DELETE' }),
-      });
-
-      if (res.ok) {
-        document.getElementById('nukeModal').classList.remove('open');
-        loadLeads();
-      } else {
-        const d = await res.json().catch(() => ({}));
-        document.getElementById('nukeError').textContent = d.error || 'Delete failed. Check Netlify env vars.';
-        document.getElementById('nukeError').style.display = '';
-        btn.disabled = false;
-        btn.textContent = 'Delete Everything';
-      }
-    });
-
-    // ── Utils ─────────────────────────────────────────────────────────────
+// ── Utils ─────────────────────────────────────────────────────────────
     function esc(str) {
       return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
