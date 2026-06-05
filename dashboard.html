@@ -915,8 +915,8 @@ document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner 
         const badgeLabel = statusLabel(lead.status, isOwner);
         const actionCell = isOwner ? ownerAction(lead) : clientAction(lead);
 
-        const statusCell = (lead.status === 'new')
-          ? `<button class="status-badge badge-new" onclick="approveLead('${lead.id}')" title="Click to confirm lead" style="border:none;cursor:pointer;">${badgeLabel}</button>`
+        const statusCell = (isOwner && lead.status === 'new')
+          ? `<button class="status-badge badge-new" onclick="approveLead('${lead.id}')" title="Click to validate" style="border:none;cursor:pointer;">${badgeLabel}</button>`
           : buildStatusCell(lead.status, isOwner, badgeClass, badgeLabel);
 
         return `
