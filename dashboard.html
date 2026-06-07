@@ -569,6 +569,38 @@
     .btn-deny-dispute:disabled,
     .btn-submit-dispute:disabled { opacity: 0.5; cursor: not-allowed; }
 
+    /* ── Message view button (in table) ── */
+    .msg-view-btn {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      background: rgba(26, 143, 168, 0.1);
+      border: 1px solid rgba(26, 143, 168, 0.3);
+      border-radius: 4px;
+      color: var(--ocean);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .msg-view-btn:hover { background: rgba(26, 143, 168, 0.2); }
+
+    /* ── Message modal ── */
+    .msg-modal-body {
+      font-size: 0.95rem;
+      color: var(--navy);
+      line-height: 1.65;
+      white-space: pre-wrap;
+      background: var(--foam);
+      border: 1px solid rgba(14, 95, 122, 0.12);
+      border-radius: 8px;
+      padding: 0.9rem 1rem;
+      margin-bottom: 1rem;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
     /* ── Add Lead button ── */
     .btn-add-lead {
       padding: 0.5rem 1rem;
@@ -781,12 +813,13 @@
               <th>Email</th>
               <th>Project Type</th>
               <th>Size</th>
+              <th>Message</th>
               <th>Status</th>
               <th id="actionColHead"></th>
             </tr>
           </thead>
           <tbody id="leadsBody">
-            <tr class="loading-row"><td colspan="8">Loading leads…</td></tr>
+            <tr class="loading-row"><td colspan="9">Loading leads…</td></tr>
           </tbody>
         </table>
       </div>
@@ -819,6 +852,18 @@
         <button class="btn-modal-cancel" id="cancelReview">Cancel</button>
         <button class="btn-accept-dispute" id="acceptDispute">Approve Dispute</button>
         <button class="btn-deny-dispute" id="denyDispute">Deny Dispute</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message View Modal -->
+  <div class="modal-overlay" id="msgModal">
+    <div class="modal-card" style="max-width:440px;">
+      <h3>Lead Message</h3>
+      <p class="modal-sub">What they told us about their project.</p>
+      <div class="msg-modal-body" id="msgModalText"></div>
+      <div class="modal-actions">
+        <button class="btn-modal-cancel" onclick="document.getElementById('msgModal').classList.remove('open')">Close</button>
       </div>
     </div>
   </div>
@@ -1073,15 +1118,20 @@ document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner 
     function renderTable(leads) {
       const tbody = document.getElementById('leadsBody');
       if (!leads.length) {
-        tbody.innerHTML = '<tr class="empty-row"><td colspan="8">No leads for this period.</td></tr>';
+        tbody.innerHTML = '<tr class="empty-row"><td colspan="9">No leads for this period.</td></tr>';
         return;
       }
 
+      window._ccstMsgs = {};
       tbody.innerHTML = leads.map(lead => {
+        window._ccstMsgs[lead.id] = lead.message || '';
         const date       = new Date(lead.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         const badgeClass = statusBadgeClass(lead.status);
         const badgeLabel = statusLabel(lead.status, isOwner);
         const actionCell = isOwner ? ownerAction(lead) : clientAction(lead);
+        const msgCell    = lead.message
+          ? `<button class="msg-view-btn" onclick="openMsgModal('${lead.id}')">View</button>`
+          : '<span style="color:#c0c8cc;">—</span>';
 
         const statusCell = (isOwner && lead.status === 'new')
           ? `<button class="status-badge badge-new" onclick="approveLead('${lead.id}')" title="Click to validate" style="border:none;cursor:pointer;">${badgeLabel}</button>`
@@ -1095,6 +1145,7 @@ document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner 
             <td>${esc(lead.email)}</td>
             <td>${esc(lead.project_type || '—')}</td>
             <td>${esc(lead.square_footage || '—')}</td>
+            <td>${msgCell}</td>
             <td>${statusCell}</td>
             <td>${actionCell}</td>
           </tr>`;
@@ -1283,6 +1334,13 @@ document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner 
       document.getElementById('reviewModal').classList.remove('open');
       reviewTarget = null;
       loadLeads();
+    }
+
+// ── Message modal ──────────────────────────────────────────────────────
+    window._ccstMsgs = {};
+    function openMsgModal(id) {
+      document.getElementById('msgModalText').textContent = window._ccstMsgs[id] || '';
+      document.getElementById('msgModal').classList.add('open');
     }
 
 // ── Add Manual Lead ────────────────────────────────────────────────────
