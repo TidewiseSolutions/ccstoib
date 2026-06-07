@@ -187,8 +187,8 @@ exports.handler = async (event) => {
       },
       body: JSON.stringify({
         from:     'Leads <leads@tidewisesolutions.com>',
-        to:       ['sales@coastalcarolinasyntheticturf.com', 'neal@tidewisesolutions.com'],
-        reply_to: 'sales@coastalcarolinasyntheticturf.com',
+        to:       ['matt@ccstoib.com', 'justn.ccstoib@gmail.com'],
+        reply_to: 'matt@ccstoib.com',
         subject:  `New Lead: ${name}${project_type ? ` — ${project_type}` : ''}`,
         html,
       }),
