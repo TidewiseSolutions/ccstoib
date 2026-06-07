@@ -399,6 +399,7 @@
     .badge-dispute_accepted  { background: #CFFAFE; color: #0E4F5A; }
     .badge-dispute_denied    { background: #FEE2E2; color: #7F1D1D; }
     .badge-invalid           { background: #FEE2E2; color: #7F1D1D; }
+    .badge-duplicate         { background: #F3F4F6; color: #6B7280; }
 
     /* ── Action buttons (table) ── */
     .action-btn {
@@ -1159,6 +1160,7 @@ document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner 
         disputed:          'badge-disputed',
         dispute_accepted:  'badge-dispute_accepted',
         dispute_denied:    'badge-dispute_denied',
+        duplicate:         'badge-duplicate',
       };
       return map[status] || 'badge-new';
     }
@@ -1171,6 +1173,7 @@ document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner 
           disputed:         'Disputed',
           dispute_accepted: 'Accepted',
           dispute_denied:   'Denied',
+          duplicate:        'Duplicate',
         };
         return map[status] || status;
       }
@@ -1181,6 +1184,7 @@ document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner 
         disputed:         'Under Review',
         dispute_accepted: 'Dispute Approved',
         dispute_denied:   'Dispute Denied',
+        duplicate:        'Duplicate',
       };
       return map[status] || status;
     }
@@ -1220,7 +1224,7 @@ document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner 
     }
 
     function clientAction(lead) {
-      // Client can dispute new or valid leads; everything else is locked
+      // Client can dispute new or valid leads; duplicates and everything else are locked
       if (lead.status === 'new' || lead.status === 'valid') {
         return `<button class="action-btn btn-dispute" onclick="openDispute('${lead.id}')">Dispute</button>`;
       }

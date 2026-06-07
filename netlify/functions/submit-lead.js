@@ -30,8 +30,28 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ error: 'Bot check failed' }) };
   }
 
-  const SUPABASE_URL     = process.env.SUPABASE_URL;
+  const SUPABASE_URL      = process.env.SUPABASE_URL;
   const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
+
+  // ── Duplicate check ────────────────────────────────────────────────────────
+  // Flag as duplicate if same email + phone already exists for this client.
+  // We still insert so it's visible in the dashboard, but it won't count as valid.
+  let isDuplicate = false;
+  if (phone) {
+    const dupCheck = await fetch(
+      `${SUPABASE_URL}/rest/v1/leads?client_id=eq.ccst&email=eq.${encodeURIComponent(email)}&phone=eq.${encodeURIComponent(phone)}&select=id&limit=1`,
+      {
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+      }
+    );
+    if (dupCheck.ok) {
+      const existing = await dupCheck.json();
+      if (existing.length > 0) isDuplicate = true;
+    }
+  }
 
   const supaRes = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
     method: 'POST',
@@ -45,7 +65,7 @@ exports.handler = async (event) => {
       name, email, phone, project_type, property_type,
       square_footage, message, traffic_source,
       client_id: 'ccst',
-      status: 'new',
+      status: isDuplicate ? 'duplicate' : 'new',
     }),
   });
 
@@ -55,9 +75,9 @@ exports.handler = async (event) => {
     return { statusCode: 500, body: JSON.stringify({ error: 'Failed to save lead' }) };
   }
 
-  // ── Email notification ────────────────────────────────────────────────────
+  // ── Email notification (skip for duplicates) ───────────────────────────────
   const RESEND_KEY = process.env.RESEND_API_KEY;
-  if (RESEND_KEY) {
+  if (RESEND_KEY && !isDuplicate) {
     const submitted = new Date().toLocaleString('en-US', {
       timeZone: 'America/New_York',
       month: 'long', day: 'numeric', year: 'numeric',
