@@ -310,9 +310,10 @@
       border: 3px solid var(--sand-dark);
       outline: 1px solid rgba(232,212,168,0.25);
       outline-offset: 4px;
-      background: rgba(255,255,255,0.93);
+      background: rgba(255,255,255,0.05);
       gap: 0.2rem;
-      padding: 0.65rem;
+      justify-content: space-between;
+      padding: 0.9rem 0.75rem 0.65rem;
     }
 
     .badge-brand-letters {
@@ -327,8 +328,8 @@
     .badge-status-text {
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      font-size: 0.4rem;
-      color: #1a3a2a;
+      font-size: 0.55rem;
+      color: var(--sand-dark);
       letter-spacing: 0.2em;
       text-transform: uppercase;
       text-align: center;
@@ -754,7 +755,7 @@
         <div class="badges-group">
           <div class="partner-badge-container" aria-label="Synthetic Turf International Certified Partner">
             <div class="badge-border-wrap">
-              <img src="/assets/unusedlogos/STI.png" alt="STI" style="width:54px;height:auto;" />
+              <span class="badge-brand-letters">STI</span>
               <span class="badge-status-text">Authorized<br>Dealer</span>
             </div>
           </div>
