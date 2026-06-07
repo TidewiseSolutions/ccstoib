@@ -569,6 +569,100 @@
     .btn-deny-dispute:disabled,
     .btn-submit-dispute:disabled { opacity: 0.5; cursor: not-allowed; }
 
+    /* ── Add Lead button ── */
+    .btn-add-lead {
+      padding: 0.5rem 1rem;
+      background: var(--grass);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .btn-add-lead:hover { background: var(--grass-dark); }
+
+    /* ── Add Lead modal form fields ── */
+    .modal-field { margin-bottom: 0.9rem; }
+
+    .modal-field label {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ocean-deep);
+      margin-bottom: 0.3rem;
+    }
+
+    .modal-field input,
+    .modal-field select,
+    .modal-field textarea {
+      width: 100%;
+      padding: 0.65rem 0.9rem;
+      border: 1.5px solid rgba(14, 95, 122, 0.2);
+      border-radius: 8px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--navy);
+      background: var(--foam);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .modal-field select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%230E5F7A' d='M0 0l6 8 6-8z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.9rem center;
+      padding-right: 2.2rem;
+      cursor: pointer;
+    }
+
+    .modal-field textarea { resize: vertical; min-height: 70px; }
+
+    .modal-field input:focus,
+    .modal-field select:focus,
+    .modal-field textarea:focus {
+      outline: none;
+      border-color: var(--ocean);
+      box-shadow: 0 0 0 3px rgba(26, 143, 168, 0.15);
+    }
+
+    .modal-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+    .modal-error {
+      display: none;
+      margin-bottom: 0.75rem;
+      padding: 0.55rem 0.85rem;
+      background: #fff0f0;
+      border: 1px solid #ffcccc;
+      border-radius: 6px;
+      color: #c0392b;
+      font-size: 0.83rem;
+    }
+
+    .btn-submit-lead {
+      padding: 0.6rem 1.2rem;
+      background: var(--grass);
+      border: none;
+      border-radius: 7px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--white);
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn-submit-lead:hover  { opacity: 0.85; }
+    .btn-submit-lead:disabled { opacity: 0.5; cursor: not-allowed; }
+
     /* ── Responsive ── */
     @media (max-width: 900px) {
       .stats-layout { grid-template-columns: 1fr; }
@@ -582,6 +676,7 @@
       .search-input { width: 100%; }
       .table-toolbar { flex-direction: column; align-items: flex-start; }
       .toolbar-right { width: 100%; flex-direction: column; }
+      .modal-field-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -672,6 +767,7 @@
         <div class="table-toolbar">
           <h3>Leads</h3>
           <div class="toolbar-right">
+            <button class="btn-add-lead" id="addLeadBtn" onclick="openAddLead()">+ Add Lead</button>
             <select class="search-input" id="monthSelect"></select>
             <input class="search-input" id="searchInput" type="text" placeholder="Search by name, email…" />
           </div>
@@ -723,6 +819,78 @@
         <button class="btn-modal-cancel" id="cancelReview">Cancel</button>
         <button class="btn-accept-dispute" id="acceptDispute">Approve Dispute</button>
         <button class="btn-deny-dispute" id="denyDispute">Deny Dispute</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Manual Lead Modal -->
+  <div class="modal-overlay" id="addLeadModal">
+    <div class="modal-card" style="max-width:540px;">
+      <h3>Add Manual Lead</h3>
+      <p class="modal-sub" id="addLeadSub">Log a lead from a phone call, email, or referral.</p>
+
+      <div class="modal-error" id="addLeadError"></div>
+
+      <div class="modal-field-row">
+        <div class="modal-field">
+          <label for="alName">Name <span style="color:#c0392b;">*</span></label>
+          <input type="text" id="alName" placeholder="Full name" />
+        </div>
+        <div class="modal-field">
+          <label for="alPhone">Phone</label>
+          <input type="tel" id="alPhone" placeholder="(910) 555-0000" />
+        </div>
+      </div>
+
+      <div class="modal-field">
+        <label for="alEmail">Email <span style="color:#c0392b;">*</span></label>
+        <input type="email" id="alEmail" placeholder="customer@example.com" />
+      </div>
+
+      <div class="modal-field-row">
+        <div class="modal-field">
+          <label for="alProjectType">Project Type</label>
+          <select id="alProjectType">
+            <option value="">Select one…</option>
+            <option>Putting Green</option>
+            <option>Small Residential Yard</option>
+            <option>Full Yard Installation</option>
+            <option>Commercial</option>
+          </select>
+        </div>
+        <div class="modal-field">
+          <label for="alSize">Approximate Size</label>
+          <select id="alSize">
+            <option value="">Select one…</option>
+            <option>&lt; 500 sq ft</option>
+            <option>500 – 1,000 sq ft</option>
+            <option>1,000 – 1,500 sq ft</option>
+            <option>1,500 – 2,000 sq ft</option>
+            <option>2,000+ sq ft</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-field">
+        <label for="alSource">How Did They Reach You?</label>
+        <select id="alSource">
+          <option value="">Select one…</option>
+          <option>Phone Call</option>
+          <option>Email</option>
+          <option>Text Message</option>
+          <option>In Person / Referral</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="modal-field">
+        <label for="alMessage">Notes <span style="font-weight:400;color:#9ab0bc;">(optional)</span></label>
+        <textarea id="alMessage" placeholder="Project details, timeline, anything worth noting…"></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-modal-cancel" id="cancelAddLead">Cancel</button>
+        <button class="btn-submit-lead" id="confirmAddLead">Submit Lead</button>
       </div>
     </div>
   </div>
@@ -1116,6 +1284,79 @@ document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner 
       reviewTarget = null;
       loadLeads();
     }
+
+// ── Add Manual Lead ────────────────────────────────────────────────────
+    function openAddLead() {
+      document.getElementById('alName').value        = '';
+      document.getElementById('alPhone').value       = '';
+      document.getElementById('alEmail').value       = '';
+      document.getElementById('alProjectType').value = '';
+      document.getElementById('alSize').value        = '';
+      document.getElementById('alSource').value      = '';
+      document.getElementById('alMessage').value     = '';
+      document.getElementById('addLeadError').style.display = 'none';
+
+      const sub = document.getElementById('addLeadSub');
+      sub.textContent = isOwner
+        ? 'Lead will be marked valid immediately.'
+        : 'Log a lead from a phone call, email, or referral. It will be reviewed and, if valid, added to your billing.';
+
+      const btn = document.getElementById('confirmAddLead');
+      btn.disabled = false;
+      btn.textContent = 'Submit Lead';
+
+      document.getElementById('addLeadModal').classList.add('open');
+      document.getElementById('alName').focus();
+    }
+
+    document.getElementById('cancelAddLead').addEventListener('click', () => {
+      document.getElementById('addLeadModal').classList.remove('open');
+    });
+
+    document.getElementById('confirmAddLead').addEventListener('click', async () => {
+      const name    = document.getElementById('alName').value.trim();
+      const phone   = document.getElementById('alPhone').value.trim();
+      const email   = document.getElementById('alEmail').value.trim();
+      const project = document.getElementById('alProjectType').value;
+      const size    = document.getElementById('alSize').value;
+      const source  = document.getElementById('alSource').value;
+      const message = document.getElementById('alMessage').value.trim();
+      const errEl   = document.getElementById('addLeadError');
+
+      errEl.style.display = 'none';
+      if (!name || !email) {
+        errEl.textContent = 'Name and email are required.';
+        errEl.style.display = 'block';
+        return;
+      }
+
+      const btn = document.getElementById('confirmAddLead');
+      btn.disabled = true;
+      btn.textContent = 'Submitting…';
+
+      const { error } = await supabaseClient.from('leads').insert({
+        name,
+        phone: phone || null,
+        email,
+        project_type:    project  || null,
+        square_footage:  size     || null,
+        traffic_source:  source   || null,
+        message:         message  || null,
+        client_id:       'ccst',
+        status:          isOwner ? 'valid' : 'new',
+      });
+
+      if (error) {
+        errEl.textContent = 'Failed to save lead. Please try again.';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Submit Lead';
+        return;
+      }
+
+      document.getElementById('addLeadModal').classList.remove('open');
+      loadLeads();
+    });
 
 // ── Utils ─────────────────────────────────────────────────────────────
     function esc(str) {
