@@ -1134,8 +1134,11 @@ document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner 
           ? `<button class="msg-view-btn" onclick="openMsgModal('${lead.id}')">View</button>`
           : '<span style="color:#c0c8cc;">—</span>';
 
-        const statusCell = (isOwner && lead.status === 'new')
-          ? `<button class="status-badge badge-new" onclick="approveLead('${lead.id}')" title="Click to validate" style="border:none;cursor:pointer;">${badgeLabel}</button>`
+        const statusCell = (lead.status === 'new')
+          ? `<button class="status-badge badge-new"
+                onclick="${isOwner ? `approveLead('${lead.id}')` : `confirmLead('${lead.id}')`}"
+                title="${isOwner ? 'Click to validate' : 'Click to confirm this is a valid lead'}"
+                style="border:none;cursor:pointer;">${badgeLabel}</button>`
           : buildStatusCell(lead.status, isOwner, badgeClass, badgeLabel);
 
         return `
@@ -1271,6 +1274,14 @@ document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner 
 
       if (!error) loadLeads();
     });
+
+    // ── Client: Confirm lead ──────────────────────────────────────────────
+    function confirmLead(id) {
+      const lead = allLeads.find(l => l.id === id);
+      const name = lead ? lead.name : 'this lead';
+      if (!confirm(`Confirm "${name}" as a valid lead?\n\nThis marks it as billable and cannot be undone.`)) return;
+      approveLead(id);
+    }
 
     // ── Owner: Approve ────────────────────────────────────────────────────
     async function approveLead(id) {
