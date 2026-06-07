@@ -303,9 +303,13 @@
     }
     .bio-grid {
       display: grid;
-      grid-template-columns: 160px 1fr 160px;
-      gap: 2.25rem;
-      align-items: center;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 2rem 2.25rem;
+      align-items: start;
+    }
+    .bio-grid .bio-text {
+      grid-column: 1 / -1;
     }
     .bio-photo-wrap { text-align: center; }
     .bio-photo-wrap img {
@@ -573,10 +577,8 @@
       .hero-inner { flex-direction: column; padding-left: 2rem; gap: 1.5rem; }
       .hero-logo { width: min(180px, 55vw); }
       .reviews-grid { grid-template-columns: 1fr; }
-      .bio-grid { grid-template-columns: 1fr 1fr; grid-template-areas: "matt justin" "text text"; }
-      .bio-grid .bio-photo-wrap:first-child { grid-area: matt; }
-      .bio-grid .bio-photo-wrap:last-child  { grid-area: justin; }
-      .bio-grid .bio-text { grid-area: text; }
+      .bio-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+      .bio-grid .bio-text { grid-column: 1 / -1; }
       .bio-card { padding: 1.5rem 1rem; }
       .carousel-viewport { aspect-ratio: 4 / 3; }
       .carousel-btn { width: 38px; height: 38px; font-size: 1.4rem; }
@@ -631,14 +633,18 @@
             <img src="/assets/CCSTOIB-Matt.webp" alt="Matt, co-owner of Coastal Carolina Synthetic Turf, on Ocean Isle Beach" loading="lazy" decoding="async" />
             <p class="bio-name">Matt</p>
           </div>
-          <div class="bio-text">
-            <p>We aren't just a turf management company, we're your neighbors. Justin — originally from Knightdale, NC — grew up spending every weekend he could in Calabash before officially making the move here at 22. Matt moved from the west coast to North Carolina over 35 years ago, and now calls Ocean Isle Beach home. When they aren't laying turf, you may find them laying rails, as they are both avid surfers.</p>
-            <p>Back in 2008, we met while serving together at a local fire department. When you spend years answering emergency calls together, you build a level of trust and work ethic that stays with you for life.</p>
-            <p>Now, we're channeling that same energy into our neighbors' lawns. We swapped the fire trucks and hose for pickups and turf equipment, but our mission hasn't changed: serving our local residents with honesty, integrity, grit, and unbeatable reliability. When we say we'll be there to get the job done right... we mean it.</p>
+          <div class="bio-photo-wrap">
+            <img src="/assets/CCST-Frankie.webp" alt="Frankie, part of the Coastal Carolina Synthetic Turf team" loading="lazy" decoding="async" />
+            <p class="bio-name">Frankie</p>
           </div>
           <div class="bio-photo-wrap">
             <img src="/assets/CCSTOIB-Justin.webp" alt="Justin, co-owner of Coastal Carolina Synthetic Turf, on Ocean Isle Beach" loading="lazy" decoding="async" />
             <p class="bio-name">Justin</p>
+          </div>
+          <div class="bio-text">
+            <p>We aren't just a turf management company, we're your neighbors. Justin — originally from Knightdale, NC — grew up spending every weekend he could in Calabash before officially making the move here at 22. Matt moved from the west coast to North Carolina over 35 years ago, and now calls Ocean Isle Beach home. When they aren't putting down turf, you may find them putting down rails, as they are both avid surfers.</p>
+            <p>Back in 2008, we met while serving together at a local fire department. When you spend years answering emergency calls together, you build a level of trust and work ethic that stays with you for life. And the guy giving dad vibes, that's Frankie, Justin's dad. After a career in law enforcement, he's gone from laying down the law to laying down turf with the boys.</p>
+            <p>Now, we're channeling that same energy into our neighbors' lawns. We swapped the fire trucks and hose for pickups and turf equipment, but our mission hasn't changed: serving our local residents with honesty, integrity, grit, and unbeatable reliability. When we say we'll be there to get the job done right... we mean it.</p>
           </div>
         </div>
       </div>
