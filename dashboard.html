@@ -1396,19 +1396,21 @@ document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner 
       btn.disabled = true;
       btn.textContent = 'Submitting…';
 
-      const { error } = await supabaseClient.from('leads').insert({
-        name,
-        phone: phone || null,
-        email,
-        project_type:    project  || null,
-        square_footage:  size     || null,
-        traffic_source:  source   || null,
-        message:         message  || null,
-        client_id:       'ccst',
-        status:          isOwner ? 'valid' : 'new',
+      const res = await fetch('/.netlify/functions/add-manual-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name, email,
+          phone:          phone   || null,
+          project_type:   project || null,
+          square_footage: size    || null,
+          traffic_source: source  || null,
+          message:        message || null,
+          status:         isOwner ? 'valid' : 'new',
+        }),
       });
 
-      if (error) {
+      if (!res.ok) {
         errEl.textContent = 'Failed to save lead. Please try again.';
         errEl.style.display = 'block';
         btn.disabled = false;
