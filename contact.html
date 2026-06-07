@@ -601,20 +601,6 @@
           body: JSON.stringify(data),
         });
         if (!res.ok) throw new Error();
-        fetch('https://formsubmit.co/ajax/matt@ccstoib.com', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({
-            _subject: `New Lead — ${data.name} — Coastal Carolina Synthetic Turf`,
-            _captcha: 'false',
-            Name:           data.name,
-            Email:          data.email,
-            Phone:          data.phone || 'Not provided',
-            'Project Type': data.project_type,
-            'Approx. Size': data.square_footage,
-            Message:        data.message || 'None',
-          }),
-        }).catch(() => {});
         window.location.href = 'thankyou.html';
       } catch {
         errorMsg.style.display = 'block';
