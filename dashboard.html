@@ -349,44 +349,35 @@
     .search-input:focus { outline: none; border-color: var(--ocean); }
     select.search-input { width: auto; cursor: pointer; }
 
-    .cards-list { display: flex; flex-direction: column; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
 
-    .lead-card {
-      border-bottom: 1px solid rgba(13, 43, 62, 0.06);
-      padding: 0.85rem 1.5rem;
-      cursor: pointer;
-      transition: background 0.15s;
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-    .lead-card:hover { background: rgba(14, 95, 122, 0.03); }
-    .lead-card:last-child { border-bottom: none; }
-    .lead-card.has-comments { background: rgba(46, 139, 62, 0.035); }
-    .lead-card.has-comments:hover { background: rgba(46, 139, 62, 0.065); }
-
-    .card-left { flex: 1; min-width: 0; }
-
-    .card-name {
+    thead th {
+      padding: 0.65rem 1rem;
+      text-align: left;
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--navy);
-      margin-bottom: 0.18rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ocean-deep);
+      background: rgba(14, 95, 122, 0.04);
+      border-bottom: 1px solid rgba(14, 95, 122, 0.1);
+      white-space: nowrap;
     }
-    .card-meta { font-size: 0.81rem; color: #5a7080; margin-bottom: 0.12rem; }
-    .card-addr { font-size: 0.8rem; color: #7a8f9a; margin-bottom: 0.12rem; }
-    .card-proj { font-size: 0.78rem; color: var(--ocean-deep); font-weight: 600; }
 
-    .card-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0.4rem;
-      flex-shrink: 0;
+    tbody tr {
+      border-bottom: 1px solid rgba(13, 43, 62, 0.05);
+      cursor: pointer;
+      transition: background 0.15s;
     }
-    .card-date { font-size: 0.74rem; color: #9ab0bc; white-space: nowrap; }
-    .card-actions { display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+    tbody tr:hover { background: rgba(14, 95, 122, 0.03); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr.has-comments { background: rgba(46, 139, 62, 0.04); }
+    tbody tr.has-comments:hover { background: rgba(46, 139, 62, 0.07); }
+
+    td { padding: 0.75rem 1rem; color: #3a5060; vertical-align: middle; }
+    td.col-name { font-weight: 600; color: var(--navy); }
+    td.col-action { white-space: nowrap; }
 
     .btn-delete-lead {
       font-family: 'Montserrat', sans-serif;
@@ -923,9 +914,23 @@
             <input class="search-input" id="searchInput" type="text" placeholder="Search by name, email…" />
           </div>
         </div>
-        <div class="cards-list" id="leadsBody">
-          <div class="empty-state">Loading leads…</div>
-        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Address</th>
+              <th>Project</th>
+              <th>Status</th>
+              <th id="actionColHead"></th>
+            </tr>
+          </thead>
+          <tbody id="leadsBody">
+            <tr><td colspan="8" class="empty-state">Loading leads…</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -1147,6 +1152,7 @@
         document.getElementById('ownerBadge').style.display = '';
         document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner View';
         document.getElementById('nukeBtn').style.display    = 'none'; // hidden — use inspector if needed
+        document.getElementById('actionColHead').textContent = '';
       }
 
       subscribeRealtime();
@@ -1175,7 +1181,7 @@
         .order('created_at', { ascending: false });
 
       if (error) {
-        document.getElementById('leadsBody').innerHTML = '<div class="empty-state">Error loading leads.</div>';
+        document.getElementById('leadsBody').innerHTML = '<tr><td colspan="8" class="empty-state">Error loading leads.</td></tr>';
         return;
       }
 
@@ -1247,14 +1253,14 @@
       document.getElementById('statYear').textContent  = allLeads.filter(l => new Date(l.created_at).getFullYear() === now.getFullYear()).length;
     }
 
-    // ── Cards render ──────────────────────────────────────────────────────
+    // ── Table render ──────────────────────────────────────────────────────
     function renderCards(leads) {
-      const body = document.getElementById('leadsBody');
+      const tbody = document.getElementById('leadsBody');
       if (!leads.length) {
-        body.innerHTML = '<div class="empty-state">No leads for this period.</div>';
+        tbody.innerHTML = `<tr><td colspan="8" class="empty-state">No leads for this period.</td></tr>`;
         return;
       }
-      body.innerHTML = leads.map(lead => {
+      tbody.innerHTML = leads.map(lead => {
         const date        = new Date(lead.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         const badgeClass  = statusBadgeClass(lead.status);
         const badgeLabel  = statusLabel(lead.status, isOwner);
@@ -1263,20 +1269,18 @@
         const deleteBtn   = isOwner
           ? `<button class="btn-delete-lead" onclick="event.stopPropagation();deleteLead('${lead.id}','${esc(lead.name).replace(/'/g,"\\'")}')">Delete</button>`
           : '';
+        const statusCell  = buildStatusCell(lead.status, isOwner, badgeClass, badgeLabel);
         return `
-          <div class="lead-card${hasComments ? ' has-comments' : ''}" onclick="openLeadModal('${lead.id}')">
-            <div class="card-left">
-              <div class="card-name">${esc(lead.name)}</div>
-              <div class="card-meta">${esc(lead.phone || '—')} &nbsp;·&nbsp; ${esc(lead.email)}</div>
-              ${addrLine ? `<div class="card-addr">${esc(addrLine)}</div>` : ''}
-              ${lead.project_type ? `<div class="card-proj">${esc(lead.project_type)}</div>` : ''}
-            </div>
-            <div class="card-right">
-              <div class="card-date">${date}</div>
-              <span class="status-badge ${badgeClass}">${badgeLabel}</span>
-              <div class="card-actions">${deleteBtn}</div>
-            </div>
-          </div>`;
+          <tr class="${hasComments ? 'has-comments' : ''}" onclick="openLeadModal('${lead.id}')">
+            <td>${date}</td>
+            <td class="col-name">${esc(lead.name)}</td>
+            <td>${esc(lead.phone || '—')}</td>
+            <td>${esc(lead.email)}</td>
+            <td>${esc(addrLine || '—')}</td>
+            <td>${esc(lead.project_type || '—')}</td>
+            <td>${statusCell}</td>
+            <td class="col-action">${deleteBtn}</td>
+          </tr>`;
       }).join('');
     }
 
