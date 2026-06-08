@@ -417,9 +417,89 @@
 
     .footer-links a:hover { color: var(--sand); }
 
+    /* ── Hamburger ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px 4px;
+      flex-shrink: 0;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2.5px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform 0.25s, opacity 0.2s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+    /* ── Mobile nav drawer ── */
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 150;
+    }
+    .nav-overlay.open { display: block; }
+
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 260px;
+      height: 100vh;
+      background: var(--ocean-deep);
+      z-index: 160;
+      padding: 5rem 1.75rem 2rem;
+      transform: translateX(-100%);
+      transition: transform 0.28s ease;
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.35);
+    }
+    .mobile-nav.open { transform: translateX(0); }
+
+    .mobile-nav ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .mobile-nav ul a {
+      display: block;
+      padding: 0.75rem 0;
+      color: rgba(255, 255, 255, 0.88);
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.03em;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      transition: color 0.15s;
+    }
+    .mobile-nav ul a:hover { color: var(--sand); }
+    .mobile-nav ul li:last-child a {
+      margin-top: 1rem;
+      background: var(--grass);
+      color: var(--white);
+      text-align: center;
+      border-radius: 6px;
+      border-bottom: none;
+      padding: 0.75rem 1rem;
+    }
+    .mobile-nav ul li:last-child a:hover { background: var(--grass-dark); }
+
     /* ── Responsive ── */
     @media (max-width: 768px) {
       .nav-links { display: none; }
+      .hamburger { display: flex; }
       .hero-inner { flex-direction: column; text-align: center; padding-left: 1.5rem; gap: 1.5rem; }
       .hero-logo { width: min(180px, 55vw); }
       .staging-grid { grid-template-columns: 1fr; max-width: 340px; margin-left: auto; margin-right: auto; }
@@ -443,8 +523,23 @@
     })();
   </script>
 
+  <div class="nav-overlay" id="navOverlay"></div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+    <ul>
+      <li><a href="/lawn-and-pet.html">Lawn &amp; Pet Areas</a></li>
+      <li><a href="/pga-greens.html">Putting Greens</a></li>
+      <li><a href="/why-us.html">Why CCST</a></li>
+      <li><a href="/contact.html">Get An Estimate</a></li>
+    </ul>
+  </nav>
+
   <header class="site-header">
     <div class="header-inner">
+      <button class="hamburger" id="navToggle" aria-label="Open navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <div class="brand-text">
         Coastal Carolina
         <span>Synthetic Turf</span>
@@ -543,6 +638,17 @@
         label.style.opacity = '1';
       }
     });
+  </script>
+
+  <script>
+    const navToggle  = document.getElementById('navToggle');
+    const mobileNav  = document.getElementById('mobileNav');
+    const navOverlay = document.getElementById('navOverlay');
+    function openNav()  { mobileNav.classList.add('open');    navOverlay.classList.add('open');    navToggle.classList.add('open'); }
+    function closeNav() { mobileNav.classList.remove('open'); navOverlay.classList.remove('open'); navToggle.classList.remove('open'); }
+    navToggle.addEventListener('click', () => mobileNav.classList.contains('open') ? closeNav() : openNav());
+    navOverlay.addEventListener('click', closeNav);
+    mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
   </script>
 </body>
 </html>
