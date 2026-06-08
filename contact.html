@@ -439,6 +439,11 @@
           <input type="email" id="email" name="email" required placeholder="jane@example.com" />
         </div>
 
+        <div class="form-group">
+          <label for="service_address">Service Address <span class="opt">(optional)</span></label>
+          <input type="text" id="service_address" name="service_address" placeholder="123 Oak St, Wilmington, NC 28401" />
+        </div>
+
         <div class="divider"></div>
 
         <div class="form-row">
@@ -589,9 +594,10 @@
         phone:          document.getElementById('phone').value.trim(),
         project_type:   document.getElementById('project_type').value,
         square_footage: document.getElementById('square_footage').value,
-        message:        document.getElementById('message').value.trim(),
-        traffic_source: document.getElementById('traffic_source').value,
-        cfToken:        cfToken,
+        message:         document.getElementById('message').value.trim(),
+        service_address: document.getElementById('service_address').value.trim(),
+        traffic_source:  document.getElementById('traffic_source').value,
+        cfToken:         cfToken,
         website:        document.getElementById('website').value,
       };
       try {

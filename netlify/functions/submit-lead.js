@@ -10,7 +10,7 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ error: 'Invalid request' }) };
   }
 
-  const { name, email, phone, project_type, property_type, square_footage, message, traffic_source, cfToken, website } = body;
+  const { name, email, phone, project_type, property_type, square_footage, message, service_address, traffic_source, cfToken, website } = body;
 
   if (website) {
     return { statusCode: 200, body: JSON.stringify({ success: true }) };
@@ -63,7 +63,7 @@ exports.handler = async (event) => {
     },
     body: JSON.stringify({
       name, email, phone, project_type, property_type,
-      square_footage, message, traffic_source,
+      square_footage, message, service_address, traffic_source,
       client_id: 'ccst',
       status: isDuplicate ? 'duplicate' : 'new',
     }),
@@ -129,6 +129,7 @@ exports.handler = async (event) => {
             <table width="100%" cellpadding="0" cellspacing="0">
               ${row('Phone', phone)}
               ${row('Email', `<a href="mailto:${email}" style="color:#1A8FA8;text-decoration:none;">${email}</a>`)}
+              ${row('Service Address', service_address)}
               ${row('Project', project_type)}
               ${row('Size', square_footage)}
               ${row('Source', traffic_source)}

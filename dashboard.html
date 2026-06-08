@@ -309,7 +309,7 @@
     .pill-default { border-top-color: rgba(14, 95, 122, 0.2); }
     .pill-default .num { color: var(--ocean-deep); }
 
-    /* ── Table ── */
+    /* ── Cards section ── */
     .table-wrap {
       background: var(--white);
       border-radius: 12px;
@@ -347,38 +347,81 @@
     }
 
     .search-input:focus { outline: none; border-color: var(--ocean); }
-
     select.search-input { width: auto; cursor: pointer; }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.88rem;
-    }
+    .cards-list { display: flex; flex-direction: column; }
 
-    thead th {
-      padding: 0.75rem 1rem;
-      text-align: left;
+    .lead-card {
+      border-bottom: 1px solid rgba(13, 43, 62, 0.06);
+      padding: 0.85rem 1.5rem;
+      cursor: pointer;
+      transition: background 0.15s;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .lead-card:hover { background: rgba(14, 95, 122, 0.03); }
+    .lead-card:last-child { border-bottom: none; }
+    .lead-card.has-comments { background: rgba(46, 139, 62, 0.035); }
+    .lead-card.has-comments:hover { background: rgba(46, 139, 62, 0.065); }
+
+    .card-left { flex: 1; min-width: 0; }
+
+    .card-name {
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--ocean-deep);
-      background: rgba(14, 95, 122, 0.04);
-      border-bottom: 1px solid rgba(14, 95, 122, 0.1);
+      font-size: 0.95rem;
+      color: var(--navy);
+      margin-bottom: 0.18rem;
     }
+    .card-meta { font-size: 0.81rem; color: #5a7080; margin-bottom: 0.12rem; }
+    .card-addr { font-size: 0.8rem; color: #7a8f9a; margin-bottom: 0.12rem; }
+    .card-proj { font-size: 0.78rem; color: var(--ocean-deep); font-weight: 600; }
 
-    tbody tr {
-      border-bottom: 1px solid rgba(13, 43, 62, 0.05);
+    .card-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+    .card-date { font-size: 0.74rem; color: #9ab0bc; white-space: nowrap; }
+    .card-actions { display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+
+    .btn-delete-lead {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 5px;
+      cursor: pointer;
+      border: 1px solid rgba(220,38,38,0.25);
+      background: transparent;
+      color: #c0392b;
       transition: background 0.15s;
     }
+    .btn-delete-lead:hover { background: #fee2e2; }
 
-    tbody tr:hover { background: rgba(14, 95, 122, 0.03); }
-    tbody tr:last-child { border-bottom: none; }
+    .btn-nuke {
+      display: none;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid rgba(220,38,38,0.3);
+      background: transparent;
+      color: #9b2335;
+      transition: background 0.15s;
+    }
+    .btn-nuke:hover { background: #fee2e2; }
 
-    td { padding: 0.85rem 1rem; color: #3a5060; vertical-align: middle; }
-    td.name { font-weight: 600; color: var(--navy); }
+    .empty-state { text-align: center; padding: 3rem; color: #8a9faa; font-style: italic; }
 
     /* ── Status badges ── */
     .status-badge {
@@ -570,22 +613,96 @@
     .btn-deny-dispute:disabled,
     .btn-submit-dispute:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    /* ── Message view button (in table) ── */
-    .msg-view-btn {
+    /* ── Lead detail modal ── */
+    .detail-modal .modal-card { max-width: 560px; max-height: 90vh; overflow-y: auto; }
+
+    .detail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+      gap: 1rem;
+    }
+    .detail-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--navy);
+    }
+    .detail-sub { font-size: 0.78rem; color: #9ab0bc; margin-top: 0.15rem; }
+    .detail-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.45rem; flex-shrink: 0; }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 115px 1fr;
+      gap: 0.5rem 0.75rem;
+      margin-bottom: 1.1rem;
+      font-size: 0.87rem;
+    }
+    .detail-label {
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
       font-size: 0.7rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: #9ab0bc;
+      padding-top: 0.05rem;
+    }
+    .detail-val { color: var(--navy); line-height: 1.45; }
+
+    .detail-divider { border: none; border-top: 1px solid rgba(14,95,122,0.1); margin: 1rem 0; }
+
+    .comments-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ocean-deep);
+      margin-bottom: 0.6rem;
+    }
+    .comment-log { display: flex; flex-direction: column; gap: 0.55rem; margin-bottom: 0.85rem; max-height: 170px; overflow-y: auto; }
+    .comment-item {
+      background: var(--foam);
+      border: 1px solid rgba(14,95,122,0.1);
+      border-radius: 7px;
+      padding: 0.5rem 0.75rem;
+    }
+    .comment-meta { font-size: 0.7rem; color: #9ab0bc; margin-bottom: 0.18rem; }
+    .comment-body { font-size: 0.85rem; color: var(--navy); line-height: 1.45; }
+    .comment-empty { font-size: 0.84rem; color: #9ab0bc; font-style: italic; margin-bottom: 0.85rem; }
+
+    .comment-form { display: flex; flex-direction: column; gap: 0.5rem; }
+    .comment-form textarea {
+      width: 100%;
+      padding: 0.6rem 0.85rem;
+      border: 1.5px solid rgba(14,95,122,0.2);
+      border-radius: 8px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.87rem;
+      color: var(--navy);
+      resize: vertical;
+      min-height: 66px;
+      background: var(--foam);
+    }
+    .comment-form textarea:focus { outline: none; border-color: var(--ocean); }
+    .btn-add-comment {
+      align-self: flex-end;
+      padding: 0.42rem 1rem;
+      background: var(--ocean-deep);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.73rem;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      padding: 0.2rem 0.55rem;
-      background: rgba(26, 143, 168, 0.1);
-      border: 1px solid rgba(26, 143, 168, 0.3);
-      border-radius: 4px;
-      color: var(--ocean);
+      border: none;
+      border-radius: 6px;
       cursor: pointer;
-      transition: background 0.15s;
+      transition: opacity 0.15s;
     }
-    .msg-view-btn:hover { background: rgba(26, 143, 168, 0.2); }
+    .btn-add-comment:hover { opacity: 0.85; }
+    .btn-add-comment:disabled { opacity: 0.45; cursor: not-allowed; }
 
     /* ── Message modal ── */
     .msg-modal-body {
@@ -801,28 +918,14 @@
           <h3>Leads</h3>
           <div class="toolbar-right">
             <button class="btn-add-lead" id="addLeadBtn" onclick="openAddLead()">+ Add Lead</button>
+            <button class="btn-nuke" id="nukeBtn">Nuke All Leads</button>
             <select class="search-input" id="monthSelect"></select>
             <input class="search-input" id="searchInput" type="text" placeholder="Search by name, email…" />
           </div>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Email</th>
-              <th>Project Type</th>
-              <th>Size</th>
-              <th>Message</th>
-              <th>Status</th>
-              <th id="actionColHead"></th>
-            </tr>
-          </thead>
-          <tbody id="leadsBody">
-            <tr class="loading-row"><td colspan="9">Loading leads…</td></tr>
-          </tbody>
-        </table>
+        <div class="cards-list" id="leadsBody">
+          <div class="empty-state">Loading leads…</div>
+        </div>
       </div>
     </div>
   </div>
@@ -857,14 +960,42 @@
     </div>
   </div>
 
-  <!-- Message View Modal -->
-  <div class="modal-overlay" id="msgModal">
-    <div class="modal-card" style="max-width:440px;">
-      <h3>Lead Message</h3>
-      <p class="modal-sub">What they told us about their project.</p>
-      <div class="msg-modal-body" id="msgModalText"></div>
-      <div class="modal-actions">
-        <button class="btn-modal-cancel" onclick="document.getElementById('msgModal').classList.remove('open')">Close</button>
+  <!-- Lead Detail Modal -->
+  <div class="modal-overlay detail-modal" id="leadDetailModal">
+    <div class="modal-card">
+      <div class="detail-header">
+        <div>
+          <div class="detail-name" id="detailName"></div>
+          <div class="detail-sub" id="detailDateSub"></div>
+        </div>
+        <div class="detail-right">
+          <div id="detailStatusBadge"></div>
+          <div class="card-actions" id="detailActionBtns"></div>
+        </div>
+      </div>
+
+      <div class="detail-grid">
+        <span class="detail-label">Phone</span>        <span class="detail-val" id="detailPhone"></span>
+        <span class="detail-label">Email</span>         <span class="detail-val" id="detailEmail"></span>
+        <span class="detail-label">Address</span>       <span class="detail-val" id="detailAddr"></span>
+        <span class="detail-label">Project</span>       <span class="detail-val" id="detailProject"></span>
+        <span class="detail-label">Approx. Size</span>  <span class="detail-val" id="detailSize"></span>
+        <span class="detail-label" id="detailMsgLabel" style="display:none;">Message</span>
+        <span class="detail-val"   id="detailMsg"      style="display:none;white-space:pre-wrap;"></span>
+        <span class="detail-label" id="detailSrcLabel" style="display:none;">Source</span>
+        <span class="detail-val"   id="detailSrc"      style="display:none;"></span>
+      </div>
+
+      <hr class="detail-divider" />
+      <div class="comments-label">Notes &amp; Comments</div>
+      <div class="comment-log" id="commentLog"></div>
+      <div class="comment-form">
+        <textarea id="newCommentText" placeholder="Add a note — call attempt, follow-up, anything relevant…"></textarea>
+        <button class="btn-add-comment" id="addCommentBtn">Add Note</button>
+      </div>
+
+      <div class="modal-actions" style="margin-top:1rem;">
+        <button class="btn-modal-cancel" id="closeDetailModal">Close</button>
       </div>
     </div>
   </div>
@@ -943,10 +1074,12 @@
 
   <script>
     let supabaseClient;
-    let allLeads      = [];
-    let isOwner       = false;
-    let disputeTarget = null;
-    let reviewTarget  = null;
+    let allLeads        = [];
+    let isOwner         = false;
+    let currentUserEmail = '';
+    let detailLeadId    = null;
+    let disputeTarget   = null;
+    let reviewTarget    = null;
     let realtimeChannel = null;
 
     const OWNER_EMAIL = 'neal@tidewisesolutions.com';
@@ -1003,18 +1136,17 @@
 
     // ── Dashboard ─────────────────────────────────────────────────────────
     function showDashboard(user) {
-      isOwner = (user.email || '').toLowerCase() === OWNER_EMAIL.toLowerCase();
-      document.getElementById('loginWrap').style.display  = 'none';
-      document.getElementById('dashWrap').style.display   = 'block';
-      document.getElementById('userEmail').textContent    = user.email;
-      document.getElementById('dashDate').textContent     = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      isOwner          = (user.email || '').toLowerCase() === OWNER_EMAIL.toLowerCase();
+      currentUserEmail = user.email || '';
+      document.getElementById('loginWrap').style.display = 'none';
+      document.getElementById('dashWrap').style.display  = 'block';
+      document.getElementById('userEmail').textContent   = user.email;
+      document.getElementById('dashDate').textContent    = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
       if (isOwner) {
         document.getElementById('ownerBadge').style.display = '';
-document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner View';
-        document.getElementById('actionColHead').textContent = 'Action';
-      } else {
-        document.getElementById('actionColHead').textContent = '';
+        document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner View';
+        document.getElementById('nukeBtn').style.display    = 'none'; // hidden — use inspector if needed
       }
 
       subscribeRealtime();
@@ -1043,7 +1175,7 @@ document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner 
         .order('created_at', { ascending: false });
 
       if (error) {
-        document.getElementById('leadsBody').innerHTML = '<tr class="empty-row"><td colspan="8">Error loading leads.</td></tr>';
+        document.getElementById('leadsBody').innerHTML = '<div class="empty-state">Error loading leads.</div>';
         return;
       }
 
@@ -1091,7 +1223,7 @@ document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner 
         : monthLeads;
 
       updateStats();
-      renderTable(visible);
+      renderCards(visible);
     }
 
     function leadYM(l) {
@@ -1115,45 +1247,149 @@ document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner 
       document.getElementById('statYear').textContent  = allLeads.filter(l => new Date(l.created_at).getFullYear() === now.getFullYear()).length;
     }
 
-    // ── Table render ──────────────────────────────────────────────────────
-    function renderTable(leads) {
-      const tbody = document.getElementById('leadsBody');
+    // ── Cards render ──────────────────────────────────────────────────────
+    function renderCards(leads) {
+      const body = document.getElementById('leadsBody');
       if (!leads.length) {
-        tbody.innerHTML = '<tr class="empty-row"><td colspan="9">No leads for this period.</td></tr>';
+        body.innerHTML = '<div class="empty-state">No leads for this period.</div>';
         return;
       }
-
-      window._ccstMsgs = {};
-      tbody.innerHTML = leads.map(lead => {
-        window._ccstMsgs[lead.id] = lead.message || '';
-        const date       = new Date(lead.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        const badgeClass = statusBadgeClass(lead.status);
-        const badgeLabel = statusLabel(lead.status, isOwner);
-        const actionCell = isOwner ? ownerAction(lead) : clientAction(lead);
-        const msgCell    = lead.message
-          ? `<button class="msg-view-btn" onclick="openMsgModal('${lead.id}')">View</button>`
-          : '<span style="color:#c0c8cc;">—</span>';
-
-        const statusCell = (lead.status === 'new')
-          ? `<button class="status-badge badge-new"
-                onclick="approveLead('${lead.id}')"
-                title="Click to validate"
-                style="border:none;cursor:pointer;">${badgeLabel}</button>`
-          : buildStatusCell(lead.status, isOwner, badgeClass, badgeLabel);
-
+      body.innerHTML = leads.map(lead => {
+        const date        = new Date(lead.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const badgeClass  = statusBadgeClass(lead.status);
+        const badgeLabel  = statusLabel(lead.status, isOwner);
+        const hasComments = Array.isArray(lead.comments) && lead.comments.length > 0;
+        const addrLine    = firstAddressLine(lead.service_address);
+        const deleteBtn   = isOwner
+          ? `<button class="btn-delete-lead" onclick="event.stopPropagation();deleteLead('${lead.id}','${esc(lead.name).replace(/'/g,"\\'")}')">Delete</button>`
+          : '';
         return `
-          <tr>
-            <td>${date}</td>
-            <td class="name">${esc(lead.name)}</td>
-            <td>${esc(lead.phone || '—')}</td>
-            <td>${esc(lead.email)}</td>
-            <td>${esc(lead.project_type || '—')}</td>
-            <td>${esc(lead.square_footage || '—')}</td>
-            <td>${msgCell}</td>
-            <td>${statusCell}</td>
-            <td>${actionCell}</td>
-          </tr>`;
+          <div class="lead-card${hasComments ? ' has-comments' : ''}" onclick="openLeadModal('${lead.id}')">
+            <div class="card-left">
+              <div class="card-name">${esc(lead.name)}</div>
+              <div class="card-meta">${esc(lead.phone || '—')} &nbsp;·&nbsp; ${esc(lead.email)}</div>
+              ${addrLine ? `<div class="card-addr">${esc(addrLine)}</div>` : ''}
+              ${lead.project_type ? `<div class="card-proj">${esc(lead.project_type)}</div>` : ''}
+            </div>
+            <div class="card-right">
+              <div class="card-date">${date}</div>
+              <span class="status-badge ${badgeClass}">${badgeLabel}</span>
+              <div class="card-actions">${deleteBtn}</div>
+            </div>
+          </div>`;
       }).join('');
+    }
+
+    function firstAddressLine(addr) {
+      if (!addr) return '';
+      return addr.split(',')[0].trim();
+    }
+
+    // ── Lead detail modal ─────────────────────────────────────────────────
+    function openLeadModal(id) {
+      const lead = allLeads.find(l => l.id === id);
+      if (!lead) return;
+      detailLeadId = id;
+      populateDetailModal(lead);
+      document.getElementById('newCommentText').value = '';
+      document.getElementById('leadDetailModal').classList.add('open');
+    }
+
+    document.getElementById('closeDetailModal').addEventListener('click', () => {
+      document.getElementById('leadDetailModal').classList.remove('open');
+      detailLeadId = null;
+    });
+
+    function populateDetailModal(lead) {
+      const date       = new Date(lead.created_at).toLocaleDateString('en-US', { weekday: 'short', month: 'long', day: 'numeric', year: 'numeric' });
+      const badgeClass = statusBadgeClass(lead.status);
+      const badgeLabel = statusLabel(lead.status, isOwner);
+
+      document.getElementById('detailName').textContent     = lead.name || '';
+      document.getElementById('detailDateSub').textContent  = date;
+      document.getElementById('detailPhone').textContent    = lead.phone || '—';
+      document.getElementById('detailEmail').textContent    = lead.email || '—';
+      document.getElementById('detailAddr').textContent     = lead.service_address || '—';
+      document.getElementById('detailProject').textContent  = lead.project_type || '—';
+      document.getElementById('detailSize').textContent     = lead.square_footage || '—';
+      document.getElementById('detailStatusBadge').innerHTML = `<span class="status-badge ${badgeClass}">${badgeLabel}</span>`;
+
+      const msgLabel = document.getElementById('detailMsgLabel');
+      const msgVal   = document.getElementById('detailMsg');
+      if (lead.message) {
+        msgLabel.style.display = ''; msgVal.style.display = '';
+        msgVal.textContent = lead.message;
+      } else {
+        msgLabel.style.display = 'none'; msgVal.style.display = 'none';
+      }
+
+      const srcLabel = document.getElementById('detailSrcLabel');
+      const srcVal   = document.getElementById('detailSrc');
+      if (isOwner && lead.traffic_source) {
+        srcLabel.style.display = ''; srcVal.style.display = '';
+        srcVal.textContent = lead.traffic_source;
+      } else {
+        srcLabel.style.display = 'none'; srcVal.style.display = 'none';
+      }
+
+      const actionDiv = document.getElementById('detailActionBtns');
+      if (isOwner) {
+        if (lead.status === 'new') {
+          actionDiv.innerHTML = `<button class="action-btn btn-approve" onclick="approveLead('${lead.id}');document.getElementById('leadDetailModal').classList.remove('open')">Approve</button>`;
+        } else if (lead.status === 'disputed') {
+          actionDiv.innerHTML = `<button class="action-btn btn-review" onclick="document.getElementById('leadDetailModal').classList.remove('open');openReview('${lead.id}')">Review</button>`;
+        } else {
+          actionDiv.innerHTML = '';
+        }
+      } else {
+        if (lead.status === 'new' || lead.status === 'valid') {
+          actionDiv.innerHTML = `<button class="action-btn btn-dispute" onclick="document.getElementById('leadDetailModal').classList.remove('open');openDispute('${lead.id}')">Dispute</button>`;
+        } else {
+          actionDiv.innerHTML = '';
+        }
+      }
+
+      renderComments(lead.comments || []);
+    }
+
+    function renderComments(comments) {
+      const log = document.getElementById('commentLog');
+      if (!comments.length) {
+        log.innerHTML = '<div class="comment-empty">No notes yet.</div>';
+        return;
+      }
+      log.innerHTML = comments.map(c => {
+        const ts = new Date(c.created_at).toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true });
+        return `<div class="comment-item">
+          <div class="comment-meta">${esc(c.author)} &nbsp;·&nbsp; ${ts}</div>
+          <div class="comment-body">${esc(c.text)}</div>
+        </div>`;
+      }).join('');
+    }
+
+    document.getElementById('addCommentBtn').addEventListener('click', async () => {
+      const text = document.getElementById('newCommentText').value.trim();
+      if (!text || !detailLeadId) return;
+      const btn = document.getElementById('addCommentBtn');
+      btn.disabled = true; btn.textContent = 'Saving…';
+
+      const lead    = allLeads.find(l => l.id === detailLeadId);
+      const updated = [...(lead ? (lead.comments || []) : []), { author: currentUserEmail, text, created_at: new Date().toISOString() }];
+
+      const { error } = await supabaseClient.from('leads').update({ comments: updated }).eq('id', detailLeadId);
+      btn.disabled = false; btn.textContent = 'Add Note';
+      if (!error) {
+        document.getElementById('newCommentText').value = '';
+        if (lead) lead.comments = updated;
+        renderComments(updated);
+        renderCards(allLeads.filter(l => leadYM(l) === document.getElementById('monthSelect').value));
+      }
+    });
+
+    async function deleteLead(id, name) {
+      if (!confirm(`Delete lead for ${name}?\nThis cannot be undone.`)) return;
+      const { error } = await supabaseClient.from('leads').delete().eq('id', id);
+      if (!error) loadLeads();
     }
 
     function statusBadgeClass(status) {
@@ -1343,14 +1579,15 @@ document.getElementById('dashTitle').textContent    = 'Lead Dashboard — Owner 
       loadLeads();
     }
 
-// ── Message modal ──────────────────────────────────────────────────────
-    window._ccstMsgs = {};
-    function openMsgModal(id) {
-      document.getElementById('msgModalText').textContent = window._ccstMsgs[id] || '';
-      document.getElementById('msgModal').classList.add('open');
-    }
+    // ── Nuke all leads (owner only, button hidden — toggle via inspector) ─
+    document.getElementById('nukeBtn').addEventListener('click', async () => {
+      if (!confirm('DELETE ALL LEADS for CCST?\n\nThis is permanent and cannot be undone.')) return;
+      if (!confirm('Are you absolutely sure? All lead data will be gone.')) return;
+      await fetch('/.netlify/functions/nuke-leads', { method: 'POST' });
+      loadLeads();
+    });
 
-// ── Add Manual Lead ────────────────────────────────────────────────────
+    // ── Add Manual Lead ────────────────────────────────────────────────────
     function openAddLead() {
       document.getElementById('alName').value        = '';
       document.getElementById('alPhone').value       = '';
