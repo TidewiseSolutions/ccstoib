@@ -757,17 +757,8 @@
         <h2 class="section-h2">What Your Neighbors Are Saying</h2>
         <p class="section-subtitle">Real feedback from local coastal property owners.</p>
       </div>
-      <div class="reviews-grid">
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"The absolute best investment we've ever made in our property. The constant mud from coastal downpours used to ruin our floors, but now the dogs run all day and track in zero dirt. Professional, neat, and exceptional communication from start to finish."</p>
-          <p class="review-author">— Verified Homeowner, St. James</p>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"As an avid golfer, I was highly particular about surface speed and break execution. Their certification with STI is the real deal. The ball rolls truer than my home country club green, and it completely handles heavy rain without holding any standing water. Worth every penny."</p>
-          <p class="review-author">— Verified Green Owner, Leland</p>
-        </div>
+      <div class="reviews-grid" id="reviews-grid">
+        <!-- populated by /assets/reviews.json via fetch below -->
       </div>
     </section>
 
@@ -954,6 +945,35 @@
     navToggle.addEventListener('click', () => mobileNav.classList.contains('open') ? closeNav() : openNav());
     navOverlay.addEventListener('click', closeNav);
     mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+  </script>
+
+  <script>
+    (async function loadReviews() {
+      const grid = document.getElementById('reviews-grid');
+      try {
+        const res  = await fetch('https://tidewisesolutions.com/data/ccst-reviews.json');
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+
+        if (!data.reviews || data.reviews.length === 0) {
+          grid.style.display = 'block';
+          grid.innerHTML = '<p class="section-subtitle" style="text-align:center">Reviews coming soon — check back shortly.</p>';
+          return;
+        }
+
+        grid.innerHTML = data.reviews.map(r => {
+          const filled = '★'.repeat(r.rating);
+          const empty  = '☆'.repeat(5 - r.rating);
+          return `<div class="review-card">
+            <div class="review-stars">${filled}${empty}</div>
+            <p class="review-text">"${r.text}"</p>
+            <p class="review-author">— ${r.author}</p>
+          </div>`;
+        }).join('');
+      } catch {
+        grid.style.display = 'none';
+      }
+    })();
   </script>
 
 </body>
