@@ -758,7 +758,16 @@
         <p class="section-subtitle">Real feedback from local coastal property owners.</p>
       </div>
       <div class="reviews-grid" id="reviews-grid">
-        <!-- populated by /assets/reviews.json via fetch below -->
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Matt with Coastal Carolina Synthetic Turf recently did my entire backyard here at Sunset Beach. I never had turf in previous homes — once they installed it, I realized what I have been missing all these years. It is an absolute amazing product, I'm extremely happy with the turnout and the zero maintenance and year-round green. My dog Eddie absolutely loves it as well. Extremely professional, great guys to work with, would highly recommend them."</p>
+          <p class="review-author">— Brian</p>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Absolutely incredible experience from start to finish for a putting green at a rental. Prompt and professional communication in the beginning, solid craftsmanship and process, with stellar results. 1+ year later the work still proves quality and everyone from renters and family alike enjoy using it for all ages. 10/10 would absolutely recommend to anyone!"</p>
+          <p class="review-author">— Jason D</p>
+        </div>
       </div>
     </section>
 
@@ -947,34 +956,6 @@
     mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
   </script>
 
-  <script>
-    (async function loadReviews() {
-      const grid = document.getElementById('reviews-grid');
-      try {
-        const res  = await fetch('https://tidewisesolutions.com/data/ccst-reviews.json');
-        if (!res.ok) throw new Error();
-        const data = await res.json();
-
-        if (!data.reviews || data.reviews.length === 0) {
-          grid.style.display = 'block';
-          grid.innerHTML = '<p class="section-subtitle" style="text-align:center">Reviews coming soon — check back shortly.</p>';
-          return;
-        }
-
-        grid.innerHTML = data.reviews.map(r => {
-          const filled = '★'.repeat(r.rating);
-          const empty  = '☆'.repeat(5 - r.rating);
-          return `<div class="review-card">
-            <div class="review-stars">${filled}${empty}</div>
-            <p class="review-text">"${r.text}"</p>
-            <p class="review-author">— ${r.author}</p>
-          </div>`;
-        }).join('');
-      } catch {
-        grid.style.display = 'none';
-      }
-    })();
-  </script>
 
 </body>
 </html>
